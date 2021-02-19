@@ -1,0 +1,106 @@
+﻿SPRINT - 1 
+AULA 02 - ROTEAMENTO DINÂMICO - RIPV2, TABELA DE ROTEAMENTO (19/02)
+PARTE 1 (ROTEAMENTO ESTÁTICO)
+
+ROTEAMENTO ESTÁTICO - define a rota na qual o roteador deve seguir
+para chegar a uma determinada rede (acesso a uma unica rota padrão).
+
+	VANTAGENS
+	* Fácil de implantar
+	* Rotas permanecem constantes
+	* Pouca sobrecarga (não enviam mensagem de atualização)
+	
+	DESVANTAGENS
+	* Não será fácil implementar em uma rede grande (cadastrar 
+	inúmeras redes será difícil / inúmeras rotas)
+
+	* Em caso de falha do link, uma rota estática não pode 
+	rotear novamente o tráfego.
+
+GATEWAY DEFAULT - Quando a rede não encontra o IP em sua Rede Local, 
+ela faz o próximo "salto" para o gateway padrão.
+
+ROTEAMENTO DINÂMICO - Rotas escaláveis e determinam automaticamente
+as melhores rotas se há uma mudança na topologia.
+
+	VANTAGENS
+	* O roteamento dinâmico é a melhor opção para grandes redes.
+
+	Desvantagens
+	* menos confiável que o roteamento estático, pois as
+	interfaces identificadas pelo protocolo de roteamento enviam
+	atualizações de tempos em tempos.
+
+	* Comandos adicionais
+
+	* O algoritmo de roteamento usa CPU, RAM, e a largura de
+	banda do link adicional.
+
+ROTA PADRÃO - Caminho para qual o roteador vai manter os pacotes, 
+quando ele não tiver nenhuma outra opção.
+
+
+EXERCÍCIO PACKET TRACER
+
+	SCRIPT (ROUTER)
+
+	SP
+	en
+	conf t
+	int g0/0
+	ip add 192.168.0.1 255.255.255.0
+	no shut
+	exit
+	int g0/1
+	ip add 192.168.1.1 255.255.255.0
+	no shut
+	exit
+	ip route 192.168.3.0 255.255.255.0 g0/1
+
+	RIO
+	en
+	conf t
+	int g0/0
+	ip add 192.168.3.1 255.255.255.0
+	no shut
+	exit
+	int g0/1
+	ip add 192.168.1.2 255.255.255.0
+	no shut
+	ip route 192.168.0.0 255.255.255.0 g0/1
+
+	INFORMAÇÕES DE IP
+
+	REDE SP - 192.168.0.0
+	REDE DE COMUNICAÇÃO ENTRE OS ROTEADORES - 192.168.1.0
+	REDE RIO - 192.168.3.0
+
+COMANDOS
+
+	- Exemplo de Rota Default (Padrão)
+	ip route 0.0.0.0 0.0.0.0 serial 0/0
+
+	- Exemplo de Rota Especifica
+	ip route 192.168.3.0 255.255.255.0 g0/1
+
+	- Ver somente os IPs nas Interfaces
+	show ip interface brief
+
+	- do
+	Volta e exibe a informação
+	Exemplo: do show ip route
+
+INFORMAÇÕES
+	
+	C - identifica uma rota diretamente conectada. As redes
+	diretamente conectadas são criadas automaticamente sempre que
+	uma interface é configurada com um endereço IP e ativada.
+
+	L - link local ou IP local (IP localmente cadastrado /32 normalmente) 
+	As rotas locais são criadas automaticamente sempre que uma interface 
+	é configurada com um endereço IP e ativada.
+
+
+OBS
+
+	SALVAR O 1° ARQUIVO - "Solução de rota estática"
