@@ -1,0 +1,60 @@
+SPRINT - 1 
+AULA 02/03 - ROTEAMENTO DINÂMICO - RIPV2, TABELA DE ROTEAMENTO + EXERCÍCIOS (22/02)
+PARTE 2 (ROTEAMENTO DINÂMICO)
+
+    ROTA ESTÁTICA - Se preocupa apenas com o destino ("próximo salto")
+    ROTA DINÂMICA - Anúncia as Redes (quais redes conhecidas pelo router)
+
+    TABELA DE ROTEAMENTO:
+        R - identifica que a rota foi aprendida dinamicamente de outro roteador usando o
+        protocolo de roteamento RIP.
+
+    COMANDOS: 
+
+        clock rate - define o tempo na troca de informações
+        EXEMPLO - clock rate 2000000 (2GB) 
+
+        do write - salva as configurações
+
+        "Lupa" no Packet tracer - exibe algumas informações do dispositivo selecionado
+
+        no auto-summary - resume a tabela de roteamento 
+
+    SCRIPT - SOLUÇÃO ROTA DINÂMICA 
+
+        RT-RIO E RT-SP
+            en
+            conf t
+            router rip
+            version 2 (pois aceita VLSM)
+
+            !REDES CONECTADAS/CONHECIDAS NO ROUTER
+
+            !REDES SP
+            network 192.168.0.0
+            network 192.168.1.0
+            !REDES RIO
+            network 192.168.1.0
+            network 192.168.3.0
+
+    DESAFIO PACKET TRACER:
+        TABELA: DISPOSITIVO - INTERFACE (NIC) - IP - MÁSCARA - GATEWAY
+
+            PC0 - NIC - 192.168.10.1 - /24 (255.255.255.0) - 192.168.10.254 (GATEWAY)
+
+            RSP - G0/0/0 - 192.168.10.254 - /24 - 
+                  S0/1/0 - 10.0.0.1 - /30 (255.255.255.252) - 
+                  CONHECE AS REDES: 192.168.10.0/24 e 10.0.0.0/30
+                  Dar o Clock
+
+            RINT - S0/1/1 - 10.0.0.2 - /30 -
+                   S0/1/0 - 10.0.4.5 - /30 - 
+                   CONHECE AS REDES: 10.0.0.0/30 e 10.0.4.0/30
+                   Dar o comando no auto-summary
+
+            RRJ - G0/0/0 - 172.16.255.254 - /16 (255.255.0.0) -
+                  S0/1/0 - 10.0.4.6 - /30 - 
+                  CONHECE AS REDES: 10.0.4.0/32 E 172.16.0.0
+                  Dar o Clock  
+
+            PC1 - F0/0 - 172.16.0.1 - /16 - 172.16.255.254
