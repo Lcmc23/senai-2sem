@@ -19,6 +19,8 @@ PARTE 2 (ROTEAMENTO DINÂMICO)
         "Lupa" no Packet tracer - exibe algumas informações do dispositivo selecionado
 
         no auto-summary - resume a tabela de roteamento 
+        
+        no router rip - Esse comando interrompe o processo do RIP e apaga todas as configurações existentes do RIP.
 
     SCRIPT - SOLUÇÃO ROTA DINÂMICA 
 
