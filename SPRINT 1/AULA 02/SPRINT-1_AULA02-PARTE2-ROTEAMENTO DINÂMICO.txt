@@ -21,6 +21,12 @@ PARTE 2 (ROTEAMENTO DINÂMICO)
         no auto-summary - resume a tabela de roteamento 
         
         no router rip - Esse comando interrompe o processo do RIP e apaga todas as configurações existentes do RIP.
+        
+        Exibe as rotas do RIP
+        # show ip route rip
+        
+        Exibe as configurações do protocolo IPv4
+        # show ip protocols
 
     SCRIPT - SOLUÇÃO ROTA DINÂMICA 
 
