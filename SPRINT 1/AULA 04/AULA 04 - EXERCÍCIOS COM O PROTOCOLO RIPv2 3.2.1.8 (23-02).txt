@@ -19,7 +19,7 @@ AULA 04 - AULA 04 - EXERCÍCIOS COM O PROTOCOLO RIPv2 3.2.1.8 (23/02)
                 OSPF
                 IS-IS
 
-    CLASSFULL - Aceita apenas os IPs de classe A (10.0.0.0/8), classe B (172.16.0.0/16) e classe C !192.168.0.0/24)
+    CLASSFULL - Aceita apenas os IPs de classe A (10.0.0.0/8), classe B (172.16.0.0/16) e classe C (192.168.0.0/24)
     CLASSLESS - Máscara "quebrada" (/26,/27/,28,etc)
 
     SW DE CAMADA 3 - Suporta IP
