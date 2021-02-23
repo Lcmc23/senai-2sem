@@ -1,0 +1,85 @@
+SPRINT - 1 
+AULA 04 - AULA 04 - EXERCÍCIOS COM O PROTOCOLO RIPv2 3.2.1.8 (23/02)
+
+    PROTOCOLO DE ROTEAMENTO DINÂMICO 
+
+        Protocolos Internos de Gateway (IGPs)
+
+            Protocolos de roteamento por vetor-distância (se preocupa com os saltos)
+                RIPv1 (CLASSFULL)
+                    RIPv2 (CLASSLESS)
+                    * PS: 15 Saltos (máximo) / 16 Roteadores (em linha reta) - (48 máximo);
+                    * Manda um Broadcast para todas as interfaces que estão conectadas em intervalo 
+                      de 15seg;
+                    * RIP É UM PROTOCOLO DE REDE INTERNA!
+                IGRP
+                    EIGRP
+
+            Protocolos de roteamento link-skate (qualidade nos links)
+                OSPF
+                IS-IS
+
+    CLASSFULL - Aceita apenas os IPs 192.168.0.0 (classe C)
+    CLASSLESS - Máscara "quebrada" (/26,/27/,28,etc)
+
+    SW DE CAMADA 3 - Suporta IP
+
+    ROTA PADRÃO - Rota estática
+    
+COMANDOS
+
+    default-information originate - propagação de uma rota estática
+    passive-interface - economiza processamento do router
+    show ip route rip - ver as rotas rip
+    * (Tabela de roteamento) - candidato a rota padrão
+    arp -a (prompt de comando) - Nos mostra os endereços MAC
+
+EXERCÍCIO PACKET-TRACER
+
+SCRIPT
+!R1
+en
+conf t
+ip route 0.0.0.0 0.0.0.0 s0/0/1
+router rip
+version 2
+no auto-summary
+network 192.168.1.0
+network 192.168.2.0
+default-information originate
+passive-interface g0/0
+end
+wr
+
+!R2
+en
+conf t
+router rip
+version 2
+no auto-summary
+network 192.168.2.0
+network 192.168.3.0
+network 192.168.4.0
+passive-interface g0/0
+end
+wr
+
+!R3
+en
+conf t
+router rip
+version 2
+no auto-summary
+network 192.168.4.0
+network 192.168.5.0
+passive-interface g0/0
+
+INFORMAÇÕES IMPORTANTES 
+
+    - Roteador = não possui MAC (trabalha apenas com IP) / Não armazena endereços MAC
+    - GATEWAY = Sempre será o próximo IP (próximo salto)
+    - DHCP = entrega automática de IPs (essas informações virão de um provedor)
+    - Access Point = espelha a rede cabeada em WLAN (bridge)
+
+
+
