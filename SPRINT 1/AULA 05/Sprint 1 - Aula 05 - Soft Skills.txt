@@ -1,0 +1,30 @@
+SPRINT - 1 
+AULA 05 
+
+    ESTÁGIOS DE TUCKMAN
+
+        FORMAÇÃO
+            É o estágio inicial, no qual os membros estão começando a interagir. É caracterizado por uma grande dose de incerteza sobre os
+            propósitos do grupo, sua estrutura e liderança.
+
+            Forming - Os membros estão "reconhecendo o terreno" para descobrir quais comportamentos são aceitáveis. É neste momento que os 
+            membros começam a pensar em si mesmos como partes do grupo.
+
+        TORMENTA/ATRITO/CONFLITO 
+            Storming - Caracterizado pela ocorrência de diversos conflitos no grupo. Os indivíduos já reconhecem a existência do grupo, mas 
+            demonstram resistência em relação aos limites da individualidade. Há também conflito quanto a definição de quem irá liderar o grupo.
+
+            É durante a tormenta que os membros medem forças, estabelecendo uma espécie de hierarquia das relações dentro do grupo. Após o 
+            encerramento desta etapa, esta hierarquia estará relativamente clara para os membros do grupo.
+
+        NORMALIZAÇÃO/CALMARIA
+            Norming - Começa a haver coesão no comportamento do grupo, tornando os integrantes mais próximos uns dos outros. Surge um sentido
+            de identidade e os membros começam a agir como uma unidade coordenada / grupo consolidade.
+            
+        DESEMPENHO/PERFORMANCE
+            Performing - É o estágio no qual a estrutura do grupo é funcional e aceita! Nesta fase, o grupo está coeso e a sua energia é 
+            analisada nas tarefas a serem realizadas.
+
+        INTERRUPÇÃO/ENCERRAMENTO
+            Transfering - É o estágio final do desnvolvimento dos grupos temporários, pois prepara o grupo para seu fim. O foco deixa de ser 
+            o desempenho das tarefas e passa para o encerramento dos trabalhos.
