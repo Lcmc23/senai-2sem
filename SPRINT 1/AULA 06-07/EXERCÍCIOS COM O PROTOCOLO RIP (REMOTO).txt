@@ -1,0 +1,75 @@
+﻿SPRINT 1
+AULA 06/07 [REMOTO] - EXERCÍCIOS COM O PROTOCOLO RIP (25 e 26/02)
+
+    RIPGNG ---> IPv6 (Representado em hexadecimal - 8 octetos - 1 número em hexadecimal = 4 bits)
+    16 bits para 8 octetos - 128bits - 2^128
+
+    OBS: Após o 9, começa as letras (0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F...)
+         * Os números zeros (0000:0000:0000:0000) são resumidos por 0:0:0:0 e por consequência = ::
+         * IPv¨suporta inúmeros IPs na placa, por isso... errou o IPv6, APAGUE e coloque o correto.
+    
+        Exemplo - 2001:DB8:CAFE:CASA:: /64 (ID da Rede = 2001:DB8:CAFE:CASA = 64 bits)
+
+        2 - 0010    
+        0 - 0000
+        0 - 0000
+        1 - 0001
+        --------
+         16bits
+
+    COMANDOS 
+        ipv6 rip [defina-um-nome] enable = nome da rota dinâmica / qual rota a interface pertence
+
+    EXERCÍCIO PACKET TRACER
+
+        Dispositivo - Interface - IP - Máscara - Gateway
+
+            PC20 - NIC - 2001:DB8:5EA1:B2B2::1 - /64 - 2001:DB8:5EA1:B2B2::128
+
+            R1 - g0/0/0 - 2001:DB8:5EA1:B2B2::128 - /64 -
+                 s0/1/1 - 2001:DB8:DA:2::1 - /64 - 
+
+            R2 - g0/0/0 - 2001:DB8:5EA1:B3B3::128 - /64 -
+                 s0/1/0 - 2001:DB8:DA:2::2 - /64 -
+
+            PC30 - NIC - 2001:DB8:5EA1:B3B3::1 - /64 - 2001:DB8:5EA1:B3B3::128  
+
+    SCRIPT
+
+        !R1
+        en
+        conf t
+        hostname R1
+        ipv6 unicast-routing
+        int g0/0/0
+        ipv6 add 2001:DB8:5EA1:B2B2::128/64
+        no shutdown
+        ipv6 rip TRM enable
+        int s0/1/1
+        ipv6 add 2001:DB8:DA:2::1/64
+        no shutdown
+        ipv6 rip TRM enable
+        end 
+        wr
+
+        !R2
+        en
+        conf t
+        hostname R2
+        ipv6 unicast-routing
+        int g0/0/0
+        ipv6 add 2001:DB8:5EA1:B3B3::128/64
+        no shutdown
+        ipv6 rip TRM enable
+        int s0/1/0
+        ipv6 add 2001:DB8:DA:2::2/64
+        no shutdown
+        ipv6 rip TRM enable
+        end 
+        wr
+
+
+
+
+
+
