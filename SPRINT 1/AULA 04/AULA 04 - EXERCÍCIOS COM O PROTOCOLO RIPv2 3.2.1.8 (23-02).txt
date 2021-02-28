@@ -73,6 +73,8 @@ no auto-summary
 network 192.168.4.0
 network 192.168.5.0
 passive-interface g0/0
+end
+wr
 
 INFORMAÇÕES IMPORTANTES 
 
@@ -80,6 +82,4 @@ INFORMAÇÕES IMPORTANTES
     - GATEWAY = Sempre será o próximo IP (próximo salto)
     - DHCP = entrega automática de IPs (essas informações virão de um provedor)
     - Access Point = espelha a rede cabeada em WLAN (bridge)
-
-
 
