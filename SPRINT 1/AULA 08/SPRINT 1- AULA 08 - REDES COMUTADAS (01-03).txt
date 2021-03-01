@@ -50,7 +50,7 @@ STORE-AND-FOWARD
 
     OBS: Os 3 primeiros octetos do MAC são - Fabricante / Os 3 seguintes - Sequêncial
 
-CUT-THOUGT
+CUT-THROUGH
 
    - Envia os dados sem qualquer verificação
    - Pode enviar dados "defeituosos"
