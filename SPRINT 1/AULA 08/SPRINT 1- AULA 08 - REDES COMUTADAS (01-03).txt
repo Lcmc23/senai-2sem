@@ -9,7 +9,7 @@ HIERARQUIA DE UMA REDE COMUTADA (facilita o trabalho técnico)
     - Flexível: inteligência ao direcionar recursos (Exemplo: quem necessita de mais largura de banda?)
     - Disponibilidade: acesso a qualquer momento [redundância]
 
-        1ª Camada (acesso / permiteo acesso dos dispositivos do usuário) = acesso a rede através de um PC, impressora, telefone voip 
+        1ª Camada (acesso / permite acesso dos dispositivos do usuário) = acesso a rede através de um PC, impressora, telefone voip 
         [conectados-a-um-switch]
 
         2ª Camada (distribuição / Wiring Closet) = sala onde temos os switches, roteadores, servidores
@@ -59,10 +59,11 @@ CUT-THOUGT
 DOMÍNIO DE COLISÃO
 
     Colisão: Quando 2 micros tentam acessar o meio físico (cobre, fibra) simultâneamente
-    * Identificam as conlisões e param as placas de rede. Após isso, as mesmas voltarão com timers (tempo) diferentes
+    * Identificam as colisões e param as placas de rede. Após isso, as mesmas voltarão com timers (tempo) diferentes
 
     Quanto maior o número de hosts = maior será o número de colisões 
-    * Switch diminui o número de domínios de colisão
+    * Switch junta domínios de broadcast;
+    * Roteador separa domínios de broadcast.
 
 DOMÍNIO DE BROADCAST (255.255.255.255)
 
