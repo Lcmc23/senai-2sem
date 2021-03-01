@@ -1,0 +1,71 @@
+SPRINT 1
+AULA 08 - REDES COMUTADAS (01/03)
+
+* Redes Convergentes - dentro de uma mesma infraestrutura física, traféga = voz, imagem e som (vídeoconferência), vídeos streaming, informação
+
+HIERARQUIA DE UMA REDE COMUTADA (facilita o trabalho técnico)
+
+    - Moduladar: expansão da rede
+    - Flexível: inteligência ao direcionar recursos (Exemplo: quem necessita de mais largura de banda?)
+    - Disponibilidade: acesso a qualquer momento [redundância]
+
+        1ª Camada (acesso / permiteo acesso dos dispositivos do usuário) = acesso a rede através de um PC, impressora, telefone voip 
+        [conectados-a-um-switch]
+
+        2ª Camada (distribuição / Wiring Closet) = sala onde temos os switches, roteadores, servidores
+        - Melhor domínio de Broadcast
+        - Roteamento, Switch L3
+        - Políticas de acesso (ACL) 
+        - Disponibilidade alta
+
+        3ª Camada (Núcleo) = Backbone da empresa
+        - Cabeamento vertical (por andar) / Normalmente em fibra óptica 
+        - Liga toda a rede ("espinha dorsal da rede")
+        - Permite o acesso externo
+
+CARACTERÍSTICAS DOS EQUIPAMENTOS
+
+    - Densidade de portas = portas suficientes para suportar nossa rede (quantidade de hosts)
+    * Custo = quantidade de portas, velocidade, expansão
+
+    - Confiabilidade = disponível 7x24 (7 dias, 24 horas)
+
+    - Velocidade de mercado = 10mb, 100mb, 1000mb (1gb);
+                                |
+                                |
+                    Legado / equipamento antigo
+
+    - Buffer de quadro = armazenamento rápido 
+
+STORE-AND-FOWARD
+
+    - Armazena o bloco em seu buffer
+    CRC (quadro que armazena as informções de detecção de erros = cálculo) - Deve estar ok (os cálculos devem ser iguais na origem e no destino)
+
+    EXEMPLO:
+
+        TABELA MAC (armazenada por 5min nesse tipo de Switch)
+        Porta | mac add
+          1       AB
+
+    OBS: Os 3 primeiros octetos do MAC são - Fabricante / Os 3 seguintes - Sequêncial
+
+CUT-THOUGT
+
+   - Envia os dados sem qualquer verificação
+   - Pode enviar dados "defeituosos"
+   * Mais rápido (pois não faz nenhuma verificação)
+
+DOMÍNIO DE COLISÃO
+
+    Colisão: Quando 2 micros tentam acessar o meio físico (cobre, fibra) simultâneamente
+    * Identificam as conlisões e param as placas de rede. Após isso, as mesmas voltarão com timers (tempo) diferentes
+
+    Quanto maior o número de hosts = maior será o número de colisões 
+    * Switch diminui o número de domínios de colisão
+
+DOMÍNIO DE BROADCAST (255.255.255.255)
+
+    Sinal enviado por serviço de rede ou por um computador específico
+    Exmplo: IP automático - 255.255.255.255 (broadcast enviado na rede) - Qual IP você me mandará DHCP?
+
