@@ -17,7 +17,10 @@ AULA 06/07 [REMOTO] - EXERCÍCIOS COM O PROTOCOLO RIP (25 e 26/02)
         --------
          16bits
          
-    link-local = um endereço IP que é exigido para cada interface de rede com IPv6 ativado e que permite a um dispositivo se comunicar com outros dispositivos com IPv6 ativados     no mesmo link
+    link-local = um endereço IP que é exigido para cada interface de rede com IPv6 ativado e que permite a um dispositivo se comunicar com outros 
+    dispositivos com IPv6 ativados no mesmo link
+    
+    Tunelamento = encapsula um pacote IPv6 dentro de um pacote IPv4
 
     COMANDOS 
         ipv6 rip [defina-um-nome] enable = nome da rota dinâmica / qual rota a interface pertence
