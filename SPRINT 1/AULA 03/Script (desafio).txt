@@ -1,0 +1,48 @@
+!Nome do host, senha no enable (com criptografia), senha na console, senha na vty e banner
+en
+conf t
+hostname [NOME-DO-ROTEADOR]
+line con 0
+password senai@132
+login
+exit
+line vty 0 4
+password senai@132
+login
+service password-encryption
+enable secret senai@132
+banner motd " Somente pessoal do TI do Senai [NOME-DA-CIDADE] Autorizado !!"
+
+!Ativar a interface
+int g0/0/0
+no shutdown
+int s0/1/0
+no shutdown
+int s0/1/1
+no shutdown
+int loopback0
+no shutdown
+exit
+
+
+!Atrelar o endereço ip a uma interface (IPv4)
+int g0/0/0
+ip add [IP-MÁSCARA]
+int s0/1/0
+ip add [IP-MÁSCARA]
+int s0/1/1
+ip add [IP-MÁSCARA]
+int loopback 0
+ip add [IP-MÁSCARA]
+description GERENCIAMENTO
+exit
+
+!Roteamento dinâmico (RIPv2)
+router rip
+version 2
+network [REDE-CONHECIDA]
+network [REDE-CONHECIDA]
+network [REDE-CONHECIDA]
+passive-interface g0/0/0
+
+
