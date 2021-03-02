@@ -1,0 +1,56 @@
+SPRINT 1
+AULA 09 - STP - DIMENSIONAMENTO DE REDES (02/03)
+
+SWITCH (7x24)
+
+PORTA 1     PORTA 2      PORTA 3      PORTA 4       PORTA 5                          
+AA-PC       AC-PC         BD-PC     CD-SERVIDOR    CASCATEAMENTO-FE 
+                    
+                    TABELA MAC
+                  PORTA     ENDEREÇO MAC
+                    1    |       AA
+                    2    |       AC
+                    3    |       BD
+                    4    |       CD
+                    5    |       FE, CF, FF?
+                    6    |       FF
+
+* Inicialmente os PCs mandarão um broadcast (255.255.255.255) 
+na rede buscando o servidor de DHCP (SERVIDOR)
+
+* Porta 5 irá se conectar a um outro Switch (cascateamento)
+
+    PORTA 1      PORTA 2     PORTA 3
+ CASCATEADA-CD    CF-PC       FE-PC
+
+                     TABELA MAC
+                  PORTA     ENDEREÇO MAC
+                    1    |       CD?
+                    2    |       CF
+                    3    |       FE
+                    4    |       CD?
+
+TUDO ISSO ESTÁ GERANDO INCONSISTÊNCIA NA REDE
+- Tempestade de Broadcast
+
+SPANNING-TREE (Protocolo - STP) [CASCATEAMENTO]
+
+    - Um caminho entre em espera e o outro passa a funcionar;
+    - Caso haja falhas em um caminho, o outro será liberado;
+    - Evita duplicações de quadro;
+    - Evita Tempestade de broadcast.
+    OBS: Por padrão, isso já vem nos equipamentos da CISCO
+
+1) Um dos Switches é escolhido como "root"
+2) forwarding = envia quadros e aprende MAC's
+   learning = aprendizagem dos endereços MAC's
+   blocking = não encaminha nem aprende
+
+EMPILHAMENTO
+
+    EXEMPLO: 3 Switches - logicamente será apenas 1
+    - 72 portas
+    - fácil de gerenciar, programar
+
+
+                     
