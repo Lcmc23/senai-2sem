@@ -347,6 +347,35 @@ ou
 (config-if)#ipv6 rip [nome-da-rota] enable
 ``` 
 
+## Configurações STP
+
+**Ver todas as interfaces conectadas do Spanning-tree**
+```
+#show spanning-tree detail
+ou
+#show spanning-tree
+ou
+#show span
+```
+
+**Ver as informações do protocolo STP em uma VLAN específica**
+```
+#show spanning-tree vlan [id-da-vlan]
+``` 
+
+**Alterar as configurações STP (BALANCEAMENTO DE CARGA)**
+```
+(config)#spanning-tree mode pvst
+(config)#spanning-tree vlan [id-das-vlans] root [primary ou secondary]
+``` 
+
+**Interromper a troca de BPDUs**
+```
+(config)#int [id-da-interface]
+(config-if)#spanning-tree portfast
+(config-if)#spanning-tree bpduguard enable
+```
+
 ## Configurações IPv6
 
 **Ver resumo dos endereços IPv6 configurados no equipamento**
