@@ -101,11 +101,21 @@ Comando: end
 Comando: exit
 ```
 
-**Mostrar a tabela MAC do Switch**
+**Mostrar a tabela MAC do Switch (interfaces conectadas e ativas)**
 ```
 #show mac-address-table (IOS 12.2)
 
 #show mac address-table dynamic (IOS 15.0)
+```
+
+**Ver MAC de todas as interfaces (interfaces conectadas e não ativas)** 
+```
+#show interfaces | in line protocol | address
+```
+
+**Ver apenas interfaces do tipo FastEthernet**
+```
+#show interfaces | in FastEthernet
 ```
 
 **Ver arquivos na memória Flash**
@@ -357,6 +367,12 @@ ou
 ou
 #show span
 ```
+
+**Ativar o STP em uma Vlan específica**
+```
+(config)#spanning-tree vlan [id-da-vlan]
+OBS: Para desativar o STP, basta adicionar o comando "no" antes do conteúdo.  
+``` 
 
 **Ver as informações do protocolo STP em uma VLAN específica**
 ```
