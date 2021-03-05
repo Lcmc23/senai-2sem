@@ -1,0 +1,76 @@
+SPRINT-1 [VIRTUALIZAÇÃO]
+AULA (05/03)
+
+1)Novo
+* nome
+* windows
+* 10 64bits
+
+2)4096 de memória
+
+3)Criar um novo disco
+
+4)VDI
+
+5)Dinamicamente alocado
+
+6)50GB em disco
+
+7)SEQUÊNCIA DE BOOT - SISTEMA
+* Desmarcar o disquete
+
+8)REDE
+NAT - Acesso a internet / não disponibiliza acesso remoto
+BRIDGE - Aloca um IP automáticamente / permite o acesso a internet / disponibiliza acesso remoto
+
+9)ARMAZENAMENTO
+HD
+- VAZIO
+   Clicar no dico ao lado superior direito 
+     Selecionar o arquivo
+       Arquivo
+         OK
+
+OBS: Nosso teclado ABNT2
+	Não tenho a chave
+          Escolher o SO
+           Instalação Personalizada
+
+- Selecionar a opção de conta offline;
+- Experiência limitada;
+- Uma senha segura possui de 8 a 12 toques.
+
+PARTICIONAMENTO DO DISCO
+* Dividir o disco (físico - HD) em partes lógicas
+
+POSSÍVEIS ERROS:
+* Não apertar qualquer tecla na hora que houver a solicitação "pressione qualquer tecla para instalação"
+- Caso aperte, basta desligar a máquina virtual e reinicia-la.
+
+OBJETIVOS
+* Configurar placa de rede;
+* Mudar hostname.
+
+INFORMAÇÕES DA MINHA MÁQUINA VIRTUAL
+IPv4 - 192.168.4.141
+Máscara de Sub-rede - 255.255.0.0 = /16
+Gateway Padrão - 192.168.1.1
+
+INFORMAÇÕES DA MINHA MÁQUINA REAL
+IPv4 - 192.168.7.104
+Máscara de Sub-rede - 255.255.0.0 = /16
+Gateway Padrão - 192.168.1.1
+
+ENTRAR NO FIREWALL DO WINDOWS
+- Botão direito no ícone de rede
+   Configurações
+    Firewall do Windows
+     Desabilitar Rede do Domínio, Rede privada e Rede pública
+
+MESMA REDE, MAS COM MÁSCARAS DIFERENTES
+* Ping será efetuado com sucesso!
+
+ENTREGA [Subir uma máquina virtual] (.docx)
+* Fotografar as telas
+* Explicar o processo
+
