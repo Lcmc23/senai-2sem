@@ -1,4 +1,4 @@
-SPRINT-1 [VIRTUALIZA«√O]
+SPRINT-1 [VIRTUALIZA√á√ÉO]
 AULA (05/03)
 
 1)Novo
@@ -6,7 +6,7 @@ AULA (05/03)
 * windows
 * 10 64bits
 
-2)4096 de memÛria
+2)4096 de mem√≥ria (RAM)
 
 3)Criar um novo disco
 
@@ -16,60 +16,60 @@ AULA (05/03)
 
 6)50GB em disco
 
-7)SEQU NCIA DE BOOT - SISTEMA
+7)CONFIGURA√á√ïES - SISTEMA - SEQU√äNCIA DE BOOT 
 * Desmarcar o disquete
 
-8)REDE
-NAT - Acesso a internet / n„o disponibiliza acesso remoto
-BRIDGE - Aloca um IP autom·ticamente / permite o acesso a internet / disponibiliza acesso remoto
+8)CONFIGURA√á√ïES - REDE
+NAT - Acesso a internet / n√£o disponibiliza acesso remoto
+BRIDGE - Aloca endere√ßos IP de maneira autom√°tica / permite o acesso √† internet / disponibiliza acesso remoto
 
-9)ARMAZENAMENTO
+9)CONFIGURA√á√ïES - ARMAZENAMENTO
 HD
 - VAZIO
-   Clicar no dico ao lado superior direito 
+   Clicar no disco ao lado superior direito 
      Selecionar o arquivo
-       Arquivo
+       Arquivo [iso-que-deseja-virtualizar]
          OK
 
 OBS: Nosso teclado ABNT2
-	N„o tenho a chave
+	N√£o tenho a chave
           Escolher o SO
-           InstalaÁ„o Personalizada
+           Instala√ß√£o Personalizada
 
-- Selecionar a opÁ„o de conta offline;
-- ExperiÍncia limitada;
+- Selecionar a op√ß√£o de conta offline;
+- Experi√™ncia limitada;
 - Uma senha segura possui de 8 a 12 toques.
 
 PARTICIONAMENTO DO DISCO
-* Dividir o disco (fÌsico - HD) em partes lÛgicas
+* Dividir o disco (f√≠sico - HD) em partes l√≥gicas
 
-POSSÕVEIS ERROS:
-* N„o apertar qualquer tecla na hora que houver a solicitaÁ„o "pressione qualquer tecla para instalaÁ„o"
-- Caso aperte, basta desligar a m·quina virtual e reinicia-la.
+POSS√çVEIS ERROS:
+* N√£o apertar qualquer tecla na hora que houver a solicita√ß√£o "pressione qualquer tecla para instala√ß√£o"
+- Caso aperte, basta desligar a m√°quina virtual e reinicia-la.
 
 OBJETIVOS
 * Configurar placa de rede;
 * Mudar hostname.
 
-INFORMA«’ES DA MINHA M¡QUINA VIRTUAL
+INFORMA√á√ïES DA MINHA M√ÅQUINA VIRTUAL
 IPv4 - 192.168.4.141
-M·scara de Sub-rede - 255.255.0.0 = /16
-Gateway Padr„o - 192.168.1.1
+M√°scara de Sub-rede - 255.255.0.0 = /16
+Gateway Padr√£o - 192.168.1.1
 
-INFORMA«’ES DA MINHA M¡QUINA REAL
+INFORMA√á√ïES DA MINHA M√ÅQUINA REAL
 IPv4 - 192.168.7.104
-M·scara de Sub-rede - 255.255.0.0 = /16
-Gateway Padr„o - 192.168.1.1
+M√°scara de Sub-rede - 255.255.0.0 = /16
+Gateway Padr√£o - 192.168.1.1
 
 ENTRAR NO FIREWALL DO WINDOWS
-- Bot„o direito no Ìcone de rede
-   ConfiguraÁıes
+- Bot√£o direito no √≠cone de rede
+   Configura√ß√µes
     Firewall do Windows
-     Desabilitar Rede do DomÌnio, Rede privada e Rede p˙blica
+     Desabilitar Rede do Dom√≠nio, Rede privada e Rede p√∫blica
 
-MESMA REDE, MAS COM M¡SCARAS DIFERENTES
-* Ping ser· efetuado com sucesso!
+MESMA REDE, MAS COM M√ÅSCARAS DIFERENTES
+* Ping ser√° efetuado com sucesso!
 
-ENTREGA [Subir uma m·quina virtual] (.docx)
+ENTREGA [Subir uma m√°quina virtual] (.docx)
 * Fotografar as telas
 * Explicar o processo
