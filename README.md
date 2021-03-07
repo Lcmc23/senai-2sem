@@ -9,3 +9,9 @@ Este repositório contém alguns scripts (organizados em pastas) referentes aos 
 Site | Curso
 ---- | -----
 [Netacad - Cisco](https://www.netacad.com/) | Introduction to Networks
+
+## Curiosidades
+
+![FOTO cmd.exe](https://dkrn4sk0rn31v.cloudfront.net/2018/12/11104715/FERRAMENTAS-PROMPT.png)
+
+Este [link](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands) contém a documentação oficial da Microsoft para todos os comandos disponíveis no cmd.exe
