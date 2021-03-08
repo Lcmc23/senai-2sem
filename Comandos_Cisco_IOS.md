@@ -101,21 +101,11 @@ Comando: end
 Comando: exit
 ```
 
-**Mostrar a tabela MAC do Switch (interfaces conectadas e ativas)**
+**Mostrar a tabela MAC do Switch**
 ```
 #show mac-address-table (IOS 12.2)
 
 #show mac address-table dynamic (IOS 15.0)
-```
-
-**Ver MAC de todas as interfaces (interfaces conectadas e não ativas)** 
-```
-#show interfaces | in line protocol | address
-```
-
-**Ver apenas interfaces do tipo FastEthernet**
-```
-#show interfaces | in FastEthernet
 ```
 
 **Ver arquivos na memória Flash**
@@ -239,6 +229,11 @@ Lembrando que você deve criar a VLAN de Gerenciamento, do contrário o Switch n
 #show vlan brief
 ```
 
+**Exibir informações do modo trunk**
+```
+#show interface trunk
+```
+
 **Exibir informações sobre uma VLAN específica**
 ```
 #show vlan id [id-da-vlan]
@@ -265,6 +260,38 @@ No exemplo abaixo vamos criar a **Subinterface .10** na **Interface g0/0** e atr
 ```
 (config)#interface g0/0.10
 (config-if)#encapsulation dot1q 10
+```
+
+## VTP
+
+**Modo de distribuição dos pacotes**
+```
+(config)#int [id-da-interface]
+(config-if)#switchport mode dynamic [desirable-ou-auto]
+
+AUTO - Torna a interface capaz de converter o link em um link de trunk.
+DESIRABLE - Faz com que a interface tente ativamente converter o link em um link de trunk.
+```
+
+**Configurações VTP - CLIENTE (client), SERVIDOR (server) e TRANSPARENTE (transparent)**
+```
+(config)#vtp mode [modo]
+(config)#vtp domain [nome-do-domínio]
+(config)#vtp password [senha]
+
+VTP Operating Mode: Server - distribui os pacotes
+VTP Operating Mode: Client - recebe os pacotes
+VTP Operating Mode: Transparent - passa os pacotes (VLANs) sem absorver as configurações
+```
+
+**Exibir informações sobre o VTP**
+```
+#show vtp status
+```
+
+**Exibir senha do domínio cadastrado**
+```
+#show vtp password
 ```
 
 ## Configurações do Roteador
@@ -357,46 +384,6 @@ ou
 (config-if)#ipv6 rip [nome-da-rota] enable
 ``` 
 
-## Configurações STP
-
-**Ver todas as interfaces conectadas do Spanning-tree**
-```
-#show spanning-tree detail
-ou
-#show spanning-tree
-ou
-#show span
-```
-
-**Ativar o STP em uma Vlan específica**
-```
-(config)#spanning-tree vlan [id-da-vlan]
-OBS: Para desativar o STP, basta adicionar o comando "no" antes do conteúdo.  
-``` 
-
-**Ver as informações do protocolo STP em uma VLAN específica**
-```
-#show spanning-tree vlan [id-da-vlan]
-``` 
-
-**Alterar as configurações STP (BALANCEAMENTO DE CARGA)**
-```
-(config)#spanning-tree mode pvst
-(config)#spanning-tree vlan [id-das-vlans] root [primary ou secondary]
-``` 
-
-**Interromper a troca de BPDUs**
-
-PortFast: faz com que uma porta entre no estado forwarding quase imediatamente, reduzindo drasticamente o tempo dos estados listening e learning. O PortFast minimiza o tempo necessário para o servidor ou estação de trabalho entrar on-line. Configure o PortFast nas interfaces de switch que estão conectadas aos computadores.
-
-O aprimoramento do STP PortFast BPDU Guard permite que os programadores de redes reforcem as fronteiras do domínio STP e mantenham a topologia ativa previsível. Os dispositivo atrás das portas com PortFast do STP habilitado não conseguem influenciar a topologia de STP. No recebimento das BPDUs, a operação da BPDU Guard desativa a porta com PortFast configurado. O BPDU Guard faz a transição da porta para o estado err-disable e uma mensagem aparece na console. Configure o BPDU Guard nas interfaces de switch que são conectadas aos PCs.
-
-```
-(config)#int [id-da-interface]
-(config-if)#spanning-tree portfast
-(config-if)#spanning-tree bpduguard enable
-```
-
 ## Configurações IPv6
 
 **Ver resumo dos endereços IPv6 configurados no equipamento**
@@ -432,4 +419,3 @@ ou
 ```
 (config)#ipv6 route ::/0 [ip-de-último-recurso]
 ```
-
