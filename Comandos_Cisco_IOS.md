@@ -1,6 +1,7 @@
 # Comandos Cisco IOS
 
 Esse são os comandos utilizados no 1° e 2° Semestre do Curso Técnico de Redes de Computadores - SENAI Informática 
+
 ## Configurações Iniciais (Switch e Router)
 
 **Entrar no modo Exec Privilegiado**
@@ -62,7 +63,6 @@ ou
 **Inserir senha de Enable**
 ```
 (config)#enable secret [senha] (Criptografada)
-
 (config)#enable password [senha] (Sem criptografia)
 ```
 
@@ -104,8 +104,17 @@ Comando: exit
 **Mostrar a tabela MAC do Switch**
 ```
 #show mac-address-table (IOS 12.2)
-
 #show mac address-table dynamic (IOS 15.0)
+```
+
+**Ver MAC de todas as interfaces (interfaces conectadas e não ativas)** 
+```
+#show interfaces | in line protocol | address
+```
+
+**Ver apenas interfaces do tipo FastEthernet**
+```
+#show interfaces | in FastEthernet
 ```
 
 **Ver arquivos na memória Flash**
@@ -122,13 +131,13 @@ Comando: exit
 ```
 #terminal length 0
 ```
+
 **Desativar as mensagens de erro na tela**
 ```
 (config)#no logging console
 ```
 
 **Configurar várias Interfaces ao mesmo tempo**
-
 **Exemplo**: Configurar todas as interfaces entre a f0/1 e a f0/5
 ```
 (config)#interface range f0/1-5
@@ -192,7 +201,6 @@ Comando: exit
 (config)#interface vlan [id-da-vlan-de-gerenciamento]
 (config-if)#ip address [endereço-ip] [máscara (em decimal)]
 (config-if)#no shutdown
-
 Lembrando que você deve criar a VLAN de Gerenciamento, do contrário o Switch não vai ativar o endereço IP
 ```
 
@@ -240,23 +248,17 @@ Lembrando que você deve criar a VLAN de Gerenciamento, do contrário o Switch n
 ou
 #show vlan name [nome-da-vlan]
 ```
-
 **Exibir informações relacionadas a VLAN em um interface específica**
 ```
 #show interface [id-da-interface] switchport
 ```
-
 **Deletar arquivo vlan.dat**
 ```
 #delete vlan.dat
 ```
-
 **Criação de Subinterface e atrelamento dela a uma VLAN**
-
 Para configurar uma Subinterface, basta colocar um **ponto** no final do nome da Interface onde você quer criar a **Subinterface**, após o ponto digite o **ID da Subinterface**, lembrando que o **ID da Subinterface** normalmente é o **ID da VLAN** a qual essa Subinterface será atrelada.
-
 No exemplo abaixo vamos criar a **Subinterface .10** na **Interface g0/0** e atrelar ela a **VLAN 10**
-
 ```
 (config)#interface g0/0.10
 (config-if)#encapsulation dot1q 10
@@ -268,7 +270,6 @@ No exemplo abaixo vamos criar a **Subinterface .10** na **Interface g0/0** e atr
 ```
 (config)#int [id-da-interface]
 (config-if)#switchport mode dynamic [desirable-ou-auto]
-
 AUTO - Torna a interface capaz de converter o link em um link de trunk.
 DESIRABLE - Faz com que a interface tente ativamente converter o link em um link de trunk.
 ```
@@ -278,7 +279,6 @@ DESIRABLE - Faz com que a interface tente ativamente converter o link em um link
 (config)#vtp mode [modo]
 (config)#vtp domain [nome-do-domínio]
 (config)#vtp password [senha]
-
 VTP Operating Mode: Server - distribui os pacotes
 VTP Operating Mode: Client - recebe os pacotes
 VTP Operating Mode: Transparent - passa os pacotes (VLANs) sem absorver as configurações
@@ -314,16 +314,13 @@ VTP Operating Mode: Transparent - passa os pacotes (VLANs) sem absorver as confi
 **Bloquear acesso de um usuário, após muitas tentativas de acesso**
 ```
 Exemplo: Bloquear um usuário por 30 Segundos, caso ele erre a senha 3 vezes, em um período de 60 segundos
-
 (config)#login block-for 30 attempts 3 within 60 
 ```
 
 **Criar Rota Estática**
 ```
 (config)#ip route [rede-de-destino] [máscara-da-rede-de-destino] [interface-de-saída]
-
 ou
-
 (config)#ip route [rede-de-destino] [máscara-da-rede-de-destino] [ip-do-roteador-que-conhece-a-rede]
 ```
 
@@ -367,7 +364,7 @@ ou
 **Exibir as configurações do protocolo IPv4**
 ```
 #show ip protocols
-``` 
+```
 
 **Propagar a rota padrão**
 ```
@@ -383,6 +380,46 @@ ou
 ```
 (config-if)#ipv6 rip [nome-da-rota] enable
 ``` 
+
+## Configurações STP
+
+**Ver todas as interfaces conectadas do Spanning-tree**
+```
+#show spanning-tree detail
+ou
+#show spanning-tree
+ou
+#show span
+```
+
+**Ativar o STP em uma Vlan específica**
+```
+(config)#spanning-tree vlan [id-da-vlan]
+OBS: Para desativar o STP, basta adicionar o comando "no" antes do conteúdo.  
+``` 
+
+**Ver as informações do protocolo STP em uma VLAN específica**
+```
+#show spanning-tree vlan [id-da-vlan]
+``` 
+
+**Alterar as configurações STP (BALANCEAMENTO DE CARGA)**
+```
+(config)#spanning-tree mode pvst
+(config)#spanning-tree vlan [id-das-vlans] root [primary ou secondary]
+``` 
+
+**Interromper a troca de BPDUs**
+
+PortFast: faz com que uma porta entre no estado forwarding quase imediatamente, reduzindo drasticamente o tempo dos estados listening e learning. O PortFast minimiza o tempo necessário para o servidor ou estação de trabalho entrar on-line. Configure o PortFast nas interfaces de switch que estão conectadas aos computadores.
+
+O aprimoramento do STP PortFast BPDU Guard permite que os programadores de redes reforcem as fronteiras do domínio STP e mantenham a topologia ativa previsível. Os dispositivo atrás das portas com PortFast do STP habilitado não conseguem influenciar a topologia de STP. No recebimento das BPDUs, a operação da BPDU Guard desativa a porta com PortFast configurado. O BPDU Guard faz a transição da porta para o estado err-disable e uma mensagem aparece na console. Configure o BPDU Guard nas interfaces de switch que são conectadas aos PCs.
+
+```
+(config)#int [id-da-interface]
+(config-if)#spanning-tree portfast
+(config-if)#spanning-tree bpduguard enable
+```
 
 ## Configurações IPv6
 
@@ -409,9 +446,7 @@ ou
 **Configurar Rota Estática IPv6**
 ```
 (config)#ipv6 route [rede-de-destino]/[prefixo] [ip-do-roteador-que-conhece-a-rede]
-
 ou
-
 (config)#ipv6 route [rede-de-destino]/[prefixo] [interface-de-saída]
 ```
 
