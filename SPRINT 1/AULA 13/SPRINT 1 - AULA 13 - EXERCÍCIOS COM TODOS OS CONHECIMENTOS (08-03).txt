@@ -1,0 +1,165 @@
+﻿SPRINT 1
+AULA 13 - EXERCÍCIOS COM TODOS OS CONHECIMENTOS (08/03)
+
+EXERCÍCIO - 2.1.4.4 Packet Tracer - Configure VLANs, VTP, and DTP.pka
+
+VTP
+    Cadastrar as VLANs em um cliente-server utilizando o protocolo VTP
+    * 1 SW como server
+    * Outros Switches como clientes
+    * Administração de rede automatizada
+
+DTP 
+    Como as portas Trunk são trafegadas 
+
+COMANDOS
+
+    Server
+    vtp mode server
+    vtp domain SENAI 
+    vtp password 123456
+
+    Cliente
+    vtp mode client
+    vtp domain SENAI 
+    vtp password 123456
+
+    Verificar VTP (Server - Cliente - Transparente)
+    #show vtp status
+        Configurations Revision - mostra o número de revisões (alterações)
+        VTP Operating Mode: Transparent - passa os pacotes (VLANs) sem absorver as configurações 
+                            Server - distribui os pacotes
+        VTP domain name - domínios cadastrados
+
+    Verificar VTP / Domínio
+    #show vtp password
+
+    Verificar DTP (por padrão vem 'auto')
+    #show interfaces switchport
+    #show int trunk (coluna 'Mode')
+
+    Verificar DTP (Filtro em porta Giga)
+    #show interfaces switchport | begin Name: Gig
+
+AUTO - Torna a interface capaz de converter o link em um link de trunk.
+DESIRABLE - Faz com que a interface tente ativamente converter o link em um link de trunk.
+
+TIPOS DE SW 
+    Core - núcleo;
+    Distribuição;
+    Acesso;
+
+SHOW VLAN BRIEF E SHOW INT TRUNK
+    Se a interface não aparece no brief, provavelmente estará em (no) trunk.
+
+CURIOSIDADE
+    Caso o SW-SERVER (Core) tenha seu VTP em modo tranparente, suas novas configurações serão passadas para os switch's de Acesso (Cliente).
+    No entanto, essas alterações não aparecerão em seu 'show vtp status'. 
+
+SCRIPT
+
+S1 - GERENCIADOR / NÚCLEO (SW-CORE)
+!Modo de distribuição dos pacotes
+en
+conf t
+int g0/1
+switchport mode dynamic desirable
+exit
+
+!int g0/2 em modo TRUNK
+int g0/2
+switchport mode trunk
+exit
+
+!VLAN nativa
+int range g0/1-2
+switchport trunk native vlan 999
+exit
+
+!Configurações VTP - SERVER
+vtp mode server
+vtp domain CCNA
+vtp password cisco
+
+!Criação de VLANs
+vlan 10
+name Red
+vlan 20
+name Blue
+vlan 30
+name Yellow
+exit
+
+--------------------------------------------------------------------
+
+S2
+!Modo de distribuição dos pacotes
+en
+conf t
+int g0/1
+switchport mode dynamic desirable
+exit
+
+!VLAN nativa
+int g0/1
+switchport trunk native vlan 999
+exit
+
+!Configurações VTP - CLIENTE
+vtp mode client
+vtp domain CCNA
+vtp password cisco
+
+!Portas em modo access
+int range f0/1-8
+switchport mode access
+switchport access vlan 10
+exit
+int range f0/9-16
+switchport mode access
+switchport access vlan 20
+exit
+interface range f0/17-24
+switchport mode access
+switchport access vlan 30
+exit
+
+--------------------------------------------------------------------
+
+S3
+!int g0/2 em modo TRUNK
+en
+conf t
+int g0/2
+switchport mode trunk
+exit
+
+!VLAN nativa
+int g0/2
+switchport trunk native vlan 999
+exit
+
+!O que irá acontecer no modo tranparente?
+vtp mode transparent
+
+!!Configurações VTP - CLIENTE
+vtp domain CCNA
+vtp password cisco
+vtp mode client
+
+!Portas em modo access
+int range f0/1-8
+switchport mode access
+switchport access vlan 10
+exit
+int range f0/9-16
+switchport mode access
+switchport access vlan 20
+exit
+interface range f0/17-24
+switchport mode access
+switchport access vlan 30
+exit
+
+!Retornar novamente no modo TRANSPARENT (para fins didáticos)
+vtp mode transparent
