@@ -1,0 +1,46 @@
+Troubleshooting
+
+HOST
+
+	PC1 - informações de IP, Máscara e Gateway corretas
+	*Informação achada pelo ipconfig no cmd.exe
+	--------------------------------------------------------
+
+	PC2 - Gateway incorreto (172.17.10.1)
+		SOLUÇÃO: Trocar para 172.17.30.1
+
+	*Informação achada pelo ipconfig no cmd.exe
+
+
+SWITCH
+
+	Interface g0/1 - está em modo access
+		SOLUÇÃO: Trocar para o modo trunk
+
+	*Informação achada pelo comando #show interfaces trunk ou #show run
+
+ROUTER
+
+	Interface g0/1.10 - desativada
+		SOLUÇÃO: #no shutdown na porta
+	
+	*Informação achada pelo comando #show ip interface brief
+
+	--------------------------------------------------------
+
+	Interface g0/1.10 - encapsulamento incorreto (.30)
+		SOLUÇÃO: (config-subif)#no encapsulation dot1Q 30
+		 	 (config-subif)#encapsulation dot1Q 10
+
+	*Informação achada pelo comando #show run
+
+	--------------------------------------------------------
+
+	Interface g0/1.30 - encapsulamento incorreto (.10)
+		SOLUÇÃO: (config-subif)#no encapsulation dot1Q 10
+		 	 (config-subif)#encapsulation dot1Q 30
+
+	*Informação achada pelo comando #show run
+
+
+APÓS SOLUCIONAR ESSES DOIS ÚLTIMOS ERROS, DEVE-SE NOVAMENTE ALOCAR O ENDEREÇO IP AS RESPECTIVAS INTERFACES	
