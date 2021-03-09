@@ -31,8 +31,10 @@ ETHERCHANNEL - Um STP "melhorado". Ele não desativa os cabos, mas os soma.
         8 portas = 1 port channel (neste caso)
 
     RESTRIÇÕES
-        Se as portas físicas de um lado estiverem configuradas como trunk, as portas físicas do outro lado também devem ser configuradas
+        * Se as portas físicas de um lado estiverem configuradas como trunk, as portas físicas do outro lado também devem ser configuradas
         como trunk dentro da mesma VLAN nativa.
+        
+        * O EtherChannel cria uma relação de 1 para 1, ou seja, 1 link EtherChannel conecta somente 2 dispositivos.
 
     PAgP - CISCO
         O PAgP opera 3 modos:
