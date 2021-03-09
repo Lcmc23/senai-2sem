@@ -27,7 +27,7 @@ ETHERCHANNEL - Um STP "melhorado". Ele não desativa os cabos, mas os soma.
     OBS: Quando um EtherChannel é configurado, a interface virtual resultante é chamada de port channel. As interfaces físicas são agrupadas 
     juntas na interface de um port channel.
 
-    * Um Switch da Cisco de 48 portas, suporta 6 Ether Channels com 8 portas cadas
+        * Um Switch da Cisco de 48 portas, suporta 6 Ether Channels com 8 portas cadas
         8 portas = 1 port channel (neste caso)
 
     RESTRIÇÕES
