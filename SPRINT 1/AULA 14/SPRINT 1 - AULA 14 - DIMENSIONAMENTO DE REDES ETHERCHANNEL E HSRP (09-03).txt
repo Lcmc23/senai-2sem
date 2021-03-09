@@ -1,0 +1,58 @@
+SPRINT 1
+AULA 14 - DIMENSIONAMENTO DE REDES ETHERCHANNEL E HSRP (09/03)
+
+HSRP (HOT STANDBY ROUTER PROTOCOL – ETHERCHANNEL)
+    LACP - IEEE 802.3ad
+
+STP - elimina um problema físico (imúmeras interfaces atreladas / "cabos a mais no Switch")
+    * Gera redundância
+    * interfaces são desativadas (para utilizar apenas uma interface) e não agregadas / somadas
+
+ETHERCHANNEL - Um STP "melhorado". Ele não desativa os cabos, mas os soma.
+    * Canal entre dois Switch's
+    * EtherChannel é uma forma de agregação de links usada em redes comutadas.
+    * Além da redundância, garantimos disponibilidade e melhora na largura de banda.
+
+    CONFIGURADO MANUALMENTE!
+
+        - Protocolo de agregação de porta (PAgP - Port Aggregation Protocol) [proprietário da Cisco]
+        - Protocolo de controle de agregação de links (LACP – Link Aggregation Control Protocol) [definido pelo IEEE 802.3ad]
+
+    VANTAGENS:
+        * 1x Canal com 1GB que suporta 10 PCs consumindo 100MB;
+        * 2x Canais com 2GB que suporta 20 PCs consumindo 100MB cada [no mesmo SW].
+
+        DUAS OU MAIS INTERFACES JUNTAS - PORT CHANNEL
+
+    OBS: Quando um EtherChannel é configurado, a interface virtual resultante é chamada de port channel. As interfaces físicas são agrupadas 
+    juntas na interface de um port channel.
+
+    * Um Switch da Cisco de 48 portas, suporta 6 Ether Channels com 8 portas cadas
+        8 portas = 1 port channel (neste caso)
+
+    RESTRIÇÕES
+        Se as portas físicas de um lado estiverem configuradas como trunk, as portas físicas do outro lado também devem ser configuradas
+        como trunk dentro da mesma VLAN nativa.
+
+    PAgP - CISCO
+        O PAgP opera 3 modos:
+            On – membros de canal sem negociação (nenhum protocolo)
+            Desirable – Inicia negociações do PAgP.
+            Auto – Negocia passivamente, mas não inicia.
+                * Os modos devem ser compatíveis de cada lado.
+
+    LACP - IEEE 
+        O LACP opera em 3 modos:
+            On - membros de canal sem negociação (nenhum protocolo)
+            Active – A porta envia pacotes LACP para iniciar negociações com outras interfaces
+            Passive – A porta negocia passivamente o estado, mas não inicia a negociação LACP 
+                * Os modos devem ser compatíveis de cada lado. 
+
+IMPORTANTE: [As portas podem estar ambas ativas (desirable / active)] ou [uma passiva (auto / passive) e uma ativa]. Nota, caso ambos 
+estejam em passive (auto) a comunicação não será estabilizada
+
+CURIOSIDADE:
+    QoS (Quality of Service - Qualidade de Serviço) - Filtro na rede
+
+
+
