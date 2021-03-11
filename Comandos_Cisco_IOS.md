@@ -438,7 +438,7 @@ O aprimoramento do **STP PortFast BPDU Guard** permite que os programadores de r
 
 ## HSRP
 
-**Ativar a interface que está atrelada como **gateway** em **standby** ** 
+**Ativar a interface que está atrelada como **gateway** em **standby**** 
 ```
 (config)#int [id-da-interface-do-gateway]
 (config-if)#standby version 2
