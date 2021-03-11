@@ -194,6 +194,19 @@ Comando: exit
 (config)#no ip domain-lookup
 ```
 
+**Interface Loopback**
+
+Uma interface de loopback é uma interface de rede virtual que permite que um cliente e um servidor no **mesmo host** se comuniquem entre si usando a pilha de protocolos TCP/IP
+
+```
+(config)#int loopback [id-da-interface]
+```
+
+**Atrelar um endereço IP no Loopback**
+```
+(config-if)#ip add [endereço-ip] [máscara(em decimal)]
+```
+
 ## Configurações do Switch
 
 **Configurar endereço IP em um Switch**
@@ -267,11 +280,12 @@ No exemplo abaixo vamos criar a **Subinterface .10** na **Interface g0/0** e atr
 ## VTP
 
 **Modo de distribuição dos pacotes**
+**AUTO** - Torna a interface capaz de converter o link em um link de trunk.
+**DESIRABLE** - Faz com que a interface tente ativamente converter o link em um link de trunk.
+
 ```
 (config)#int [id-da-interface]
 (config-if)#switchport mode dynamic [desirable-ou-auto]
-AUTO - Torna a interface capaz de converter o link em um link de trunk.
-DESIRABLE - Faz com que a interface tente ativamente converter o link em um link de trunk.
 ```
 
 **Configurações VTP - CLIENTE (client), SERVIDOR (server) e TRANSPARENTE (transparent)**
@@ -279,6 +293,7 @@ DESIRABLE - Faz com que a interface tente ativamente converter o link em um link
 (config)#vtp mode [modo]
 (config)#vtp domain [nome-do-domínio]
 (config)#vtp password [senha]
+
 VTP Operating Mode: Server - distribui os pacotes
 VTP Operating Mode: Client - recebe os pacotes
 VTP Operating Mode: Transparent - passa os pacotes (VLANs) sem absorver as configurações
@@ -411,14 +426,43 @@ OBS: Para desativar o STP, basta adicionar o comando "no" antes do conteúdo.
 
 **Interromper a troca de BPDUs**
 
-PortFast: faz com que uma porta entre no estado forwarding quase imediatamente, reduzindo drasticamente o tempo dos estados listening e learning. O PortFast minimiza o tempo necessário para o servidor ou estação de trabalho entrar on-line. Configure o PortFast nas interfaces de switch que estão conectadas aos computadores.
+**PortFast:** faz com que uma porta entre no estado forwarding quase imediatamente, reduzindo drasticamente o tempo dos estados listening e learning. O PortFast minimiza o tempo necessário para o servidor ou estação de trabalho entrar on-line. Configure o PortFast nas interfaces de switch que estão conectadas aos computadores.
 
-O aprimoramento do STP PortFast BPDU Guard permite que os programadores de redes reforcem as fronteiras do domínio STP e mantenham a topologia ativa previsível. Os dispositivo atrás das portas com PortFast do STP habilitado não conseguem influenciar a topologia de STP. No recebimento das BPDUs, a operação da BPDU Guard desativa a porta com PortFast configurado. O BPDU Guard faz a transição da porta para o estado err-disable e uma mensagem aparece na console. Configure o BPDU Guard nas interfaces de switch que são conectadas aos PCs.
+O aprimoramento do **STP PortFast BPDU Guard** permite que os programadores de redes reforcem as fronteiras do domínio STP e mantenham a topologia ativa previsível. Os dispositivo atrás das portas com PortFast do STP habilitado não conseguem influenciar a topologia de STP. No recebimento das BPDUs, a operação da BPDU Guard desativa a porta com PortFast configurado. O BPDU Guard faz a transição da porta para o estado err-disable e uma mensagem aparece na console. Configure o BPDU Guard nas interfaces de switch que são conectadas aos PCs.
 
 ```
 (config)#int [id-da-interface]
 (config-if)#spanning-tree portfast
 (config-if)#spanning-tree bpduguard enable
+```
+
+## HSRP
+
+**Ativar a interface que está atrelada como **gateway** em **standby** ** 
+```
+(config)#int [id-da-interface-do-gateway]
+(config-if)#standby version 2
+```
+
+**Atrelar endereço IP a interface bem como seu grupo**
+
+OBS: Os roteadores da Cisco suportam **até 4095** grupos 
+
+```
+(config-if)#standby [número-do-grupo] ip [endereço-ip]
+```
+
+**Definir a prioridade do roteador sobre os outros**
+
+OBS: Os roteadores da Cisco possuem limite máximo de prioridade de **até 255**
+
+```
+(config-if)#standby [número-do-grupo] priority [número-de-prioridade]
+```
+
+**Exibir as informações do HSRP**
+```
+#show standby
 ```
 
 ## Configurações IPv6
