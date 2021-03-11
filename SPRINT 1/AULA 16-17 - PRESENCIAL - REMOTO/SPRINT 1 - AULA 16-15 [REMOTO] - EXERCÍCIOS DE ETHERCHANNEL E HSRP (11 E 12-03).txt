@@ -1,0 +1,148 @@
+﻿SPRINT 1
+AULA 16/17 [REMOTO] - EXERCÍCIOS DE ETHERCHANNEL E HSRP (11 e 12/03)
+
+REDES COMUTADAS
+    SHITCH´S
+        * Convergentes: som, vídeo, dados na mesma infra (metálica, fibra)
+        * Alta disponibilidade
+            STP - Um cabo entre em espera
+
+        * Melhor velocidade 
+            ETHERCHANNEL - Soma as velocidades
+
+HSRP
+    2 ou mais gateways em uma rede, garantindo disponibilidade
+
+EXERCÍCIO PACKET TRACER
+
+REDE PRINCIPAL
+    * 192.168.0.0/25
+    * .2 IP NO HOST
+    * GTW 192.168.0.1
+
+REDE BACKUP
+    * 192.168.0.128/25
+    * .30 IP NO HOST
+    * GTW 192.168.0.129
+
+HOST (SACESSO_A)
+    IP - 192.168.0.10
+    MÁSCARA - 255.255.255.128
+    GTW - 192.168.0.1
+
+HOST (SACESSO_B)
+    IP - 192.168.0.130
+    MÁSCARA - 255.255.255.128
+    GTW - 192.168.0.129
+
+COMANDOS
+
+    standby version 2 - define a versão do standby
+    standby 1 ip 192.168.0.250 - define o grupo e seu endereço IP
+    standby 1 priority 150 - definir a prioridade (padrão de prioridade = 100)
+
+    show standby - exibe as informações sobre o HSRP
+
+    OBS: Versão 2 do HSRP possui um número máximo de prioridade > 4000 (na documentação real)
+                                                                < 255 (no packet tracer)
+
+
+SCRIPT
+
+!RA-PRINC
+!Interface g0/1
+en
+conf t
+hostname RA-PRINC
+int g0/1
+ip add 192.168.0.1 255.255.255.128
+no shutdown
+exit
+
+!Serial
+int s0/1/0
+ip add 10.0.0.1 255.255.255.252
+no shutdown
+exit
+
+!RIP
+router rip
+version 2
+no auto-summary
+network 192.168.0.0
+network 10.0.0.0
+exit
+
+!HSRP - PRIMÁRIO (versão 2)
+int g0/1
+standby version 2
+standby 1 ip 192.168.0.250
+standby 1 priority 150 
+
+-------------------------------------------------------
+
+!R-OPERADORA
+!Serial (s0/1/0)
+en
+conf t
+hostname R-OPERADORA
+int s0/1/0
+ip add 10.0.0.2 255.255.255.252
+clock rate 2000000
+no shutdown
+exit
+
+!Serial (0/1/1)
+int s0/1/1
+ip add 10.0.0.6 255.255.255.252
+clock rate 2000000
+no shutdown
+exit
+
+!RIP
+router rip
+version 2
+no auto-summary
+network 10.0.0.0
+network 10.0.0.4
+exit
+
+!Interface Loopback
+int loopback 1
+ip add 209.165.200.1 255.255.255.224
+exit
+
+!Rota estática (para a internet / propagação da rota)
+ip route 0.0.0.0 0.0.0.0 loopback 1
+router rip
+default-information originate
+
+-----------------------------------------------------
+
+!RB-BKP
+!Interface g0/1
+en
+conf t
+hostname RB-BKP
+int g0/1
+ip add 192.168.0.129 255.255.255.128
+no shutdown
+exit
+
+!Serial
+int s0/1/1
+ip add 10.0.0.5 255.255.255.252
+no shutdown
+
+!RIP
+router rip
+version 2
+no auto-summary
+network 192.168.0.128
+network 10.0.0.4
+exit
+
+!HSRP - SECUNDÁRIO (version 2)
+int g0/1
+standby version 2
+standby 1 ip 192.168.0.250
