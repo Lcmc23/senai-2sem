@@ -1,9 +1,0 @@
-Máquina real para máquina virtual:
-
-1) Definir uma senha e um usuário (administrador);
-
-2) DHCP na máquina virtual;
-
-3) Windows + R
-
-4) \\[ip-da-maquina-virtual]
