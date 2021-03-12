@@ -1,0 +1,249 @@
+﻿SPRINT 1
+AULA 16/17 [REMOTO - PRESENCIAL] - EXERCÍCIOS DE ETHERCHANNEL E HSRP (11 e 12/03)
+
+REDES COMUTADAS
+    SHITCH´S
+        * Convergentes: som, vídeo, dados na mesma infra (metálica, fibra)
+        * Alta disponibilidade
+            STP - Um cabo entre em espera
+
+        * Melhor velocidade 
+            ETHERCHANNEL - Soma as velocidades
+
+HSRP
+    * 2 ou mais gateways em uma rede, garantindo disponibilidade
+    * Deve-se concetar os Switch´s
+    
+    https://www.cisco.com/c/pt_br/support/docs/ip/hot-standby-router-protocol-hsrp/13780-6.html [Documentação dos comandos 'preempt' e 'track' no HSRP]
+
+EXERCÍCIO PACKET TRACER
+
+REDE PRINCIPAL
+    * 192.168.0.0/24
+    * .1 IP NO HOST
+    * GTW 192.168.0.254
+
+REDE BACKUP-B
+    * 192.168.0.0/24
+    * .2 IP NO HOST
+    * GTW 192.168.0.253
+    
+REDE BACKUP-C
+    * 192.168.0.0/24
+    * .3 IP NO HOST
+    * GTW 192.168.0.252
+
+REDE OPERADORA
+    * 10.0.0.0/8
+    * .0
+    * .4
+    * .8
+    * .12
+
+REDE SERVIÇO
+    * 209.165.200.0/30
+    * 1 IP NO HOST
+    * GTW: 209.165.200.2
+
+HOST (SACESSO_A)
+    IP - 192.168.0.1
+    MÁSCARA - 255.255.255.0
+    GTW inicial - 192.168.0.254
+    GTW final - 192.168.0.250
+
+HOST (SACESSO_C)
+    IP - 192.168.0.2
+    MÁSCARA - 255.255.255.0
+    GTW inicial - 192.168.0.253
+    GTW final - 192.168.0.250
+
+HOST (SACESSO_B)
+    IP - 192.168.0.3
+    MÁSCARA - 255.255.255.0
+    GTW inicial - 192.168.0.252 
+    GTW final - 192.168.0.250
+   
+COMANDOS
+
+    standby version 2 - define a versão do standby
+    standby 1 ip 192.168.0.250 - define o grupo e seu endereço IP
+    standby 1 priority 180 - definir a prioridade (padrão de prioridade = 100)
+
+    show standby - exibe as informações sobre o HSRP
+    
+    no ip domain-lookup - desativa a tradução do nome (erro "domain server")
+
+    OBS: Versão 2 do HSRP possui um número máximo de prioridade > 4000 (na documentação real)
+                                                                < 255 (no packet tracer)
+                                                                
+    * Após as configurações do HSRP forem definidas, deve-se trocar o Gateways dos Host's para o endereço virtual (IP VIRTUAL)
+
+SCRIPT
+
+!RA-PRINC
+!Interface g0/0
+en
+conf t
+hostname RA-PRINC
+int g0/0
+ip add 192.168.0.254 255.255.255.0
+no shutdown
+exit
+
+!Serial
+int s0/1/0
+ip add 10.0.0.1 255.255.255.252
+no shutdown
+exit
+
+!RIP
+router rip
+version 2
+no auto-summary
+network 192.168.0.0
+network 10.0.0.0
+exit
+
+!HSRP - 150 (versão 2)
+int g0/0
+standby version 2
+standby 1 ip 192.168.0.250
+standby 1 priority 150 
+
+-------------------------------------------------------
+
+!R-OPERADORA
+!Serial (s0/1/0)
+en
+conf t
+hostname R-OPERADORA
+int s0/1/0
+ip add 10.0.0.2 255.255.255.252
+clock rate 2000000
+no shutdown
+exit
+
+!Serial (0/0/0)
+int s0/0/0
+ip add 10.0.0.9 255.255.255.252
+clock rate 2000000
+no shutdown
+exit
+
+!Serial (0/1/1)
+int s0/1/1
+ip add 10.0.0.5 255.255.255.252
+clock rate 2000000
+no shutdown
+exit
+
+!Serial (0/0/1)
+int s0/0/1
+ip add 10.0.0.13 255.255.255.252
+clock rate 2000000
+no shutdown
+exit
+
+!RIP
+router rip
+version 2
+no auto-summary
+network 10.0.0.0
+network 10.0.0.4
+network 10.0.0.8
+network 10.0.0.12
+exit
+
+-----------------------------------------------------
+
+!RB-BKP
+!Interface g0/0
+en
+conf t
+hostname RB-BKP
+int g0/0
+ip add 192.168.0.252 255.255.255.0
+no shutdown
+exit
+
+!Serial
+int s0/1/1
+ip add 10.0.0.6 255.255.255.252
+no shutdown
+
+!RIP
+router rip
+version 2
+no auto-summary
+network 192.168.0.0
+network 10.0.0.4
+exit
+
+!HSRP - 130(version 2)
+int g0/0
+standby version 2
+standby 1 ip 192.168.0.250
+standby 1 priority 130
+
+-----------------------------------------------------
+
+!RC-BKP
+!Interface g0/0
+en
+conf t
+hostname RC-BKP
+int g0/0
+ip add 192.168.0.253 255.255.255.0
+no shutdown
+exit
+
+!Serial
+int s0/1/0
+ip add 10.0.0.10 255.255.255.252
+no shutdown
+
+!RIP
+router rip
+version 2
+no auto-summary
+network 192.168.0.0
+network 10.0.0.8
+exit
+
+!HSRP - 180 (version 2)
+int g0/0
+standby version 2
+standby 1 ip 192.168.0.250
+standby 1 priority 180
+
+-----------------------------------------------------
+
+!R-SERVIÇO
+!Interface g0/0
+en
+conf t
+hostname R-SERVICO
+int g0/0
+ip add 209.165.200.2 255.255.255.252
+no shutdown
+exit
+
+!Serial
+int s0/0/0
+ip add 10.0.0.14 255.255.255.252
+no shutdown
+
+!RIP
+router rip
+version 2
+no auto-summary
+network 209.165.200.0
+network 10.0.0.12
+exit
+
+-----------------------------------------------------
+
+IMPORTÂNCIA DOS ROUTERS
+    * RC-BKP = 180
+    * RA-PRINC = 150
+    * RB-BKP = 130
