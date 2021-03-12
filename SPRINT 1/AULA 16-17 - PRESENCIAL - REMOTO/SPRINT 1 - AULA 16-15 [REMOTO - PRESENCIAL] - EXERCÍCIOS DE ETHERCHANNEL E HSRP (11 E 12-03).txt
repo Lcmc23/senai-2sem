@@ -14,7 +14,7 @@ HSRP
     * 2 ou mais gateways em uma rede, garantindo disponibilidade
     * Deve-se concetar os Switch´s
     
-    https://www.cisco.com/c/pt_br/support/docs/ip/hot-standby-router-protocol-hsrp/13780-6.html [Documentação dos comandos           'preempt' e 'track' no HSRP]
+    https://www.cisco.com/c/pt_br/support/docs/ip/hot-standby-router-protocol-hsrp/13780-6.html [Documentação dos comandos 'preempt' e 'track' no HSRP]
 
 EXERCÍCIO PACKET TRACER
 
