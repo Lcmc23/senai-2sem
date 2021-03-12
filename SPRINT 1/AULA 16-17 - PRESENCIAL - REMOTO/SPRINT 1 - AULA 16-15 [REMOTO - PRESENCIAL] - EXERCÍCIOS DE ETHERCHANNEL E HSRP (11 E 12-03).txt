@@ -176,7 +176,7 @@ network 192.168.0.0
 network 10.0.0.4
 exit
 
-!HSRP - DEFAULT (version 2)
+!HSRP - 130 (version 2)
 int g0/0
 standby version 2
 standby 1 ip 192.168.0.250
