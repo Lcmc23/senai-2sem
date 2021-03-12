@@ -16,24 +16,24 @@ HSRP
 EXERCÍCIO PACKET TRACER
 
 REDE PRINCIPAL
-    * 192.168.0.0/25
-    * .2 IP NO HOST
-    * GTW 192.168.0.1
+    * 192.168.0.0/24
+    * .1 IP NO HOST
+    * GTW 192.168.0.254
 
 REDE BACKUP
-    * 192.168.0.128/25
-    * .30 IP NO HOST
-    * GTW 192.168.0.129
+    * 192.168.0.0/24
+    * .2 IP NO HOST
+    * GTW 192.168.0.253
 
 HOST (SACESSO_A)
-    IP - 192.168.0.10
-    MÁSCARA - 255.255.255.128
-    GTW - 192.168.0.1
+    IP - 192.168.0.1
+    MÁSCARA - 255.255.255.0
+    GTW - 192.168.0.254
 
 HOST (SACESSO_B)
-    IP - 192.168.0.130
-    MÁSCARA - 255.255.255.128
-    GTW - 192.168.0.129
+    IP - 192.168.0.2
+    MÁSCARA - 255.255.255.0
+    GTW - 192.168.0.253
 
 COMANDOS
 
@@ -45,17 +45,18 @@ COMANDOS
 
     OBS: Versão 2 do HSRP possui um número máximo de prioridade > 4000 (na documentação real)
                                                                 < 255 (no packet tracer)
+    * Após as configurações do HSRP forem estabelecidas, deve-se trocar o Gateways dos Host's para o endereço do IP virtual
 
 
 SCRIPT
 
 !RA-PRINC
-!Interface g0/1
+!Interface g0/0
 en
 conf t
 hostname RA-PRINC
 int g0/1
-ip add 192.168.0.1 255.255.255.128
+ip add 192.168.0.254 255.255.255.0
 no shutdown
 exit
 
@@ -74,7 +75,7 @@ network 10.0.0.0
 exit
 
 !HSRP - PRIMÁRIO (versão 2)
-int g0/1
+int g0/0
 standby version 2
 standby 1 ip 192.168.0.250
 standby 1 priority 150 
@@ -94,7 +95,7 @@ exit
 
 !Serial (0/1/1)
 int s0/1/1
-ip add 10.0.0.6 255.255.255.252
+ip add 10.0.0.5 255.255.255.252
 clock rate 2000000
 no shutdown
 exit
@@ -113,36 +114,36 @@ ip add 209.165.200.1 255.255.255.224
 exit
 
 !Rota estática (para a internet / propagação da rota)
-ip route 0.0.0.0 0.0.0.0 loopback 1
+ip route 0.0.0.0 0.0.0.0 209.165.200.0
 router rip
 default-information originate
 
 -----------------------------------------------------
 
 !RB-BKP
-!Interface g0/1
+!Interface g0/0
 en
 conf t
 hostname RB-BKP
 int g0/1
-ip add 192.168.0.129 255.255.255.128
+ip add 192.168.0.253 255.255.255.0
 no shutdown
 exit
 
 !Serial
 int s0/1/1
-ip add 10.0.0.5 255.255.255.252
+ip add 10.0.0.6 255.255.255.252
 no shutdown
 
 !RIP
 router rip
 version 2
 no auto-summary
-network 192.168.0.128
+network 192.168.0.0
 network 10.0.0.4
 exit
 
 !HSRP - SECUNDÁRIO (version 2)
-int g0/1
+int g0/0
 standby version 2
 standby 1 ip 192.168.0.250
