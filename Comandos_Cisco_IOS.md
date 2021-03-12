@@ -438,13 +438,13 @@ O aprimoramento do **STP PortFast BPDU Guard** permite que os programadores de r
 
 ## HSRP
 
-**Ativar a interface que está atrelada como **gateway** em **standby**** 
+**Ativar interface (atrelada como **gateway**) em **standby**** 
 ```
 (config)#int [id-da-interface-do-gateway]
 (config-if)#standby version 2
 ```
 
-**Atrelar endereço IP a interface bem como seu grupo**
+**Atrelar um endereço IP a uma interface, bem como seu grupo**
 
 OBS: Os roteadores da Cisco suportam **até 4095** grupos 
 
@@ -452,7 +452,7 @@ OBS: Os roteadores da Cisco suportam **até 4095** grupos
 (config-if)#standby [número-do-grupo] ip [endereço-ip]
 ```
 
-**Definir a prioridade do roteador sobre os outros**
+**Prioridade do roteador**
 
 OBS: Os roteadores da Cisco possuem limite máximo de prioridade de **até 255**
 
