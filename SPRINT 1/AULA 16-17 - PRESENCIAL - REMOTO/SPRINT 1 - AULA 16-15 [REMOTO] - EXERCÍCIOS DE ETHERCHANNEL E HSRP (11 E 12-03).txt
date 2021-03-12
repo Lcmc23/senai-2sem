@@ -1,4 +1,4 @@
-﻿SPRINT 1
+SPRINT 1
 AULA 16/17 [REMOTO] - EXERCÍCIOS DE ETHERCHANNEL E HSRP (11 e 12/03)
 
 REDES COMUTADAS
@@ -45,8 +45,8 @@ COMANDOS
 
     OBS: Versão 2 do HSRP possui um número máximo de prioridade > 4000 (na documentação real)
                                                                 < 255 (no packet tracer)
+                                                                
     * Após as configurações do HSRP forem estabelecidas, deve-se trocar o Gateways dos Host's para o endereço do IP virtual
-
 
 SCRIPT
 
