@@ -465,6 +465,53 @@ OBS: Os roteadores da Cisco possuem limite máximo de prioridade de **até 255**
 #show standby
 ```
 
+## ETHERCHENNEL - LACP e PAGP
+
+**Configurando a **range** de interfaces que será utilizada no Etherchannel** 
+```
+(config)#Interface range [id´s-das-interfaces]
+```
+
+**Definir o protocolo LACP**
+
+**On** - Membros de canal sem negociação (nenhum protocolo)
+
+**Active** – A porta envia pacotes LACP para iniciar negociações com outras interfaces
+
+**Passive** – A porta negocia passivamente o estado, mas não inicia a negociação LACP
+
+```
+(config-if-range)# channel-group 1 mode active
+ou
+(config-if-range)# channel-group 1 mode passive
+```
+
+**Definir o protocolo PAGP**
+
+**On** - Membros de canal sem negociação (nenhum protocolo) 
+
+**Desirable** – Inicia negociações do PAgP.
+
+**Auto** – Negocia passivamente, mas não inicia.
+
+```
+(config-if-range)# channel-group 1 mode desirable
+ou
+(config-if-range)# channel-group 1 mode auto
+```
+
+OBS: Os modos de operação devem ser **compatíveis** de cada lado. 
+
+**Exibir um resumo dos etherchannel´s configurados**
+```
+#show etherchannel summary
+```
+
+**Detalhar oa etherchannel´s configurados**
+```
+#show etherchannel port-channel
+```
+
 ## Configurações IPv6
 
 **Ver resumo dos endereços IPv6 configurados no equipamento**
