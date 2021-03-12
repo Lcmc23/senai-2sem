@@ -215,11 +215,11 @@ standby 1 priority 180
 -----------------------------------------------------
 
 !R-SERVIÇO
-!Interface g0/1
+!Interface g0/0
 en
 conf t
 hostname R-SERVICO
-int g0/1
+int g0/0
 ip add 209.168.200.2 255.255.255.252
 no shutdown
 exit
