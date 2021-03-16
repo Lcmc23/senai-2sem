@@ -1,0 +1,69 @@
+SPRINT 1
+AULA 18 - ACL [ACCESS CONTROL LISTS] (15/03)
+
+    * Router Cisco em um firewall
+    * Aplicado apenas nos Roteadores
+
+APPLIANCE - Caixa fechada, SO voltado apenas para esta função
+
+IPTABLES - Firewall do Linux
+    Definido em linha de comando
+
+ACL: Padrão
+    Libera ou proíbe a passagem do pacote, pelo IP de origem
+
+    * Sintaxe
+
+        **Atribuir as configurações de Firewall**
+        ```
+        (config)#access-list [1-99] [deny or permit] IP 
+        ```
+        
+        **Atribuir as configurações de Firewall em uma interface**
+        ```
+        ip access group [1-99] [out or in]
+        ```
+
+        **Cancelar o Firewall**
+        ```
+        (config)#no access-list [1-99]
+        ``` 
+
+        **Proibir um IP específico (liberando os outros IPs)**
+        ```
+        (config)#access-list [1-99] deny host [endereço-ip]
+        (config)#access-list [1-99] permit any
+        (config)#int [id-da-interface]
+        (config-if)#ip access-group [1-99] [out or in]
+        ``` 
+
+        **Bloquear todos os IPs (liberando apenas um endereço IP)**
+        ```
+        (config)#access-list [1-99] permit host [endereço-ip] 
+        (config)#access-list [1-99] deny any
+        (config)#int [id-da-interface]
+        (config-if)#ip access-group [1-99] [out or in]
+        ``` 
+
+OBS: deny - bloqueia
+     permit - permitir
+     
+     any - restante
+
+     out - saída
+     in - entrada
+
+COMANDOS
+
+    **Exibir as informações de todas as listas ACL**
+    ```
+    #show ip access-lists
+    ```
+
+    **Exibir as informações de uma lista ACL específica**
+    ```
+    #show ip access-list [id-da-lista]
+    ``` 
+
+EXERCÍCIO PACKET TRACER
+    OBS: Senha do router - senai@132

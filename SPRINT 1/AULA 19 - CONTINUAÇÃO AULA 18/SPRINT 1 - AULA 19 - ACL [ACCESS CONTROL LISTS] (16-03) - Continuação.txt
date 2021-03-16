@@ -1,0 +1,77 @@
+SPRINT 1
+AULA 19 - ACL [ACCESS CONTROL LISTS] (16/03) - Continuação
+
+O que é ACL?
+    Lista de Controle de Acesso
+
+Firewall / Controlar as permissões
+
+2 TIPOS:
+
+- Padrão
+- Extendida
+
+É configurado no Router ou SW-L3
+
+OBS: Origem (in - pacote entra) / Saída (out - pacote sai)
+
+IMPORTANTE!!!!!
+
+    As ACLs **padrão** são normalmente colocadas próxima ao **destino**
+    As ACLs **estendidas** são normalmente colocadas próximas à **origem**
+
+ACL PADRÃO (NUMERADA) / ACL ESTENDIDA (NOMEADA E NUMERADA)
+
+0.0.0.0 representa apenas um IP (na ACL estendida)
+
+access-class [1-99] [in or out] ---> Configuração nas Linhas VTY
+
+COMANDOS
+
+    **Verificar as ACLs**
+    ```
+    #sh access-lists
+    ```
+
+    **Verificar em qual porta está aplicada uma ACL**
+    ```
+    #sh running-config
+    ```
+
+EXEMPLO PACKET TRACER (14_ACL.pkt) 
+OBS: as configurações de comunicação já foram estabelecidas
+
+!RT-RIO - Permitir apenas um host
+en
+conf t
+access-list 1 permit host 192.168.0.1
+access-list 1 deny any
+
+!interface - Mais próxima ao destino
+int g0/1
+ip access-group 1 out
+
+ACL ESTENDIDA - SERÁ CONFIGURADA NO RT-SP (ORIGEM)
+
+!RT-SP - Nomear a lista ACL 
+en
+conf t
+ip access-list extended lib_hosts
+
+!Regras dentro da ACL
+10 permit ip 192.168.0.1 0.0.0.0 host 172.16.0.254
+20 permit ip 192.168.0.254 0.0.0.0 host 172.16.0.1
+30 deny ip any any 
+exit
+
+!Interface s0/1/0
+int s0/1/0
+ip access-group lib_hosts out
+
+
+
+
+
+
+
+
