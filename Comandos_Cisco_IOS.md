@@ -512,6 +512,73 @@ OBS: Os modos de operação devem ser **compatíveis** de cada lado.
 #show etherchannel port-channel
 ```
 
+## ACL - ACCESS CONTROL LISTS - PADRÃO (STANDARD)
+
+**Atribuir as configurações de Controle de Acesso**
+```
+(config)#access-list [1-99] [deny or permit] [endereço-ip]
+ou
+(config)#access-list [1-99] [deny or permit] host [endereço-ip]
+```
+
+**Parâmtro 'Any' (restante)**
+```
+(config)#access-list [1-99] [deny or permit] any
+```
+
+**Atrelar as configurações ACL à interface mais próxima do destino**
+
+**OBS:** As ACLs de **entrada** são mais usadas para filtrar pacotes quando a rede conectada a uma interface de entrada é a única origem dos pacotes que precisa ser examinada.
+
+As ACLs de **saída** são mais usadas quando o mesmo filtro é aplicado aos pacotes que vêm de
+várias interfaces de entrada antes de saírem da mesma interface de saída.
+
+```
+(config)#int [id-da-interface]
+(config-if)#ip access-group [1-99] [out or in]
+```
+
+## ACL - ACCESS CONTROL LISTS - ESTENDIDA (EXTENDED)
+
+**Atribuir as configurações ACL estendidas**
+```
+(config)#ip access-list extended [nome-da-lista-estendida]
+```
+
+**Configurar as 'regras' dentro de uma ACL**
+```
+(config-ext-nacl)#[1-99] [permit or deny] ip [endereço-ip] [wildcard] host [endereço-ip]
+```
+
+**Parâmtro 'Any Any'**
+
+**OBS:** Significa - "qualquer endereço na origem e no destino"
+
+```
+(config)#[1-99] [permit or deny] any any
+```
+
+**Atrelar as configurações ACL à interface mais próxima da origem**
+```
+(config)#int [id-da-interface]
+(config-if)#ip access-group [nome-da-lista-estendida] [in or out]
+```
+
+**Verificar as ACLs**
+```
+#sh access-lists
+```
+
+**Verificar uma ACL específica**
+```
+#sh access-list [id-da-acl]
+```
+
+**Verificar em qual porta está aplicada uma ACL**
+```
+#sh running-config
+```
+
 ## Configurações IPv6
 
 **Ver resumo dos endereços IPv6 configurados no equipamento**
