@@ -538,6 +538,28 @@ várias interfaces de entrada antes de saírem da mesma interface de saída.
 (config-if)#ip access-group [1-99] [out or in]
 ```
 
+**ACL padrão nomeada**
+```
+(config)# ip access-list standard [name]
+```
+
+**Permissões em uma ACL (padrão) nomeada**
+```
+(config-std-nacl)#[permit or deny] host [endereço-ip-do-host]
+ou
+(config-std-nacl)#[permit or deny] [endereço-ip-da-rede] [wildcard]
+```
+
+**Parâmetro 'any', nestas situações**
+```
+(config-std-nacl)#[permit or deny] any
+```
+
+**Aplicar ACL (padrão) nomeada em uma interface**
+```
+(config-if)#ip access-group [name] [out or in]
+```
+
 ## ACL - ACCESS CONTROL LISTS - ESTENDIDA (EXTENDED)
 
 **Atribuir as configurações ACL estendidas**
