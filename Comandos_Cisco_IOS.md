@@ -586,6 +586,34 @@ ou
 (config-if)#ip access-group [nome-da-lista-estendida] [in or out]
 ```
 
+**Alguns parâmetros de uma ACL estendida**
+
+EXEMPLO:
+
+!Configurações ACL
+
+ip access-list extended LIB_WEB
+
+10 deny tcp host 192.168.0.1 host 172.16.0.1 eq www
+
+20 deny tcp host 192.168.0.2 host 172.16.0.2 eq www
+
+30 permit tcp any any
+
+40 permit icmp 192.168.0.0 0.0.0.255 any
+
+exit
+
+!Atrelar as configurações de ACL em uma interface
+
+int s0/1/0
+
+ip access-group LIB_WEB out
+
+```
+(config-ext-nacl)#[número-da-acl] [permit or deny] [protocolo] [host-ou-ip-da-rede] [wildcard (apenas quando for ip da rede)] [range-de-portas (não obrigatório)] host [endereço-ip] eq [porta-de-destino]
+```
+
 **Verificar as ACLs**
 ```
 #sh access-lists
