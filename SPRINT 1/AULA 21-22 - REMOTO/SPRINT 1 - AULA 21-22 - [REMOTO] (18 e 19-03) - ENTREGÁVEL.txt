@@ -1,0 +1,135 @@
+﻿SPRINT 1
+AULA 21/22 - [REMOTO] (18 e 19/03) - ENTREGÁVEL
+
+EXERCÍCIO PACKET TRACER 
+senai@132 - senha criptografada
+
+R_NUCLEO
+
+!Nome do host, senha na console, senha na enable (criptografada) e senha nas vty (0 4) / Serviço de criptografia nas senhas
+en
+conf t
+hostname R_NUCLEO
+line con 0
+password senai@132
+login
+exit
+line vty 0 4
+password senai@132
+login
+exit
+enable secret senai@132
+service password-encryption
+
+!Atrelar os endereços IPs nas respectivas interfaces
+int s0/1/0
+ip add 10.0.0.2 255.255.255.252
+clock rate 2000000
+no shutdown
+
+int s0/1/1
+ip add 10.0.0.5 255.255.255.252
+clock rate 2000000
+no shutdown
+exit
+
+int s0/2/0
+ip add 209.200.165.1 255.255.255.252
+no shutdown
+exit
+
+!Definir as redes conhecidas pelo roteador
+router rip
+version 2
+network 10.0.0.0
+network 10.0.0.4
+network 209.200.165.0
+no auto-summary
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+R_PREDIOA
+
+!Nome do host, senha na console, senha na enable (criptografada) e senha nas vty (0 4) / Serviço de criptografia nas senhas
+en
+conf t
+hostname R_PREDIOA
+line con 0
+password senai@132
+login
+exit
+line vty 0 4
+password senai@132
+login
+exit
+enable secret senai@132
+service password-encryption
+
+!Atrelar os endereços IPs nas respectivas interfaces
+int g0/0/0
+ip add 192.168.0.254 255.255.255.0
+no shutdown
+
+int s0/1/0
+ip add 10.0.0.1 255.255.255.252
+no shutdown
+exit
+
+!Definir as redes conhecidas pelo roteador
+router rip
+version 2
+network 192.168.0.0
+network 10.0.0.0
+no auto-summary
+passive-interface g0/0/0
+exit
+
+!Configurações ACL
+ip access-list extended LIB_WEB
+10 deny tcp host 192.168.0.1 host 172.16.0.1 eq www
+20 deny tcp host 192.168.0.2 host 172.16.0.2 eq www
+30 permit tcp any any
+40 permit icmp 192.168.0.0 0.0.0.255 any
+exit
+
+!Atrelar as configurações de ACL em uma interface
+int s0/1/0
+ip access-group LIB_WEB out
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+R_PREDIOB
+
+!Nome do host, senha na console, senha na enable (criptografada) e senha nas vty (0 4) / Serviço de criptografia nas senhas
+en
+conf t
+hostname R_PREDIOB
+line con 0
+password senai@132
+login
+exit
+line vty 0 4
+password senai@132
+login
+exit
+enable secret senai@132
+service password-encryption
+
+!Atrelar os endereços IPs nas respectivas interfaces
+int g0/0/0
+ip add 172.16.0.254 255.255.0.0
+no shutdown
+
+int s0/1/1
+ip add 10.0.0.6 255.255.255.252
+no shutdown
+exit
+
+!Definir as redes conhecidas pelo roteador
+router rip
+version 2
+network 172.16.0.0
+network 10.0.0.4
+no auto-summary
+passive-interface g0/0/0
+
