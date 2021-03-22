@@ -588,7 +588,7 @@ ou
 
 **Alguns parâmetros de uma ACL estendida**
 
-EXEMPLO:
+EXEMPLO (SCRIPT):
 
 !Configurações ACL
 
@@ -627,6 +627,13 @@ ip access-group LIB_WEB out
 **Verificar em qual porta está aplicada uma ACL**
 ```
 #sh running-config
+```
+
+**Remover uma ACL**
+```
+(config-ext-nacl)# no [id-da-ACL]
+ou
+(config-std-nacl)# no [id-da-ACL]
 ```
 
 ## Configurações IPv6
