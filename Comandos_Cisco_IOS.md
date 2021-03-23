@@ -192,6 +192,8 @@ Comando: exit
 **Desativar tradução de nome**
 ```
 (config)#no ip domain-lookup
+ou
+(config-line)#logging synchronous
 ```
 
 **Interface Loopback**
