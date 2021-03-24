@@ -9,6 +9,13 @@ Este repositório contém alguns scripts (organizados em pastas) referentes aos 
 Site | Curso
 ---- | -----
 [Netacad - Cisco](https://www.netacad.com/) | Introduction to Networks
+[Netacad - Cisco](https://www.netacad.com/) | Routing and switching
+[SENAI - EAD](https://ead.sp.senai.br/) | Economia Circular
+[SENAI - EAD](https://ead.sp.senai.br/) | Mercado de Trabalho
+[SENAI - EAD](https://ead.sp.senai.br/) | Segurança no Trabalho
+[SENAI - EAD](https://ead.sp.senai.br/) | Excel (básico)
+[SENAI - EAD](https://ead.sp.senai.br/) | Fundamentos de Logística
+[SENAI - EAD](https://ead.sp.senai.br/) | Privacidade e Proteção de Dados (LGPD)
 
 ## Curiosidades
 
