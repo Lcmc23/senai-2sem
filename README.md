@@ -10,6 +10,7 @@ Site | Curso
 ---- | -----
 [Netacad - Cisco](https://www.netacad.com/) | Introduction to Networks
 [Netacad - Cisco](https://www.netacad.com/) | Routing and switching
+[Netacad - Cisco](https://www.netacad.com/) | Introduction to Cybersecurity
 [SENAI - EAD](https://ead.sp.senai.br/) | Economia Circular
 [SENAI - EAD](https://ead.sp.senai.br/) | Mercado de Trabalho
 [SENAI - EAD](https://ead.sp.senai.br/) | Segurança no Trabalho
