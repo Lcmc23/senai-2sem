@@ -1,11 +1,6 @@
-CYBERSECURITY ESSENTIALS
-
-CAP1 - https://lms.netacad.com/mod/quiz/review.php?attempt=10844377&cmid=14442312
-CAP2 - https://lms.netacad.com/mod/quiz/review.php?attempt=11114470&cmid=14442320
-
 INTRODUCTION TO CYBERSECURITY
 
-CAP1 (Question·rio sobre Ètica) - https://lms.netacad.com/mod/quiz/review.php?attempt=10445601&cmid=8899776
+CAP1 (Question√°rio sobre √©tica) - https://lms.netacad.com/mod/quiz/review.php?attempt=10445601&cmid=8899776
 CAP1 - https://lms.netacad.com/mod/quiz/review.php?attempt=10446308&cmid=8899788
 
 CAP2 - https://lms.netacad.com/mod/quiz/review.php?attempt=10526938&cmid=8899804
@@ -15,5 +10,7 @@ CAP3 - https://lms.netacad.com/mod/quiz/view.php?id=8899820
 CAP4 - https://lms.netacad.com/mod/quiz/review.php?attempt=10636773&cmid=8899832
 
 
+CYBERSECURITY ESSENTIALS
 
-
+CAP1 - https://lms.netacad.com/mod/quiz/review.php?attempt=10844377&cmid=14442312
+CAP2 - https://lms.netacad.com/mod/quiz/review.php?attempt=11114470&cmid=14442320
