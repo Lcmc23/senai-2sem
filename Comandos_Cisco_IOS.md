@@ -518,7 +518,7 @@ OBS: Os modos de operação devem ser **compatíveis** de cada lado.
 
 **Atribuir as configurações de Controle de Acesso**
 ```
-(config)#access-list [1-99] [deny or permit] [endereço-ip]
+(config)#access-list [1-99] [deny or permit] [endereço-ip] [wildcard]
 ou
 (config)#access-list [1-99] [deny or permit] host [endereço-ip]
 ```
