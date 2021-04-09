@@ -1,0 +1,24 @@
+TROUBLESHOOTING (9.3.1.4)
+
+As interfaces inside e outside estão erradas
+
+SOLUÇÃO
+
+!R2
+en
+conf t
+int s0/0/0
+ip nat outside 
+int s0/0/1
+ip nat inside
+exit
+
+--------------------------------------------
+
+Máscara da ACL 101 está incorreta
+
+SOLUÇÃO
+
+!R2
+access-list 101 permit ip 10.4.10.0 0.0.1.255 any
+
