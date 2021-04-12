@@ -1,0 +1,45 @@
+SPRINT 2 - AULA NAT-PAT (introdução)
+
+NAT - NETWORK ADDRESS TRANSLATE
+
+    Por que surgiu o NAT?
+        * IPv4 - exitem aproximadamente 4bi de IPs (esgotados rapidamente)
+        * Por isso, tivemos a criação do NAT
+
+    EXEMPLO
+        * LAN - Rede interna 
+            Serviço DHCP (distribuindo IPs de maneira automática)
+            IP do desktop A = 192.168.1.0/24 (256 IPs - 254 IPs válidos)
+
+        * WAN - Rede externa
+            IP válido 200.130.200.10
+            IP do desktop A = 200.130.200.20
+
+    NAVEGADOR
+        192.168.1.0:porta ----------------> Serviços: 80 ou 8080 (HTTP), 443 (HTTPS), 53 (DNS), 21 (FTP), 22 (SSH)
+
+
+    TRÁFEGO - PAT (NAT Overload / sobrecarregado)
+        
+        1. A informação sai da rede interna com uma porta da 1024 até 65535 (pois da porta 1 - 1024 são as portas comuns)
+
+        CONVERSÃO
+
+        2. Sai com um IP válido para a internet já alterado para a porta 80 por exemplo
+
+    VANTAGENS DO NAT
+
+        * Segurança: oculta os endereços internos da sua rede
+
+        * Conexões: aumento das Conexões
+            Restringidas apenas por: /mascaras, velocidade de conexão
+
+        OBS: podem ser contratadas mais de um serviço de operadora para o NAT (Balanceamento de Carga | Feito no nosso roteador local)
+
+            EXEMPLO: WAN1 - operadora 1 (web)
+                     WAN2 - operadora 2 (smtp, pop3)
+
+
+
+
+
