@@ -74,7 +74,7 @@ ip nat inside source static 192.168.2.100 200.0.0.3
 ---------------------------------------------------------------------------------
 
 !Salvar as Configurações
-!Entrar no modo de configuração global
+!Entrar no modo de exec privilegiado
 en
 wr
 
