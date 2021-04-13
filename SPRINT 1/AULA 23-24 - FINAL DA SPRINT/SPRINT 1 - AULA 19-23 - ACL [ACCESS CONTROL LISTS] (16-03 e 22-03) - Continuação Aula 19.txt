@@ -1,0 +1,82 @@
+SPRINT 1
+AULA 19-23 - ACL [ACCESS CONTROL LISTS] (16/03 e 22/03) - Continuação Aula 19
+
+* Permitir que somente a estação 192.168.0.1, consiga acessar o servidor 172.16.0.254
+* Permitir o ping da rede 192.168.0.0/24 para a rede 172.16.0.0/16
+
+- Usar ACL estendida (utilizadas próximas a origem)
+
+EXEMPLO: Prioridade 3, é maior que a prioridade 10
+         Prioridade 1, é maior que a prioridade 3
+
+REMOVER UMA REGRA
+
+    (config-ext-nacl)# no [id-da-ACL]
+    (config-std-nacl)# no [id-da-ACL]
+
+!R-SP
+!Definir o nome do host
+en
+conf t
+hostname R-SP
+
+!Atrelar um endereço IP na interface g0/0/0
+int g0/0/0
+ip add 192.168.0.30 255.255.255.0
+no shutdown
+
+!Atrelar um endereço IP na interface s0/1/0
+int s0/1/0
+ip add 10.0.0.1 255.255.255.252
+clock rate 2000000
+no shutdown
+exit
+
+!RIPv2
+router rip
+version 2
+no auto-summary
+network 192.168.0.0
+network 10.0.0.0
+exit
+
+!Nomear ACL
+ip access-list extended Lib_Cli192_APPServe172
+
+!Regras dentro da ACL
+10 permit tcp host 192.168.0.1 range 1024 65535 host 172.16.0.254 eq www
+20 permit icmp 192.168.0.0 0.0.0.255 172.16.0.0 0.0.255.255
+30 deny ip any any
+exit
+
+!Interface s0/1/0
+int s0/1/0
+ip access-group Lib_Cli192_APPServe172 out
+
+------------------------------------------------------------------------------
+
+!R-RJ
+!Definir o nome do host
+en
+conf t
+hostname R-RJ
+
+!Atrelar um endereço IP na interface g0/0/0
+int g0/0/0
+ip add 172.16.0.30 255.255.0.0
+no shutdown
+
+!Atrelar um endereço IP na interface s0/1/0
+int s0/1/0
+ip add 10.0.0.2 255.255.255.252
+clock rate 2000000
+no shutdown
+exit
+
+!RIPv2
+router rip
+version 2
+no auto-summary
+network 172.16.0.0
+network 10.0.0.0
+
