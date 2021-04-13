@@ -1,0 +1,80 @@
+SPRINT 2 - AULA 26 - NAT Estático, Dinâmico e PAT (13-04)
+
+REVISÃO AULA 25
+
+CURIOSIDADES - Nosso celular funciona comum roteador (quando roteamos nossa internet, ele cria uma rede interna)
+               Nosso computador também possui essa função (AD HOC = Um PC disponibiliza uma conexão wi-fi para outros hosts)
+
+               DNS PRIMÁRIO DO GOOGLE - 8.8.4.4/8
+               DNS SECUNDÁRIO DO GOOGLE - 8.8.8.8/8
+
+               POR IP = exsitem 65.535 portas
+
+               PAT = gasta muito processamento / armazenamento
+
+SCRIPT - Exercício - Cenário Integrado NAT PAT (Todas as alterações devem ser feitas no roteador de borda)
+
+!Configurações no AMBIENTE 1 (NAT DINÂMICO | Comercialmente falando, não existe)
+!Roteador empresa - ACME
+
+!Entrar no modo de configuração global
+en
+conf t
+
+!Interfaces internas e externas
+int range g0/0-2
+ip nat inside
+int s0/0/0
+ip nat outside
+exit
+
+!Criar uma ACL 
+ip access-list standard LAN_AMB1
+permit 192.168.0.0 0.0.0.255
+exit
+
+!Pool de endereços (liberar 10 endereços)
+ip nat pool Intervalo-IPs-WAN-AMB1 200.0.0.101 200.0.0.110 netmask 255.255.255.0
+
+!Conversão dinâmica
+ip nat inside source list LAN_AMB1 pool Intervalo-IPs-WAN-AMB1
+
+---------------------------------------------------------------------------------
+
+!Configurações no AMBIENTE 2 (NAT COM OVERLOAD - PAT)
+!Roteador empresa - ACME
+
+!Entrar no modo de configuração global
+en
+conf t
+
+!Pool de endereços (liberar apenas 1 IP)
+ip nat pool IP-WAN-PAT 200.0.0.1 200.0.0.1 netmask 255.255.255.0
+
+!Criar uma ACL 
+ip access-list standard PAT_AMB2
+permit 192.168.1.0 0.0.0.255
+exit
+
+!Conversão de sobrecarga
+ip nat inside source list PAT_AMB2 pool IP-WAN-PAT overload
+
+---------------------------------------------------------------------------------
+
+!Configurações no AMBIENTE 3 (NAT ESTÁTICO)
+!Roteador empresa - ACME
+
+!Entrar no modo de configuração global
+en
+conf t
+
+!Tradução estática
+ip nat inside source static 192.168.2.100 200.0.0.3
+
+---------------------------------------------------------------------------------
+
+!Salvar as Configurações
+!Entrar no modo de configuração global
+en
+wr
+
