@@ -651,3 +651,252 @@ ou
 ```
 (config)#ipv6 route ::/0 [ip-de-último-recurso]
 ```
+## NAT - ESTÁTICO
+
+**Estabelecer a tradução estática entre um endereço local interno e um endereço global interno**
+
+OBS: Conversões de NAT estático são usadas geralmente quando os clientes da rede externa (Internet) precisam acessar servidores da rede interna.
+
+Exemplo:
+
+(config)#ip nat inside source static 192.168.11.99 209.165.201.5
+
+```
+(config)#ip nat inside source static [ip-local] [ip-global]
+```
+
+**Marcar a interface conectada internamente**
+
+```
+(config-if)ip nat inside
+```
+
+**Marcar a interface conectada externamente**
+
+```
+(config-if)ip nat outside
+```
+
+**Exibir as conversões ativas de NAT**
+
+```
+#show ip nat translations
+```
+
+**Exibir informações sobre o número total de conversões ativas**
+
+OBS: Para verificar se a conversão de NAT está funcionando, é melhor limpar as estatísticas de algumas conversões do passado usando o comando clear ip nat statistics e clear ip nat translation antes de testar.
+
+```
+#show ip nat statistics
+```
+
+**Verificar a operação do recurso NAT, exibindo informações sobre cada pacote que está sendo convertido pelo roteador**
+
+```
+#debug ip nat
+#debug ip nat detailed 
+```
+
+## NAT - DINÂMICO
+
+**Definir um pool de endereços globais a serem usados para conversão**
+
+OBS: Os endereços são definidos pela indicação do endereço IPv4 inicial e endereço IPv4 final do pool.
+
+Exemplo: 
+
+(config)#ip nat pool NAT-POOL1 209.165.200.226 209.165.200.240 netmask 255.255.255.224
+
+```
+(config)#ip nat pool [name] [primeiro-ip-da-rede] [ultimo-ip-da-rede] netmask [máscara]
+```
+
+**Configurar uma ACL padrão para permitir os endereços que devem ser convertidos**
+
+Exemplo: 
+
+(config)#access-list 1 permit 192.168.0.0 0.0.255.255
+
+```
+(config)#access-list [1-99] [deny or permit] [endereço-ip] [wildcard]
+```
+
+**Estabelecer a conversão dinâmica de origem, especificando a lista de acesso e o pool**
+
+Exemplo: 
+
+(config)#ip nat inside source list 1 pool NAT-POOL1
+
+```
+(config)#ip nat inside source list [número-da-acl] pool [name]
+```
+
+**Marcar a interface conectada internamente**
+
+```
+(config-if)ip nat inside
+```
+
+**Marcar a interface conectada externamente**
+
+```
+(config-if)ip nat outside
+```
+
+**Remover conversões de NAT**
+
+```
+#clear ip nat translations *
+```
+
+**Exibir as conversões ativas de NAT**
+
+```
+#show ip nat translations
+```
+
+**Exibir informações sobre o número total de conversões ativas**
+
+```
+#show ip nat statistics
+```
+
+**Eliminar as estatísticas e as entradas**
+
+```
+#clear ip nat statistics
+#clear ip nat translation *
+```
+
+**Verificar a operação do recurso NAT, exibindo informações sobre cada pacote que está sendo convertido pelo roteador**
+
+```
+#debug ip nat
+#debug ip nat detailed 
+```
+
+## PAT - Pool de Endereços
+
+**Definir um pool de endereços globais a serem usados para conversão de sobrecarga**
+
+OBS: Os endereços são definidos pela indicação do endereço IPv4 inicial e endereço IPv4 final do pool.
+
+Exemplo: 
+
+(config)#ip nat pool NAT-POOL2 209.165.200.226 209.165.200.240 netmask 255.255.255.224
+
+```
+(config)#ip nat pool [name] [intervalo-de-IPs] netmask [máscara]
+```
+
+**Configurar uma ACL padrão para permitir os endereços que devem ser convertidos**
+
+Exemplo: 
+
+(config)#access-list 1 permit 192.168.0.0 0.0.255.255
+
+```
+(config)#access-list [1-99] [deny or permit] [endereço-ip] [wildcard]
+```
+
+**Estabelecer a conversão de sobrecarga, especificando a lista de acesso e o pool**
+
+Exemplo: 
+
+(config)#ip nat inside source list 1 pool NAT-POOL2 overload
+
+```
+(config)#ip nat inside source list [número-da-acl] pool [name] overload
+```
+
+**Marcar a interface conectada internamente**
+
+```
+(config-if)ip nat inside
+```
+
+**Marcar a interface conectada externamente**
+
+```
+(config-if)ip nat outside
+```
+
+**Eliminar as estatísticas e as entradas**
+
+```
+#clear ip nat statistics
+#clear ip nat translation *
+```
+
+**Exibir as conversões ativas de NAT**
+
+```
+#show ip nat translations
+```
+
+**Exibir informações sobre o número total de conversões ativas**
+
+```
+#show ip nat statistics
+```
+
+## PAT - Endereço único
+
+**Configurar uma ACL padrão para permitir os endereços que devem ser convertidos**
+
+Exemplo: 
+
+(config)#access-list 1 permit 192.168.0.0 0.0.255.255
+
+```
+(config)#access-list [1-99] [deny or permit] [endereço-ip] [wildcard]
+```
+
+**Estabelecer a conversão dinâmica de origem, especificando as opções de ACL, interface de saída e sobrecarga**
+
+Exemplo:
+
+(config)#ip nat inside source list 1 interface serial 0/1/0 overload
+
+```
+(config)#ip nat inside source list [1-99] interface [id-da-interface] overload
+```
+
+**Marcar a interface conectada internamente**
+
+```
+(config-if)ip nat inside
+```
+
+**Marcar a interface conectada externamente**
+
+```
+(config-if)ip nat outside
+```
+
+**Eliminar as estatísticas e as entradas**
+
+```
+#clear ip nat statistics
+#clear ip nat translation *
+```
+
+**Exibir as conversões ativas de NAT**
+
+```
+#show ip nat translations
+```
+
+**Exibir informações sobre o número total de conversões ativas**
+
+```
+#show ip nat statistics
+```
+
+**Verificar a operação do recurso NAT, exibindo informações sobre cada pacote que está sendo convertido pelo roteador**
+
+```
+#debug ip nat
+#debug ip nat detailed 
+```
