@@ -1,0 +1,47 @@
+SPRINT 2 - AULA 27 -  NAT ESTÁTICO (14-04)
+
+NAT - endereço privado (não podem ser roteados pela Internet) transformado em IP público (através de um roteador)
+
+    * O NAT tem várias utilidades, mas seu principal uso é conversar endereços IPv4 públicos.
+    
+    * O NAT tem um benefício a mais de adicionar um grau de privacidade e segurança a uma rede, porque oculta os endereços IPv4 internos de 
+    redes externas.
+
+    * Um dispositivo ativado para NAT geralmente opera na borda de uma rede stub (apenas um ponto de saída para internet).
+
+POOL DE NAT - Os roteadores ativados para NAT podem ser configurados com um ou mais endereços IPv4 públicos válidos. Esses endereços públicos 
+são conhecidos como o pool de NATs.
+
+TABELA NAT:
+
+    Interno Local - Interno global - Externo global - Externo local 
+
+REVISÃO DOS TIPOS DE NAT - Estático, dinâmico e PAT
+
+RFC 1918:
+A - 10.0.0.0 - 10.255.255.255 - /8
+B - 172.16.0.0 - 172.31.255.255 - /12 (/16)
+C - 192.168.0.0 - 192.168.255.255 - /16 (/24)
+
+SCRIPT - Exercício 9.2.1.4
+
+!R1
+!Entrar no modo de configuração global
+en
+conf t
+
+!Interfaces internas e externas
+int g0/0 
+ip nat inside
+int s0/0/0
+ip nat outside
+exit
+
+!Tradução estática (liberar todas as portas | não usual)
+ip nat inside source static 172.16.16.1 64.100.50.1
+
+--------------------------------------------------------
+
+!Tradução estática (liberar apenas a porta 80 | usual)
+ip nat inside source tcp 172.16.16.1 80 64.100.50.1 80
+
