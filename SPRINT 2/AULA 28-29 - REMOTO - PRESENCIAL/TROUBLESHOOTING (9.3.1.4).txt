@@ -1,24 +1,36 @@
 TROUBLESHOOTING (9.3.1.4)
 
-As interfaces inside e outside est„o erradas
+As interfaces NAT 'inside' e 'outside' est√£o posicionadas de maneira incorreta
 
-SOLU«√O
+SOLU√á√ÉO (Aplicadas em R2)
 
-!R2
+!Apagar o erro
 en
 conf t
 int s0/0/0
-ip nat outside 
+no ip nat inside 
+int s0/0/1
+no ip nat outside
+exit
+
+!Corre√ß√£o
+int s0/0/0
+ip nat outside
 int s0/0/1
 ip nat inside
 exit
 
---------------------------------------------
+-------------------------------------------------
 
-M·scara da ACL 101 est· incorreta
+M√°scara da ACL 101 est√° incorreta
 
-SOLU«√O
+SOLU√á√ÉO
 
-!R2
+!Apagar o erro
+no access-list 101
+
+!Corre√ß√£o
 access-list 101 permit ip 10.4.10.0 0.0.1.255 any
+
+
 
