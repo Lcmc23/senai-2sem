@@ -664,7 +664,7 @@ Exemplo:
 ```
 (config)#ip nat inside source static [ip-local] [ip-global]
 ou
-(config)#ip nat inside source [tcp or udp] [ip-local] [porta-local] [ip-global] [porta-global]
+(config)#ip nat inside source static [tcp or udp] [ip-local] [porta-local] [ip-global] [porta-global]
 ```
 
 **Marcar a interface conectada internamente**
