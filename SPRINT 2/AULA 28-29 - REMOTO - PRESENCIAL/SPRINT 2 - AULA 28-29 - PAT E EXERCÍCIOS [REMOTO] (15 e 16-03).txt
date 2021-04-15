@@ -1,0 +1,84 @@
+﻿SPRINT 2 - AULA 28/29 - PAT E EXERCÍCIOS [REMOTO] (15 e 16/03)
+
+REVISÃO - NAT ESTÁTICO / EXERCÍCIO 9.2.1.4
+
+EXEMPLO: 
+
+    * Endereço local “interno” – 192.168.10.10
+
+    * Endereço global “interno” – 209.165.200.226 (router R2, out)
+
+    * Endereço global “externo” – ISP para chegar até (google.com.br)
+
+    * Endereço local “externo” – Destino Servidor (google.com.br)
+
+PAT (também chamado de sobrecarga de NAT) - preserva endereços no pool (um ou mais) de endereços globais internos
+
+    * Roteador mantém informações suficientes de protocolos de nível superior, de números de portas TCP ou UDP.
+    
+    * Quando vários endereços locais internos são mapeados para um endereço global interno, os números de porta TCP ou UDP de cada host interno
+    distinguem os endereços locais
+
+    SA - Source Address (utiliza portas altas)
+    DA - Destinations Address (utiliza portas baixas)
+
+    65536 - é o número máximo de Portas que um IP pode ter
+    Comunicação TCP - Olhando para o cliente
+    * Portas baixas: 1 - 1023
+    * Origem Portas altas: 1024 - 65536
+    OBS: No entanto, o número de endereços internos que podem ser atribuídos a um único endereço IPv4 é de cerca de 4000
+
+SCRIPT - Exercício 9.2.3.6
+
+* CURIOSIDADE: O link de Internet já está funcionando no R2, vemos isso fazendo um ping do mesmo para o servidor "cisco.pka"
+* REDE STUB ("Router atrás de outro router") - Rede 192.168.10.0 e 192.168.30.0
+* Existem mais IPv6s do que estrelas no céu (3 IPs para cada metro quadrado de todo o globo)!
+
+!R2
+!Entrar no modo de configuração global
+en
+conf t
+
+!Interface NAT - INSIDE e OUTSIDE
+int f0/0
+ip nat inside
+int s0/0/0
+ip nat inside
+int s0/0/1
+ip nat inside
+
+!Interface NAT - OUTSIDE
+int s0/1/0
+ip nat outside
+exit
+
+!!ACL (padrão nomeada)
+ip access-list standard R2NAT
+permit 192.168.10.0 0.0.0.255
+permit 192.168.20.0 0.0.0.255
+permit 192.168.30.0 0.0.0.255
+exit
+
+!Pool
+ip nat pool R2POOL 209.165.202.129 209.165.202.129 netmask 255.255.255.252
+ip nat inside source list R2NAT pool R2POOL overload
+
+!Conversão de NAT estatico (para mapear o endereço interno local.pka para seu endereço externo)
+ip nat inside source static 192.168.20.254 209.165.202.130
+
+--------------------------------------------------------------------------------------------------------------------------
+
+ou 
+
+!Conversão de NAT estatico (para mapear o endereço interno local.pka para seu endereço externo | Filtro de porta)
+ip nat inside source static tcp 192.168.20.254 80 209.165.202.130 80
+
+ou 
+
+!Conversão de NAT estatico (para mapear o endereço interno local.pka para seu endereço externo | Mascarar a porta / Hardening)
+ip nat inside source static tcp 192.168.20.254 80 209.165.202.130 8080
+
+A pesquisa no navegador deve ser feita especificando a porta
+    EXEMPLO - 209.165.202.130:8080
+
+OBS: Essas últimas configurações são mais seguras, mas não serão contabilizadas / pontuadas no packet tracer
