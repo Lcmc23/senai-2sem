@@ -32,5 +32,7 @@ no access-list 101
 !Correção
 access-list 101 permit ip 10.4.10.0 0.0.1.255 any
 
+ou 
 
-
+!access-list 101 permit ip 10.4.10.0 0.0.0.255 any
+!access-list 101 permit ip 10.4.11.0 0.0.0.255 any
