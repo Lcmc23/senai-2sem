@@ -1,0 +1,48 @@
+SCRIPT - AULA PRESENCIAL
+
+!Router0
+!Entrar no modo de configuração global
+en
+conf t
+
+!Ativar as interfaces
+int range g0/0-1
+no shutdown
+exit
+
+!Atrelar os endereços IPs as interfaces
+int g0/0
+ip add 192.168.10.1 255.255.255.0
+int g0/1
+ip add 200.200.10.1 255.255.255.252 
+exit
+
+!Definir as interfaces NAT - inside e outside
+int g0/0
+ip nat inside
+int g0/1
+ip nat outside
+exit
+
+!Pool de endereços (liberar apenas 1 IP) 
+ip nat pool IP-SRV-PAT 200.200.10.1 200.200.10.1 netmask 255.255.255.252
+
+!Criar um ACL
+ip access-list standard PAT-PC0
+permit 192.168.10.0 0.0.0.255
+exit
+
+!Conversão de sobrecarga
+ip nat inside source list PAT-PC0 pool IP-SRV-PAT overload
+
+!Salvar as configurações
+end
+wr
+
+-----------------------------------------------------------------------
+
+Habilitar o SRV-Remoto:
+Meu computador ==> propriedades ==> configurações remotas ==> Permitir o acesso remoto (desmarcar a última opção)
+
+No Cliente:
+Conexão de Área de trabalho remoto ==> 200.200.10.2 ==> Mais opções ==> .\Lucas Cabral ==> Senha (23112003) ==> OK
