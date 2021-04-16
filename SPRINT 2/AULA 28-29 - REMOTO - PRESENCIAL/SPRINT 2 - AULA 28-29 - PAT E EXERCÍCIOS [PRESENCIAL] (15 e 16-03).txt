@@ -1,0 +1,73 @@
+SPRINT 2 - AULA 28/29 - PAT E EXERCÍCIOS [PRESENCIAL] (15 e 16/03)
+
+REVISÃO - PAT
+
+* Passo a passo - configuração PAT
+
+PASSO 1 e 2. Definir as interfaces de entrada e saída (em relação ao NAT)
+PASSO 3. Criar uma ACL 
+PASSO 4. Definir o pool de endereços
+PASSO 5. Criação do PAT
+
+CURIOSIDADE - O que é PPoE (Discador / discagem | Necessita um usuário e uma senha)
+    EXEMPLO:
+    
+    (Distribuição normal de IPs - Link fibra)
+
+         NT 200.200.10.0          Rede
+         IP 200.200.10.2          (Roteador)
+         MK 255.255.255.252       /30
+         IP 200.200.10.1          (Modem)
+         NT 200.200.10.3          Broadcast
+
+    PPoE (Economia de IPs)
+
+         IP 200.200.10.2          (Roteador)
+         MK 255.255.255.255       /32
+         IP 10.10.10.1            (Modem)
+
+Verificação NAT                   Limpar as verificações
+
+#sh ip nat translations           #clear ip nat translations *       
+#sh ip nat statistics             #clear ip nat statistics
+
+OBS: Ativar CLI no Packet tracer - options ==> preferences ==> HIDE ==> desmarcar o 'hide cli'
+
+TROUBLESHOOTING (9.3.1.4)
+
+As interfaces NAT 'inside' e 'outside' estão posicionadas de maneira incorreta
+
+SOLUÇÃO (Aplicadas em R2)
+
+!Apagar o erro
+en
+conf t
+int s0/0/0
+no ip nat inside 
+int s0/0/1
+no ip nat outside
+exit
+
+!Correção
+int s0/0/0
+ip nat outside
+int s0/0/1
+ip nat inside
+exit
+
+-------------------------------------------------
+
+Máscara da ACL 101 está incorreta
+
+SOLUÇÃO
+
+!Apagar o erro
+no access-list 101
+
+!Correção
+access-list 101 permit ip 10.4.10.0 0.0.1.255 any
+
+ou 
+
+!access-list 101 permit ip 10.4.10.0 0.0.0.255 any
+!access-list 101 permit ip 10.4.11.0 0.0.0.255 any
