@@ -902,3 +902,23 @@ Exemplo:
 #debug ip nat
 #debug ip nat detailed 
 ```
+
+## OSPF
+
+**Definir o número de processo que o OSPF irá executar**
+
+```
+(config)#router OSPF [número-do-processo]
+```
+
+**Redes conhecidas**
+
+```
+(config)#network [ip-da-rede] [wildcard] area [número-da-área]
+```
+
+**Exibir as redes próximas ("ao lado") conhecidas pelo protocolo OSPF**
+
+```
+#sh ip ospf neighbor
+```
