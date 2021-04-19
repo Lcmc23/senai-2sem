@@ -28,7 +28,7 @@ line con 0
 login local
 end
 
-!Restrições SSH34
+!Restrições SSH
 conf t
 ip ssh version 2
 ip ssh authentication-retries 2
