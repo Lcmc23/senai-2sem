@@ -1,0 +1,98 @@
+SPRINT 2 - AULA 30 - PROTOCOLO DINÂMICO OSPF (19-04)
+
+PROTOCOLOS DE ROTEAMENTO DINÂMICO
+
+    * Estático
+
+    * RIP (RIPv2 = 15 routers - 16 routers "inacessível") | Saltos (Quantidade de roteadores)
+
+    * OSPF (Melhor largura de banda) | Velocidade do Link
+
+        - Descobre as rotas remotas;
+
+        - Troca de informações;
+        
+        - Tabela de Roteamento (Diretamente conectadas e rotas remotas);
+
+        - Busca o melhor caminho;
+
+            > Menor tráfego
+            > Menor quantidade de saltos (Hop)
+        
+        - Reorganização dos caminhos
+
+COMANDOS
+
+    RIP
+
+        (config)#router rip
+        (config)#version 2
+        (config)#network [ip-da-rede]
+
+    OSPF
+
+        (config)#router OSPF [número-do-processo]
+        EXEMPLO: router OSPF 10
+        OBS: Os roteadores não precisam ter o mesmo número de processo
+
+        (config)#network [ip-da-rede] [wildcard] area [número-da-área]
+        EXEMPLO: network 192.168.0.0 0.0.0.255 area 0 (isso vale apenas para uma área)
+        OBS: Os roteadores devem fazer parte da mesma área (para "conversar")
+
+        #sh ip ospf neighbor
+        OBS: este comando nos mostra as redes próximas ("ao lado")
+
+SCRIPT - Exercício PROTOCOLO_OSPF_BASICO
+
+!R_MATRIZ
+!Nome do router
+en
+conf t
+hostname R_MATRIZ
+
+!Configuração das interfaces
+int g0/0/0
+ip add 192.168.0.254 255.255.255.0
+no shut
+
+int s0/1/0
+ip add 10.0.0.13 255.255.255.252
+clock rate 2000000
+no shut
+exit
+
+!OSPF
+router ospf 10
+network 192.168.0.0 0.0.0.255 area 0
+network 10.0.0.12 0.0.0.3 area 0 
+
+!Salvar as configurações
+do wr
+
+----------------------------------------
+
+!R_FILIAL
+!Nome do router
+en
+conf t
+hostname R_FILIAL
+
+!Configuração das interfaces
+int g0/0/0
+ip add 172.16.255.254 255.255.0.0
+no shut
+
+int s0/1/0
+ip add 10.0.0.14 255.255.255.252
+no shut
+exit
+
+!OSPF
+router ospf 20
+network 172.16.0.0 0.0.255.255 area 0
+network 10.0.0.12 0.0.0.3 area 0 
+
+!Salvar as configurações
+do wr
+        
+        

@@ -1,0 +1,95 @@
+!R_MATRIZ
+!Nome do router
+en
+conf t
+hostname R_MATRIZ
+
+!Configuração das interfaces
+int g0/0/0
+ip add 192.168.0.126 255.255.255.128
+no shut
+
+int s0/1/0
+ip add 10.0.0.13 255.255.255.252
+clock rate 2000000
+no shut
+exit
+
+int s0/1/1
+ip add 10.0.0.9 255.255.255.252
+clock rate 2000000
+no shut
+exit
+
+!OSPF
+router ospf 10
+network 192.168.0.0 0.0.0.127 area 0
+network 10.0.0.12 0.0.0.3 area 0 
+network 10.0.0.8 0.0.0.3 area 0 
+
+!Salvar as configurações
+do wr
+
+-------------------------------------
+
+!R_FILIAL1
+!Nome do router
+en
+conf t
+hostname R_FILIAL1
+
+!Configuração das interfaces
+int g0/0/0
+ip add 192.168.0.158 255.255.255.224
+no shut
+
+int s0/1/0
+ip add 10.0.0.14 255.255.255.252
+no shut
+exit
+
+int s0/1/1
+ip add 10.0.0.5 255.255.255.252
+no shut
+exit
+
+!OSPF
+router ospf 20
+network 192.168.0.128 0.0.0.31 area 0
+network 10.0.0.12 0.0.0.3 area 0 
+network 10.0.0.4 0.0.0.3 area 0 
+
+!Salvar as configurações
+do wr
+
+-------------------------------------
+
+!R_FILIAL2
+!Nome do router
+en
+conf t
+hostname R_FILIAL2
+
+!Configuração das interfaces
+int g0/0/0
+ip add 192.168.0.174 255.255.255.240
+no shut
+
+int s0/1/0
+ip add 10.0.0.10 255.255.255.252
+no shut
+exit
+
+int s0/1/1
+ip add 10.0.0.6 255.255.255.252
+no shut
+exit
+
+!OSPF
+router ospf 30
+network 192.168.0.160 0.0.0.15 area 0
+network 10.0.0.8 0.0.0.3 area 0 
+network 10.0.0.4 0.0.0.3 area 0 
+
+!Salvar as configurações
+do wr
