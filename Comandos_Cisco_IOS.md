@@ -914,7 +914,13 @@ Exemplo:
 **Redes conhecidas**
 
 ```
-(config)#network [ip-da-rede] [wildcard] area [número-da-área]
+(config-router)#network [ip-da-rede] [wildcard] area [número-da-área]
+```
+
+**Evitar a distribuição das networks para as respectivas LAN´s**
+
+```
+(config-router)passive-interface [interface-que-está-conectada-na-LAN]
 ```
 
 **Exibir as redes próximas ("ao lado") conhecidas pelo protocolo OSPF**
