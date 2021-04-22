@@ -928,3 +928,9 @@ Exemplo:
 ```
 #sh ip ospf neighbor
 ```
+
+**Exibir os protocolos executados pelo OSPF**
+
+```
+#sh ip protocols
+```
