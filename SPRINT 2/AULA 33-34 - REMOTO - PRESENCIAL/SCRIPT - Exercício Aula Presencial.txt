@@ -1,0 +1,27 @@
+SCRIPT - Exercício Aula Presencial
+
+!R_1
+!Hostname
+en
+conf t
+hostname R_1
+
+!Atrelar um IP nas interfaces
+int g0/0
+ip add 10.0.0.1 255.255.255.0
+description INTERFACE DE COMUNICAÇÃO
+no shut
+
+int g0/1
+ip add 192.168.1.1 255.255.255.0
+description GATEWAY
+no shut
+exit
+
+!OSPF
+router ospf 10
+network 10.0.0.0 0.0.0.3 area 0
+network 192.168.1.0 0.0.0.255 area 6
+
+!Salvar as configurações
+do wr
