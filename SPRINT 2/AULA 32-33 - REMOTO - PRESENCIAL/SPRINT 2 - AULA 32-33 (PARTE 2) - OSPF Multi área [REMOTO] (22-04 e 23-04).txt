@@ -1,0 +1,148 @@
+SPRINT 2 - AULA 32/33 (PARTE 2) - OSPF Multi área [REMOTO] (22/04 e 23/04)
+
+SCRIPT - Exercício 29_PROTOCOLO_OSPF_MULTI_3.pkt
+
+!R_0
+!hostname
+en
+conf t
+hostname R_0
+
+!Definir um endereço IP na interface s0/1/0
+int s0/1/0
+ip add 10.0.0.1 255.255.255.252
+no shut
+
+!Definir um endereço IP na interface s0/1/1
+int s0/1/1
+ip add 10.0.0.13 255.255.255.252
+no shut
+
+!Definir um endereço IP na interface s0/2/0
+int s0/2/0
+ip add 10.0.0.5 255.255.255.252
+no shut
+
+!Definir um endereço IP na interface s0/2/1
+int s0/2/1
+ip add 10.0.0.9 255.255.255.252
+no shut
+exit
+
+!OSPF
+router ospf 10
+network 10.0.0.0 0.0.0.3 area 0
+network 10.0.0.4 0.0.0.3 area 0
+network 10.0.0.8 0.0.0.3 area 0
+network 10.0.0.12 0.0.0.3 area 0
+
+!Salvar as configurações
+do wr
+
+---------------------------------------------------
+
+!R_4
+!hostname
+en
+conf t
+hostname R_4
+
+!Definir um endereço IP na interface s0/1/0
+int s0/1/0
+ip add 10.0.0.10 255.255.255.252
+no shut
+
+!Definir um endereço IP na interface g0/0/0
+int g0/0/0
+ip add 192.168.0.190 255.255.255.192
+no shut
+exit
+
+!OSPF
+router ospf 20
+network 10.0.0.8 0.0.0.3 area 0
+network 192.168.0.128 0.0.0.63 area 3
+
+!Salvar as configurações
+do wr
+
+---------------------------------------------------
+
+!R_1
+!hostname
+en
+conf t
+hostname R_1
+
+!Definir um endereço IP na interface s0/1/0
+int s0/1/0
+ip add 10.0.0.2 255.255.255.252
+no shut
+
+!Definir um endereço IP na interface g0/0/0
+int g0/0/0
+ip add 192.168.0.126 255.255.255.128
+no shut
+exit
+
+!OSPF
+router ospf 30
+network 10.0.0.0 0.0.0.3 area 0
+network 192.168.0.0 0.0.0.127 area 4
+
+!Salvar as configurações
+do wr
+
+---------------------------------------------------
+
+!R_2
+!hostname
+en
+conf t
+hostname R_2
+
+!Definir um endereço IP na interface s0/1/0
+int s0/1/0
+ip add 10.0.0.14 255.255.255.252
+no shut
+
+!Definir um endereço IP na interface g0/0/0
+int g0/0/0
+ip add 192.168.0.206 255.255.255.240
+no shut
+exit
+
+!OSPF
+router ospf 40
+network 10.0.0.12 0.0.0.3 area 0
+network 192.168.0.192 0.0.0.15 area 1
+
+!Salvar as configurações
+do wr
+
+---------------------------------------------------
+
+!R_3
+!hostname
+en
+conf t
+hostname R_3
+
+!Definir um endereço IP na interface s0/1/0
+int s0/1/0
+ip add 10.0.0.6 255.255.255.252
+no shut
+
+!Definir um endereço IP na interface g0/0/0
+int g0/0/0
+ip add 192.168.0.210 255.255.255.252
+no shut
+exit
+
+!OSPF
+router ospf 50
+network 10.0.0.4 0.0.0.3 area 0
+network 192.168.0.208 0.0.0.3 area 2
+
+!Salvar as configurações
+do wr
