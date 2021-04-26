@@ -1,0 +1,337 @@
+SPRINT 2 - AULA 34 - RESOLUÇÃO DE EXERCÍCIOS (26-04)
+
+CÁLCULO VLSM 
+
+    JUQ - 10.3.240.0/21 (255.255.248.0)
+
+        Variação = 8 em 8
+        Último IP válido (GTW) = 10.3.247.254
+        PC = 10.3.240.1
+
+    SAN - 10.3.248.0/22 (255.255.252.0)
+
+        Variação = 4 em 4
+        Último IP válido (GTW) = 10.3.251.254
+        PC = 10.3.248.1
+
+    ITA - 10.3.0.0/17 (255.255.128.0)
+
+        Variação = 128 em 128
+        Último IP válido (GTW) = 10.3.127.254
+        PC = 10.3.0.1
+
+    PAR - 10.3.254.0/26 (255.255.255.192)
+
+        Variação = 64 em 64
+        Último IP válido (GTW) = 10.3.254.62
+        PC = 10.3.254.1
+
+    SC - 10.2.0.0/16 (255.255.0.0)
+
+        Último IP válido = 10.2.255.254
+        PC = 10.2.0.1
+
+SCRIPT - COMANDOS
+
+!R_JUQ
+!Hostname do Router e habilitação das senhas criptografadas
+en
+conf t
+hostname R_JUQ
+service password-encryption
+
+!Desativar o erro "domain" (busca de hosts na rede)
+no ip domain-lookup
+
+!Senha de enable (secreta / criptografada)
+enable secret senai@132
+
+!Configuração nas VTYs e Console
+line con 0
+logging synchronous
+password senai@132
+login
+exit
+line vty 0 4
+logging synchronous
+password senai@132
+login
+exit
+
+!Atrelar um endereço IP na interface g0/0/0
+int g0/0/0
+ip add 10.3.247.254 255.255.248.0
+no shutdown
+
+!Atrelar um endereço IP na interface s0/1/0
+int s0/1/0
+ip add 10.3.204.65 255.255.255.252
+clock rate 2000000
+no shutdown
+
+!Configurações OSPF
+router ospf 80
+network 10.3.240.0 0.0.7.255 area 4
+network 10.3.204.64 0.0.0.3 area 0 
+passive-interface g0/0/0
+end
+
+!Salvar as Configurações ("wr")
+copy running-config startup-config
+
+------------------------------------------------------------
+
+!R_SANTOS
+!Hostname do Router e habilitação das senhas criptografadas
+en
+conf t
+hostname R_SANTOS
+service password-encryption
+
+!Desativar o erro "domain" (busca de hosts na rede)
+no ip domain-lookup
+
+!Senha de enable (secreta / criptografada)
+enable secret senai@132
+
+!Configuração nas VTYs e Console
+line con 0
+logging synchronous
+password senai@132
+login
+exit
+line vty 0 4
+logging synchronous
+password senai@132
+login
+exit
+
+!Atrelar um endereço IP na interface g0/0/0
+int g0/0/0
+ip add 10.3.251.254 255.255.252.0
+no shutdown
+
+!Atrelar um endereço IP na interface s0/1/1
+int s0/1/1
+ip add 10.3.204.85 255.255.255.252
+clock rate 2000000
+no shutdown
+
+!Configurações OSPF
+router ospf 20
+network 10.3.248.0 0.0.3.255 area 8
+network 10.3.204.84 0.0.0.3 area 8 
+passive-interface g0/0/0
+end
+
+!Salvar as Configurações ("wr")
+copy running-config startup-config
+
+------------------------------------------------------------
+
+!R_ITA
+!Hostname do Router e habilitação das senhas criptografadas
+en
+conf t
+hostname R_ITA
+service password-encryption
+
+!Desativar o erro "domain" (busca de hosts na rede)
+no ip domain-lookup
+
+!Senha de enable (secreta / criptografada)
+enable secret senai@132
+
+!Configuração nas VTYs e Console
+line con 0
+logging synchronous
+password senai@132
+login
+exit
+line vty 0 4
+logging synchronous
+password senai@132
+login
+exit
+
+!Atrelar um endereço IP na interface g0/0/0
+int g0/0/0
+ip add 10.3.127.254 255.255.128.0
+no shutdown
+
+!Atrelar um endereço IP na interface s0/1/0
+int s0/1/0
+ip add 10.3.204.78 255.255.255.252
+no shutdown
+
+!Atrelar um endereço IP na interface s0/1/1
+int s0/1/1
+ip add 10.3.204.86 255.255.255.252
+no shutdown
+
+!Configurações OSPF
+router ospf 30
+network 10.3.0.0 0.0.127.255 area 9
+network 10.3.204.84 0.0.0.3 area 8 
+network 10.3.204.76 0.0.0.3 area 0 
+passive-interface g0/0/0
+end
+
+!Salvar as Configurações ("wr")
+copy running-config startup-config
+
+------------------------------------------------------------
+
+!R_PAR
+!Hostname do Router e habilitação das senhas criptografadas
+en
+conf t
+hostname R_PAR
+service password-encryption
+
+!Desativar o erro "domain" (busca de hosts na rede)
+no ip domain-lookup
+
+!Senha de enable (secreta / criptografada)
+enable secret senai@132
+
+!Configuração nas VTYs e Console
+line con 0
+logging synchronous
+password senai@132
+login
+exit
+line vty 0 4
+logging synchronous
+password senai@132
+login
+exit
+
+!Atrelar um endereço IP na interface g0/0/0
+int g0/0/0
+ip add 10.3.254.62 255.255.255.192 
+no shutdown
+
+!Atrelar um endereço IP na interface s0/1/0
+int s0/1/0
+ip add 10.3.204.74 255.255.255.252
+no shutdown
+
+!Atrelar um endereço IP na interface s0/1/1
+int s0/1/1
+ip add 10.3.204.89 255.255.255.252
+no shutdown
+
+!Configurações OSPF
+router ospf 40
+network 10.3.254.0 0.0.0.63 area 11
+network 10.3.204.72 0.0.0.3 area 0 
+network 10.3.204.88 0.0.0.3 area 10 
+passive-interface g0/0/0
+end
+
+!Salvar as Configurações ("wr")
+copy running-config startup-config
+
+------------------------------------------------------------
+
+!R_SC
+!Hostname do Router e habilitação das senhas criptografadas
+en
+conf t
+hostname R_SC
+service password-encryption
+
+!Desativar o erro "domain" (busca de hosts na rede)
+no ip domain-lookup
+
+!Senha de enable (secreta / criptografada)
+enable secret senai@132
+
+!Configuração nas VTYs e Console
+line con 0
+logging synchronous
+password senai@132
+login
+exit
+line vty 0 4
+logging synchronous
+password senai@132
+login
+exit
+
+!Atrelar um endereço IP na interface g0/0/0
+int g0/0/0
+ip add 10.2.255.254 255.255.0.0
+no shutdown
+
+!Atrelar um endereço IP na interface s0/1/1
+int s0/1/1
+ip add 10.3.204.90 255.255.255.252
+clock rate 2000000
+no shutdown
+
+!Configurações OSPF
+router ospf 50
+network 10.2.0.0 0.0.255.255 area 10
+network 10.3.204.88 0.0.0.3 area 10
+passive-interface g0/0/0
+end
+
+!Salvar as Configurações ("wr")
+copy running-config startup-config
+
+------------------------------------------------------------
+
+!R_CENTRAL
+!Hostname do Router e habilitação das senhas criptografadas
+en
+conf t
+hostname R_CENTRAL
+service password-encryption
+
+!Desativar o erro "domain" (busca de hosts na rede)
+no ip domain-lookup
+
+!Senha de enable (secreta / criptografada)
+enable secret senai@132
+
+!Configuração nas VTYs e Console
+line con 0
+logging synchronous
+password senai@132
+login
+exit
+line vty 0 4
+logging synchronous
+password senai@132
+login
+exit
+
+!Atrelar um endereço IP na interface s0/1/0
+int s0/1/0
+ip add 10.3.204.66 255.255.255.252
+no shutdown
+
+!Atrelar um endereço IP na interface s0/2/1
+int s0/2/0
+ip add 10.3.204.73 255.255.255.252
+clock rate 2000000
+no shutdown
+
+!Atrelar um endereço IP na interface s0/2/1
+int s0/2/1
+ip add 10.3.204.77 255.255.255.252
+clock rate 2000000
+no shutdown
+exit
+
+!Configurações OSPF
+router ospf 90
+network 10.3.204.64 0.0.0.3 area 0
+network 10.3.204.72 0.0.0.3 area 0 
+network 10.3.204.76 0.0.0.3 area 0 
+end
+
+!Salvar as Configurações ("wr")
+copy running-config startup-config
