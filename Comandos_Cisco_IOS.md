@@ -934,3 +934,9 @@ Exemplo:
 ```
 #sh ip protocols
 ```
+
+**Exibir as rotas OSPF**
+
+```
+#sh ip route ospf
+```
