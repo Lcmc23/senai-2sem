@@ -43,5 +43,5 @@ ip nat inside source static 172.16.16.1 64.100.50.1
 --------------------------------------------------------
 
 !Tradução estática (liberar apenas a porta 80 | usual)
-ip nat inside source tcp 172.16.16.1 80 64.100.50.1 80
+ip nat inside source static tcp 172.16.16.1 80 64.100.50.1 80
 
