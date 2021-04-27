@@ -911,6 +911,18 @@ Exemplo:
 (config)#router OSPF [número-do-processo]
 ```
 
+**Definir o ID do roteador**
+
+```
+(config-router)#router-id [id-do-roteador]
+```
+
+**'Limpar' os processos OSPF**
+
+```
+#clear ip ospf process
+```
+
 **Redes conhecidas**
 
 ```
@@ -923,13 +935,25 @@ Exemplo:
 (config-router)passive-interface [interface-que-está-conectada-na-LAN]
 ```
 
-**Exibir as redes próximas ("ao lado") conhecidas pelo protocolo OSPF**
+**Verificar banco de dados do OSPF**
+
+```
+#sh ip ospf database
+```
+
+**Verificar Interfaces do OSPF**
+
+```
+#sh ip ospf interface
+```
+
+**Exibir vizinhos OSPF**
 
 ```
 #sh ip ospf neighbor
 ```
 
-**Exibir os protocolos executados pelo OSPF**
+**Ver redes cadastradas e áreas participantes**
 
 ```
 #sh ip protocols
@@ -939,4 +963,10 @@ Exemplo:
 
 ```
 #sh ip route ospf
+```
+
+**Verificar as áreas conhecidas**
+
+```
+#sh ip ospf interface brief
 ```
