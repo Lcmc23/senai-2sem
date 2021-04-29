@@ -346,6 +346,16 @@ ou
 (config)#ip route 0.0.0.0 0.0.0.0 [ip-de-último-recurso]
 ```
 
+**Troca de pacotes entre protocolos de roteamento diferente**
+
+OBS: A redistribuição irá ser definida com base na configuração atual do roteador
+
+Exemplo: RIP - redistribui RIP; OSPF - redistribui OSPF
+
+```
+(config-router)#redistribute [protocolo]
+```
+
 ## Configurações Rota Dinâmica (RIPv2) 
 
 **Ativar o RIPv2**
@@ -969,4 +979,32 @@ Exemplo:
 
 ```
 #sh ip ospf interface brief
+```
+
+## BGP 
+
+**Definir o número de processo que o BGP irá executar**
+
+OBS: Número do processo deve ser > ou = 65000
+
+```
+(config)#router bgp [número-do-processo]
+```
+
+**Determinar o caminho para outra rede**
+
+```
+(config-router)#neighbor [endereço-ip-da-interface-vizinha] remote-as [número-do-processo-do-roteador-vizinho]
+```
+
+**Declarar a rede na qual estou inserido**
+
+```
+(config-router)#network [endereço-ip] mask [máscara]
+```
+
+**Verificar informações sobre o BGP**
+
+```
+#sh ip bgp
 ```
