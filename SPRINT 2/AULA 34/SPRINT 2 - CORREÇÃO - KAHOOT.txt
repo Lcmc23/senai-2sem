@@ -1,0 +1,63 @@
+SPRINT 2 - CORREÇÃO - KAHOOT
+
+* SCANNER DE IP = Advanced IP Scanner
+
+    1 - A rede 192.168.0.0/24
+    R: 254 IPs válidos 
+
+    2 - A rede 172.16.0.0/24
+    R: 254 IPs válidos
+
+    3 - 70, 10, 10 = 90 IPs
+    R: Rede 172.16.0.0/24
+
+    4 - Rede 172.16.0.0/26
+    R: sub-rede
+
+    5 - Máscara /25 invertida
+    R: 0.0.0.127
+
+    6 - 200.204.0.0/24 e 189.10.30.0/24
+    R: IPs públicos (true)
+
+    7 - Fornece uma solução para que vários endereços IPs compartilhem um único endereço
+    R: PAT
+
+    8 - Roteador = conectar várias redes e determinar o melhor caminho para a entrega de pacotes
+    R: true
+
+    9 - O que um PC precisa para enviar pacotes a um destino remoto?
+    R: Definir o endereço IP, Máscara e Gateway
+
+    10 - Tabela de roteamento 
+    R: Gateway = 209.165.200.225 (S* rota padrão, neste caso gateway padrão)
+
+    11 - Protocolo RIP 
+    R: Contagem de saltos
+
+    12 - Protocolo OSPF
+    R: Largura de banda
+
+    13 - OPSF usa largura de banda para definir o melhor caminho
+    R: true
+
+    14 - ACL
+    R: Filtrar pacotes entre redes diferentes
+
+    15 - 'ip route 0.0.0.0 0.0.0.0 209.165.200.226'
+    R: Rota padrão para 209.165.200.226
+
+    16 - Que tipo de rota permite a comunicação para uma rota que não esteja na tabela de roteamento (rota específica)?
+    R: Rota padrão
+
+    17 - Vantagens do roteamento estático
+    R: Menor consumo de processamento e maior segurança (não envia as atualizações na rede)
+
+    18 - 'ip route 172.16.1.0 255.255.255.0 172.16.2.2
+    R: S 172.16.2.0 [1/0] via 172.16.2.2
+
+    19 - NAT interno global
+    R: 200.165.200.226
+
+    20 - NAT interno local
+    R: 192.168.10.10
