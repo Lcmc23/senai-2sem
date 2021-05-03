@@ -8,9 +8,10 @@ Este repositório contém alguns scripts (organizados em pastas) referentes aos 
 
 Site | Curso
 ---- | -----
-[CCNA - Cisco](https://www.netacad.com/) | Introduction to Networks
-[CCNA - Cisco](https://www.netacad.com/) | Routing and switching
-[CCNA - Cisco](https://www.netacad.com/) | Connecting Networks
+[CCNA R&S](https://www.netacad.com/) | Introduction to Networks
+[CCNA R&S](https://www.netacad.com/) | Routing and switching
+[CCNA R&S](https://www.netacad.com/) | Scaling Networks
+[CCNA R&S](https://www.netacad.com/) | Connecting Networks
 [Netacad - Cisco](https://www.netacad.com/) | Introduction to Cybersecurity
 [Netacad - Cisco](https://www.netacad.com/) | Cybersecurity Essentials
 [SENAI - EAD](https://ead.sp.senai.br/) | Economia Circular
