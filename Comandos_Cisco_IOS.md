@@ -346,16 +346,6 @@ ou
 (config)#ip route 0.0.0.0 0.0.0.0 [ip-de-último-recurso]
 ```
 
-**Troca de pacotes entre protocolos de roteamento diferente**
-
-OBS: A redistribuição irá ser definida com base na configuração atual do roteador
-
-Exemplo: RIP - redistribui RIP; OSPF - redistribui OSPF
-
-```
-(config-router)#redistribute [protocolo]
-```
-
 ## Configurações Rota Dinâmica (RIPv2) 
 
 **Ativar o RIPv2**
@@ -945,6 +935,12 @@ Exemplo:
 (config-router)passive-interface [interface-que-está-conectada-na-LAN]
 ```
 
+**Redistribuição OSPF --> BGP**
+
+```
+(config-router)#redistribute bgp [número-do-processo-bgp-que-foi-definido] metric [número-do-processo-ospf-que-foi-definido] subnets
+```
+
 **Verificar banco de dados do OSPF**
 
 ```
@@ -1001,6 +997,12 @@ OBS: Número do processo deve ser > ou = 65000
 
 ```
 (config-router)#network [endereço-ip] mask [máscara]
+```
+
+**Redistribuição BGP --> OSPF**
+
+```
+(config-router)#redistribute ospf [número-do-processo-executado-pelo-ospf]
 ```
 
 **Verificar informações sobre o BGP**
