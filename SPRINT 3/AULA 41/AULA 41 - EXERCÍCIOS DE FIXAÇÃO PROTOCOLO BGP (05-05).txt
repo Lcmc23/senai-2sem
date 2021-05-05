@@ -1,0 +1,166 @@
+AULA 41 - EXERCÍCIOS DE FIXAÇÃO PROTOCOLO BGP (05/05)
+
+    No Brasil, o PTT.br é um projeto de PTTs locais gerido pelo Núcleo de Informação e Coordenação do Ponto Br (Nic.br) e pelo Comitê Gestor 
+    da Internet no Brasil (CGI.br), que facilita o fluxo de informações entre provedores de internet e conteúdo online no país.
+
+    PTT - resumo: cria a infra-estrutura necessária para a interconexão direta entre as redes que compõem a Internet Brasileira.
+
+    DUPLA ABORDAGEM = Adicionar mais uma rede / mais uma rota / mais um caminho
+
+    CURIOSIDADE = no protocolo BGP, redes /24 podem ser declaradas até mesmo sem o parâmetro mask!
+
+SCRIPT - Exercício - 'Aula 41_EXERCÍCIO_BGP_EM_AULA_050520211'
+
+    OBS: Parte 1 do Exercício = ausência do roteador "VIVOCLI2" (colocado para gerar redundância na rede)
+
+!TIM
+!Hostname
+en
+conf t
+hostname TIM
+
+!Endereço IP nas interfaces
+int g0/0/0
+ip address 200.1.0.254 255.255.255.0
+no sh
+
+int s0/1/0
+ip address 189.190.190.1 255.255.255.252
+no sh
+exit
+
+!BGP 
+router bgp 13200
+network 200.1.0.0
+network 189.190.190.0 mask 255.255.255.252
+neighbor 189.190.190.2 remote-as 13201
+
+!Salvar as configurações
+do wr
+
+--------------------------------------------
+
+!VIVO1
+!Hostname
+en
+conf t
+hostname VIVO1
+
+!Endereço IP nas interfaces
+int s0/1/0
+ip address 189.190.190.2 255.255.255.252
+clock rate 2000000
+no sh
+
+int s0/1/1
+ip add 189.190.191.1 255.255.255.252
+no sh
+exit
+
+!BGP 
+router bgp 13201
+network 189.190.190.0 mask 255.255.255.252
+network 189.190.191.0 mask 255.255.255.252
+neighbor 189.190.190.1 remote-as 13200
+neighbor 189.190.191.2 remote-as 13202
+
+!Salvar as configurações
+do wr
+
+--------------------------------------------
+
+!VIVO2
+!Hostname
+en
+conf t
+hostname VIVO2
+
+!Endereço IP nas interfaces
+int s0/1/0
+ip address 189.190.192.1 255.255.255.252
+clock rate 2000000
+no sh
+
+int s0/1/1
+ip add 189.190.191.2 255.255.255.252
+no sh
+exit
+
+!BGP 
+router bgp 13202
+network 189.190.191.0 mask 255.255.255.252
+network 189.190.192.0 mask 255.255.255.252
+neighbor 189.190.191.1 remote-as 13201
+neighbor 189.190.192.2 remote-as 20000
+
+!Salvar as configurações
+do wr
+
+--------------------------------------------
+
+!VIVOCLI
+!Hostname
+en
+conf t
+hostname VIVOCLI
+
+!Endereço IP nas interfaces
+int g0/0/0
+ip address 200.0.0.254 255.255.255.0
+no sh
+
+int s0/1/0
+ip address 189.190.192.2 255.255.255.252
+no sh
+exit
+
+!BGP 
+router bgp 20000
+network 200.0.0.0
+network 189.190.192.0 mask 255.255.255.252
+neighbor 189.190.192.1 remote-as 13202
+
+!Salvar as configurações
+do wr
+
+*****************************************************************************************************************
+
+PARTE 2 - DUPLA ABORDAGEM (Adição do roteador VIVOCLI2)
+NOTA = Esta segunda parte não está utilizando o protocolo HSRP, apenas foi adicionada mais uma rota para o Servidor HTTP
+
+1) Adicione um novo roteador (4331), cujo nome será "VIVOCLI2"
+
+2) Conecte o roteador VIVO1 no VIVOCLI2 (interface s0/2/0)
+
+3) Uma nova rede deve ser adicionada para esses roteadores, na qual será 189.190.193.0/30
+
+4) Cadastre o IP 189.190.193.1 na s0/2/0 do roteador VIVO1
+
+5) Cadastre o IP 189.190.193.2 na s0/2/0 do roteador VIVOCLI2
+
+    OBS: As seguintes mensagens de log aparecerão no roteador VIVO1 
+
+        %BGP-3-NOTIFICATION: sent to neighbor 189.190.190.1 6/0 (unsupported) 0 bytes 
+        %BGP-3-NOTIFICATION: sent to neighbor 189.190.191.2 6/0 (unsupported) 0 bytes 
+        %LINEPROTO-5-UPDOWN: Line protocol on Interface Serial0/2/0, changed state to up
+
+6) Cadastre o IP 200.0.0.254 (/24) na g0/0/0 do VIVOCLI2
+
+    OBS: O cabo deve ser retirado do Servidor HTTP ---> VIVOCLI p/ Servidor HTTP ---> VIVOCLI2
+
+7) Cadastre a nova rede e o novo "vizinho" no VIVO1
+
+    router bgp 13201
+    network 189.190.193.0 mask 255.255.255.252
+    neighbor 189.190.193.2 remote-as 20000
+    do wr
+
+8) Cadastre a nova rede e o novo "vizinho" no VIVOCLI2
+
+    router bgp 20000
+    network 200.0.0.0
+    network 189.190.193.0 mask 255.255.255.252 
+    neighbor 189.190.193.1 remote-as 13201
+    do wr
+
+9) Faça o teste de ping e tracert em ambas as rotas 
