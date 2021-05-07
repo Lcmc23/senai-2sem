@@ -1,0 +1,509 @@
+﻿AULA 42 - EXERCÍCIOS COM OSPF e BGP (reforçando conceitos) (06-05)
+
+DESAFIO - ENTREGA
+Autor: Lucas Cabral
+
+* CÁLCULO DAS REDES
+
+Dispositivo    Hosts	          REDE       Máscara        Máscara em Decimal            Range de IPs         
+  R_ITQ	     700 (1022)	      172.16.0.0       /22	       255.255.252.0	     172.16.0.1 - 172.16.3.254
+ R_PONTAL    500 (510)        172.16.4.0       /23             255.255.254.0         172.16.4.1 - 172.16.5.254
+  R_ITA	     200 (254)	      172.16.6.0       /24	       255.255.255.0	     172.16.6.1 - 172.16.6.254
+  R_BX	      50 (62)	      172.16.7.0       /26	      255.255.255.192	     172.16.7.1 - 172.16.7.62
+  R_LEME      30 (30)         172.16.7.64      /27	      255.255.255.224	    172.16.7.65 - 172.16.7.94
+  R_SM	      10 (14)	      172.16.7.96      /28	      255.255.255.240	    172.16.7.97 - 172.16.7.110
+
+* SCRIPT - ROTEADORES
+
+!R_ITQ
+!Hostname do Router e habilitação das senhas criptografadas
+en
+conf t
+hostname R_ITQ
+service password-encryption
+
+!Desativar o erro "domain" (busca de hosts na rede)
+no ip domain-lookup
+
+!Senha de enable (secreta / criptografada)
+enable secret senai@132
+
+!Configuração nas VTYs e Console
+line con 0
+logging synchronous
+password senai@132
+login
+exit
+line vty 0 4
+logging synchronous
+password senai@132
+login
+exit
+
+!Endereço IP nas interfaces
+int g0/0/0
+ip add 172.16.3.254 255.255.252.0
+no shut
+
+int s0/1/0
+ip add 172.16.7.113 255.255.255.252
+no shut
+
+!OSPF
+router ospf 10
+network 172.16.0.0 0.0.3.255 area 10
+network 172.16.7.112 0.0.0.3 area 0
+passive-interface g0/0/0
+
+!Salvar as Configurações
+do wr
+
+------------------------------------------------------------
+
+!R_SM
+!Hostname do Router e habilitação das senhas criptografadas
+en
+conf t
+hostname R_SM
+service password-encryption
+
+!Desativar o erro "domain" (busca de hosts na rede)
+no ip domain-lookup
+
+!Senha de enable (secreta / criptografada)
+enable secret senai@132
+
+!Configuração nas VTYs e Console
+line con 0
+logging synchronous
+password senai@132
+login
+exit
+line vty 0 4
+logging synchronous
+password senai@132
+login
+exit
+
+!Endereço IP nas interfaces
+int g0/0/0
+ip add 172.16.7.110 255.255.255.240
+no shut
+
+int s0/1/1
+ip add 172.16.7.121 255.255.255.252
+no shut
+
+!OSPF
+router ospf 20
+network 172.16.7.96 0.0.0.15 area 20
+network 172.16.7.120 0.0.0.3 area 0
+passive-interface g0/0/0
+
+!Salvar as Configurações
+do wr
+
+------------------------------------------------------------
+
+!R_ITA
+!Hostname do Router e habilitação das senhas criptografadas
+en
+conf t
+hostname R_ITA
+service password-encryption
+
+!Desativar o erro "domain" (busca de hosts na rede)
+no ip domain-lookup
+
+!Senha de enable (secreta / criptografada)
+enable secret senai@132
+
+!Configuração nas VTYs e Console
+line con 0
+logging synchronous
+password senai@132
+login
+exit
+line vty 0 4
+logging synchronous
+password senai@132
+login
+exit
+
+!Endereço IP nas interfaces
+int g0/0/0
+ip add 172.16.6.254 255.255.255.0
+no shut
+
+int s0/1/0
+ip add 172.16.7.118 255.255.255.252
+no shut
+
+!OSPF
+router ospf 30
+network 172.16.6.0 0.0.0.255 area 30
+network 172.16.7.116 0.0.0.3 area 0
+passive-interface g0/0/0
+
+!Salvar as Configurações
+do wr
+
+------------------------------------------------------------
+
+!R_BX
+!Hostname do Router e habilitação das senhas criptografadas
+en
+conf t
+hostname R_BX
+service password-encryption
+
+!Desativar o erro "domain" (busca de hosts na rede)
+no ip domain-lookup
+
+!Senha de enable (secreta / criptografada)
+enable secret senai@132
+
+!Configuração nas VTYs e Console
+line con 0
+logging synchronous
+password senai@132
+login
+exit
+line vty 0 4
+logging synchronous
+password senai@132
+login
+exit
+
+!Endereço IP nas interfaces
+int g0/0/0
+ip add 172.16.7.62 255.255.255.192
+no shut
+
+int s0/1/0
+ip add 172.16.7.125 255.255.255.252
+no shut
+
+!OSPF
+router ospf 60
+network 172.16.7.0 0.0.0.63 area 60
+network 172.16.7.124 0.0.0.3 area 0
+passive-interface g0/0/0
+
+!Salvar as Configurações
+do wr
+
+------------------------------------------------------------
+
+!R_LEME
+!Hostname do Router e habilitação das senhas criptografadas
+en
+conf t
+hostname R_LEME
+service password-encryption
+
+!Desativar o erro "domain" (busca de hosts na rede)
+no ip domain-lookup
+
+!Senha de enable (secreta / criptografada)
+enable secret senai@132
+
+!Configuração nas VTYs e Console
+line con 0
+logging synchronous
+password senai@132
+login
+exit
+line vty 0 4
+logging synchronous
+password senai@132
+login
+exit
+
+!Endereço IP nas interfaces
+int g0/0/0
+ip add 172.16.7.94 255.255.255.224
+no shut
+
+int s0/1/0
+ip add 172.16.7.134 255.255.255.252
+no shut
+
+!OSPF
+router ospf 50
+network 172.16.7.64 0.0.0.31 area 50
+network 172.16.7.132 0.0.0.3 area 0
+passive-interface g0/0/0
+
+!Salvar as Configurações
+do wr
+
+------------------------------------------------------------
+
+!R_PONTAL
+!Hostname do Router e habilitação das senhas criptografadas
+en
+conf t
+hostname R_PONTAL
+service password-encryption
+
+!Desativar o erro "domain" (busca de hosts na rede)
+no ip domain-lookup
+
+!Senha de enable (secreta / criptografada)
+enable secret senai@132
+
+!Configuração nas VTYs e Console
+line con 0
+logging synchronous
+password senai@132
+login
+exit
+line vty 0 4
+logging synchronous
+password senai@132
+login
+exit
+
+!Endereço IP nas interfaces
+int g0/0/0
+ip add 172.16.5.254 255.255.254.0
+no shut
+
+int s0/1/0
+ip add 172.16.7.130 255.255.255.252
+no shut
+
+!OSPF
+router ospf 40
+network 172.16.4.0 0.0.1.255 area 40
+network 172.16.7.128 0.0.0.3 area 0
+passive-interface g0/0/0
+
+!Salvar as Configurações
+do wr
+
+------------------------------------------------------------
+
+!R_LESTE
+!Hostname do Router e habilitação das senhas criptografadas
+en
+conf t
+hostname R_LESTE
+service password-encryption
+
+!Desativar o erro "domain" (busca de hosts na rede)
+no ip domain-lookup
+
+!Senha de enable (secreta / criptografada)
+enable secret senai@132
+
+!Configuração nas VTYs e Console
+line con 0
+logging synchronous
+password senai@132
+login
+exit
+line vty 0 4
+logging synchronous
+password senai@132
+login
+exit
+
+!Endereço IP nas interfaces
+int s0/1/0
+ip add 172.16.7.114 255.255.255.252
+clock rate 2000000
+no shut
+
+int s0/1/1
+ip add 172.16.7.122 255.255.255.252
+clock rate 2000000
+no shut
+
+int s0/2/0
+ip add 172.16.7.117 255.255.255.252
+clock rate 2000000
+no shut
+
+int s0/2/1
+ip add 10.0.0.21 255.255.255.252
+no shut
+
+!OSPF
+router ospf 80
+network 172.16.7.112 0.0.0.3 area 0
+network 172.16.7.120 0.0.0.3 area 0
+network 172.16.7.116 0.0.0.3 area 0
+redistribute bgp 13201 metric 80 subnets
+exit
+
+!BGP
+router bgp 13201
+network 10.0.0.20 mask 255.255.255.252
+neighbor 10.0.0.22 remote-as 13202
+redistribute ospf 80
+
+!Salvar as Configurações
+do wr
+
+------------------------------------------------------------
+
+!R_SUL
+!Hostname do Router e habilitação das senhas criptografadas
+en
+conf t
+hostname R_SUL
+service password-encryption
+
+!Desativar o erro "domain" (busca de hosts na rede)
+no ip domain-lookup
+
+!Senha de enable (secreta / criptografada)
+enable secret senai@132
+
+!Configuração nas VTYs e Console
+line con 0
+logging synchronous
+password senai@132
+login
+exit
+line vty 0 4
+logging synchronous
+password senai@132
+login
+exit
+
+!Endereço IP nas interfaces
+int s0/1/0
+ip add 172.16.7.129 255.255.255.252
+clock rate 2000000
+no shut
+
+int s0/1/1
+ip add 10.0.0.18 255.255.255.252
+no shut
+
+int s0/2/0
+ip add 172.16.7.126 255.255.255.252
+clock rate 2000000
+no shut
+
+int s0/2/1
+ip add 172.16.7.133 255.255.255.252
+clock rate 2000000
+no shut
+
+!OSPF
+router ospf 70
+network 172.16.7.124 0.0.0.3 area 0
+network 172.16.7.132 0.0.0.3 area 0
+network 172.16.7.128 0.0.0.3 area 0
+redistribute bgp 13204 metric 70 subnets
+exit
+
+!BGP
+router bgp 13204
+network 10.0.0.16 mask 255.255.255.252
+neighbor 10.0.0.17 remote-as 13203
+redistribute ospf 70
+
+!Salvar as Configurações
+do wr
+
+------------------------------------------------------------
+
+!R_SP
+!Hostname do Router e habilitação das senhas criptografadas
+en
+conf t
+hostname R_SP
+service password-encryption
+
+!Desativar o erro "domain" (busca de hosts na rede)
+no ip domain-lookup
+
+!Senha de enable (secreta / criptografada)
+enable secret senai@132
+
+!Configuração nas VTYs e Console
+line con 0
+logging synchronous
+password senai@132
+login
+exit
+line vty 0 4
+logging synchronous
+password senai@132
+login
+exit
+
+!Endereço IP nas interfaces
+int s0/1/0
+ip add 10.0.0.13 255.255.255.252
+clock rate 2000000
+no shut
+
+int s0/1/1
+ip add 10.0.0.22 255.255.255.252
+clock rate 2000000
+no shut
+exit
+
+!BGP
+router bgp 13202
+network 10.0.0.20 mask 255.255.255.252
+network 10.0.0.12 mask 255.255.255.252
+neighbor 10.0.0.21 remote-as 13201
+neighbor 10.0.0.14 remote-as 13203
+
+!Salvar as Configurações
+do wr
+
+------------------------------------------------------------
+
+!R_RJ
+!Hostname do Router e habilitação das senhas criptografadas
+en
+conf t
+hostname R_RJ
+service password-encryption
+
+!Desativar o erro "domain" (busca de hosts na rede)
+no ip domain-lookup
+
+!Senha de enable (secreta / criptografada)
+enable secret senai@132
+
+!Configuração nas VTYs e Console
+line con 0
+logging synchronous
+password senai@132
+login
+exit
+line vty 0 4
+logging synchronous
+password senai@132
+login
+exit
+
+!Endereço IP nas interfaces
+int s0/1/0
+ip add 10.0.0.17 255.255.255.252
+no shut
+
+int s0/1/1
+ip add 10.0.0.14 255.255.255.252
+clock rate 2000000
+no shut
+exit
+
+!BGP
+router bgp 13203
+network 10.0.0.12 mask 255.255.255.252
+network 10.0.0.16 mask 255.255.255.252
+neighbor 10.0.0.13 remote-as 13202
+neighbor 10.0.0.18 remote-as 13204
+
+!Salvar as Configurações
+do wr
