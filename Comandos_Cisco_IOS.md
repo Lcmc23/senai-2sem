@@ -462,6 +462,12 @@ OBS: Os roteadores da Cisco possuem limite máximo de prioridade de **até 255**
 (config-if)#standby [número-do-grupo] priority [número-de-prioridade]
 ```
 
+**Tornar o roteador ativo imediatamente**
+
+```
+(config-if)#standby [número-do-grupo] preempt
+```
+
 **Exibir as informações do HSRP**
 ```
 #show standby
