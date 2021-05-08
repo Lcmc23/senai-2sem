@@ -1,0 +1,139 @@
+﻿SCRIPT - Exercício presencial (07-05)
+
+!RT-1
+!hostname
+en
+conf t
+hostname RT-1
+
+!Endereço IP nas interfaces
+int g0/0
+ip add 200.1.2.3 255.255.255.248
+no sh
+
+int S0/0/1
+ip add 200.1.0.5 255.255.255.252
+no sh
+exit
+
+!HSRP
+int g0/0
+standby version 2
+standby 1 ip 200.1.2.1
+standby 1 priority 200
+standby 1 preempt
+exit
+
+!BGP
+router bgp 13201
+network 200.1.2.0 mask 255.255.255.248
+network 200.1.0.4 mask 255.255.255.252
+neighbor 200.1.0.6 remote-as 13202
+
+!Salvar as configurações 
+do wr
+
+-----------------------------------------
+
+!RT-2
+!hostname
+en
+conf t
+hostname RT-2
+
+!Endereço IP nas interfaces
+int g0/0
+ip add 200.1.2.2 255.255.255.248
+no sh
+
+int S0/0/1
+ip add 200.1.0.1 255.255.255.252
+no sh
+exit
+
+!HSRP
+int g0/0
+standby version 2
+standby 1 ip 200.1.2.1
+standby 1 priority 180
+exit
+
+!BGP
+router bgp 13201
+network 200.1.2.0 mask 255.255.255.248
+network 200.1.0.4 mask 255.255.255.252
+neighbor 200.1.0.2 remote-as 13202
+
+!Salvar as configurações 
+do wr
+
+-----------------------------------------
+
+!VIVOCLI1
+!hostname
+en
+conf t
+hostname VIVOCLI1
+
+!Endereço IP nas interfaces
+int g0/0
+ip add 192.168.0.3 255.255.255.0
+no sh
+
+int S0/0/1
+ip add 200.1.0.6 255.255.255.252
+no sh
+exit
+
+!HSRP
+int g0/0
+standby version 2
+standby 2 ip 192.168.0.1
+standby 2 priority 180
+exit
+
+!BGP
+router bgp 13202
+network 192.168.0.0
+network 200.1.0.4 mask 255.255.255.252
+neighbor 200.1.0.5 remote-as 13201
+
+!Salvar as configurações 
+do wr
+
+-----------------------------------------
+
+!VIVOCLI2
+!hostname
+en
+conf t
+hostname VIVOCLI2
+
+!Endereço IP nas interfaces
+int g0/0
+ip add 192.168.0.2 255.255.255.0
+clock rate 2000000
+no sh
+
+int S0/0/1
+ip add 200.1.0.2 255.255.255.252
+clock rate 2000000
+no sh
+exit
+
+!HSRP
+int g0/0
+standby version 2
+standby 2 ip 192.168.0.1
+standby 2 priority 200
+standby 2 preempt
+exit
+
+!BGP
+router bgp 13202
+network 192.168.0.0
+network 200.1.0.0 mask 255.255.255.252
+neighbor 200.1.0.1 remote-as 13201
+
+!Salvar as configurações 
+do wr
