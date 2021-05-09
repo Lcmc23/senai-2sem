@@ -987,8 +987,6 @@ Exemplo:
 
 **Definir o número de processo que o BGP irá executar**
 
-OBS: Número do processo deve ser > ou = 65000
-
 ```
 (config)#router bgp [número-do-processo]
 ```
