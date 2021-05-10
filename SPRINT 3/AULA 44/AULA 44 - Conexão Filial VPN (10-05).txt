@@ -44,7 +44,7 @@ TIPOS DE VPN
 
         O GRE cria um link ponto-a-ponto virtual com roteadores Cisco em pontos remotos sobre uma rede IP interconectada.
 
-    VPN Clients --> pode utilizar GRE, PPTP. OpenVPN 
+    VPN Clients --> pode utilizar GRE, PPTP, OpenVPN 
 
     * O BGP (Border Gateway Protocol) é o protocolo de roteamento usado entre sistemas autônomos ASs.
     * VPN funciona através da rede IP.
