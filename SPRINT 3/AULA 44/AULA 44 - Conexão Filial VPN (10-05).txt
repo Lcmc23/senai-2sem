@@ -47,3 +47,4 @@ TIPOS DE VPN
     VPN Clients --> pode utilizar GRE, PPTP. OpenVPN 
 
     * O BGP (Border Gateway Protocol) é o protocolo de roteamento usado entre sistemas autônomos ASs.
+    * VPN funciona através da rede IP.
