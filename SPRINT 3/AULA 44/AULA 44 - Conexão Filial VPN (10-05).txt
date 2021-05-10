@@ -12,7 +12,7 @@ REDE FILIAL --> Unir várias redes LANs
 
 PPP 
 
-    Point-to-Point (ISPs apreciam esse protocolo devido aos seus recursos de autentificação, contabilidade - usuário e senha; e gerenciamento 
+    Point-to-Point (ISPs apreciam esse protocolo devido aos seus recursos de autentificação; contabilidade - usuário e senha; gerenciamento 
     de links)
 
     OBS: Os links de Ethernet não suportam o PPP de forma nativa. Foi criada então uma solução para esse problema: o PPPoE (PPP over Ethernet)
