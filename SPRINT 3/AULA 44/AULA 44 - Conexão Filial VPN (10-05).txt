@@ -1,0 +1,49 @@
+AULA 44 - Conexão Filial VPN (10-05)
+
+REDE WAN --> Várias redes LANs
+REDE FILIAL --> Unir várias redes LANs
+
+    * As soluções de banda larga oferecem aos funcionários remotos opções de conexão em alta velocidade para locais de negócio e para a 
+    Internet.
+
+    * Os escritórios das filiais também podem se conectar por meio das mesmas tecnologias.
+
+    * Soluções de banda larga comuns, como Fibra, Cabo, DSL e sem fio.
+
+PPP 
+
+    Point-to-Point (ISPs apreciam esse protocolo devido aos seus recursos de autentificação, contabilidade - usuário e senha e gerenciamento 
+    de links)
+
+    OBS: Os links de Ethernet não suportam o PPP de forma nativa. Foi criada então uma solução para esse problema: o PPPoE (PPP over Ethernet)
+
+VIRTUAL PRIVATE NETWORKS (VPNs) 
+
+    São usadas para melhorar a segurança dos dados na Internet!
+
+    - Uma VPN é usada para criar um canal de comunicação privada (também chamado de túnel) em rede pública;
+
+    - Segurança (Túnel com Criptografia);
+
+    - É possível proteger os dados por meio da criptografia desse túnel pela Internet e da autenticação, para impedir o acesso não autorizado a
+    eles.
+
+    OBS: O próprio windows, linux possui ferramentas de acesso remoto (Mas existem também ferramentas pagas, como o Teamviwer)
+
+    * As VPNs contam com a Internet Protocol Security (IPsec) para oferecer segurança na Internet 
+
+        PPTP - Cliente X Server
+        IPSec - Server to Server (OpenVPN)
+
+TIPOS DE VPN
+
+    VPN Server --> Empresa - Server - Empresa
+
+    GRE (Gneric Routing Encapsulation - Encapsulamento de roteamento genérico) --> é um protocolo de encapsulamento desenvolvido pela Cisco e 
+    pode encapsular uma ampla variedade de tipos de pacotes de protocolo dentro de túneis IP.
+
+        O GRE cria um link ponto-a-ponto virtual com roteadores Cisco em pontos remotos sobre uma rede IP interconectada.
+
+    VPN Clients --> pode utilizar GRE, PPTP. OpenVPN 
+
+    * O BGP (Border Gateway Protocol) é o protocolo de roteamento usado entre sistemas autônomos ASs.
