@@ -1,0 +1,192 @@
+AULA 45 - VPN TUNEL com GRE (11-05)
+
+    VPN - Interface virtual = Túnel
+
+    CADASTRANDO UM TÚNEL VPN (GRE - Fechado no roteador - Server to Server) - EXEMPLO
+
+                RA
+
+    en
+    conf t
+    int tunnel 0
+    ip add 192.168.1.1 255.255.255.252
+    tunnel source s0/0/0
+    tunnel destination 64.103.211.2
+    tunnel mode gre ip
+    no sh
+
+                RB
+
+    en
+    conf t
+    int tunnel 0
+    ip add 192.168.1.2 255.255.255.252
+    tunnel source s0/0/0
+    tunnel destination 209.165.122.2
+    tunnel mode gre ip
+    no sh
+
+
+    IP ROUTE - Declarar o próximo salto
+    Tunnel source / destination - voltado para a interface e o ip válido na internet
+
+TROUBLESHOOTING - Exercício 3.4.2.5
+
+PCA - Informações estão corretas
+
+-------------------------------------
+
+RA - Interface g0/0/ está errada (invertida com o Túnel)
+
+    Solução: 
+
+    en
+    conf t
+    int tunnel 0
+    no ip add
+    int g0/0 
+    no ip add
+
+    !---------
+
+    ip add 172.31.0.1 255.255.255.0
+    int tunnel 0
+    ip add 192.168.1.1 255.255.255.252
+
+------------------------------------- 
+
+NAT com Overload NO RA
+
+en
+conf t
+int g0/0
+ip nat inside
+int s0/0/0
+ip nat outside
+
+!Pool de endereços (liberar apenas 1 IP)
+ip nat pool meuip 209.165.122.2 209.165.122.2 netmask 255.255.255.252
+
+!ACL 
+ip access-list standard LIB_172
+permit 172.31.0.0 0.0.0.255
+exit
+
+!Conversão de sobrecarga
+ip nat inside source list LIB_172 pool meuip overload
+
+-------------------------------------
+
+RA - Rota padrão está errada
+
+    Solução
+
+    en
+    conf t
+    no ip route 172.31.1.0 255.255.255.0 64.103.211.2
+    ip route 172.31.1.0 255.255.255.0 192.168.1.2
+
+------------------------------------
+
+RB - Túnel está incorreto
+
+    Solução 
+
+    en
+    conf t
+    int tunnel 0
+    no tunnel source
+    no tunnel destination
+
+    !--------------------
+
+    tunnel source s0/0/0
+    tunnel destination 209.165.122.2
+
+------------------------------------
+
+NAT com Overload NO RB
+
+en
+conf t
+int g0/0
+ip nat inside
+int s0/0/0
+ip nat outside
+
+!Pool de endereços (liberar apenas 1 IP)
+ip nat pool meuip 64.103.211.2 64.103.211.2 netmask 255.255.255.252
+
+!ACL 
+ip access-list standard LIB_172
+permit 172.31.1.0 0.0.0.255
+exit
+
+!Conversão de sobrecarga
+ip nat inside source list LIB_172 pool meuip overload
+
+===========================================================================================================================
+
+CONFIGURANDO VPN COM GRE DO ZERO
+
+- REDE A 192.168.0.0/24 = PC0 (Último IP válido), SP (1 IP válido)
+- REDE B 192.168.1.0/24 = PC1 (Último IP válido), RIO (1 IP válido)
+- REDE 200.1.2.0/30 = WAN (.1 - SP; .2 -RIO)
+- TÚNEL 172.16.0.1/30 e 172.16.0.2/30
+
+!SP
+!Configurações iniciais
+en
+conf t
+hostname SP
+int s0/1/0
+clock rate 2000000
+ip add 200.1.2.1 255.255.255.252
+no sh
+int g0/0/0
+ip add 192.168.0.1 255.255.255.0
+no sh
+
+!Túnel
+int tunnel 0 
+ip add 172.16.0.1 255.255.255.252
+tunnel source s0/1/0
+tunnel destination 200.1.2.2
+tunnel mode gre ip
+no sh
+exit
+
+!ROTA padrão
+ip route 192.168.1.0 255.255.255.0 172.16.0.2
+
+!Salvar as configurações 
+do wr
+
+----------------------------------
+
+!RIO
+!Configurações iniciais
+en
+conf t
+hostname RIO
+int s0/1/0
+ip add 200.1.2.2 255.255.255.252
+no sh
+int g0/0/0
+ip add 192.168.1.1 255.255.255.0
+no sh
+
+!Túnel
+int tunnel 0 
+ip add 172.16.0.2 255.255.255.252
+tunnel source s0/1/0
+tunnel destination 200.1.2.1
+tunnel mode gre ip
+no sh
+exit
+
+!ROTA padrão
+ip route 192.168.0.0 255.255.255.0 172.16.0.1
+
+!Salvar as configurações 
+do wr
