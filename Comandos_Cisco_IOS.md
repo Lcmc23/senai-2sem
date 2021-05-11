@@ -1014,3 +1014,41 @@ Exemplo:
 ```
 #sh ip bgp
 ```
+
+## GRE - VPN
+
+**Definir a interface de túnel**
+
+```
+(config)int tunnel [número-do-túnel]
+```
+
+**Atrelar um endereço IP nesta interface**
+
+```
+(config-if)#ip add [endereço-ip] [máscara]
+```
+
+**Definir a origem do túnel**
+
+```
+(config-if)#tunnel source [id-da-interface-válida-na-internet]
+```
+
+**Definir o endereço IP destino do túnel**
+
+```
+(config-if)#tunnel destination [endereço-ip-de-destino-do-túnel]
+```
+
+**Definir o modo que a VPN irá operar**
+
+```
+(config-if)#tunnel mode gre ip
+```
+
+**Definir uma rota padrão voltada para a rede local**
+
+```
+(config)ip route [endereço-ip-destino] [máscara] [endereço-ip-de-próximo-salto]
+```
