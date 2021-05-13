@@ -1,0 +1,151 @@
+AULA 47 - EXERCÍCIO INTEGRAÇÃO (13/05)
+
+CURIOSIDADE - PROTOCOLO DE AUTENTICAÇÃO 
+
+!Configurações PPP
+interface serial 0/0/0
+encapsulation ppp
+ppp authentication chap
+exit
+username ISP-3 password cisco
+
+========================================
+
+APIPA - Sem nenhuma configuração de IP 
+
+    IP padrão do DHCP!
+
+-----------------------------------------------------------------------------
+
+Autenticação e confirmação - Exercício 3.6.1.2 - Skills Integration Chalenge
+
+SCRIPT 
+
+!BRANCH - "FILIAL"
+!Definição dos endereços IPs
+en
+conf t
+int g0/0
+ip add 192.168.10.1 255.255.255.0
+no sh
+
+int s0/0/0
+ip add 209.165.201.22 255.255.255.252
+no sh
+
+!PPP
+int s0/0/0
+encapsulation ppp
+ppp authentication chap
+exit
+username ISP-3 password cisco
+
+!DHCP 
+ip dhcp excluded-address 192.168.10.1 192.168.10.5
+ip dhcp pool LAN
+network 192.168.10.0 255.255.255.0
+default-router 192.168.10.1
+dns-server 192.168.30.250
+exit
+
+!BGP 
+router bgp 65010
+network 192.168.10.0 mask 255.255.255.0
+network 209.165.201.20 mask 255.255.255.252
+neighbor 209.165.201.21 remote-as 65535
+
+----------------------------------------------------
+
+!Sede
+!SSH
+en
+conf t
+ip domain-name CISCO.com
+crypto key generate rsa general-key modulus 2048
+username admin password secureaccess
+line vty 0 15
+transport input SSH
+exit
+ip ssh version 2
+ip ssh authentication-retries 2
+ip ssh time-out 60
+
+!Definição dos endereços IPs
+int g0/0
+ip add 192.168.30.1 255.255.255.0
+no sh
+
+int s0/0/0
+ip add 209.165.201.18 255.255.255.252
+no sh
+
+!PPP
+int s0/0/0
+encapsulation ppp
+ppp authentication chap
+exit
+username ISP-2 password cisco
+
+!DHCP 
+ip dhcp excluded-address 192.168.30.1 192.168.30.10
+ip dhcp excluded-address 192.168.30.250
+ip dhcp pool LAN
+network 192.168.30.0 255.255.255.0
+default-router 192.168.30.1
+dns-server 192.168.30.250
+exit
+
+!BGP
+router bgp 65020
+network 192.168.30.0 mask 255.255.255.0
+network 209.165.201.16 mask 255.255.255.252
+neighbor 209.165.201.17 remote-as 65535
+exit
+
+!Túnel
+int tunnel 10
+ip address 10.1.1.2 255.255.255.252
+tunnel mode gre ip
+tunnel destination 209.165.201.2 
+tunnel source serial 0/0/0
+no shutdown
+exit
+
+!Rota via OSPF no Túnel
+router ospf 100
+router-id 10.1.1.1
+network 192.168.30.0 0.0.0.255 area 0
+network 10.1.1.0 0.0.0.3 area 0
+passive-interface g0/0
+
+----------------------------------------------------
+
+!REMOTE
+!Definição dos endereços IPs
+en
+conf t
+int g0/0
+ip add 192.168.20.1 255.255.255.0
+no sh
+
+int s0/0/0
+ip add 209.165.201.2 255.255.255.252
+no sh
+
+!Rota padrão 
+ip route 0.0.0.0 0.0.0.0 209.165.201.1
+
+!Túnel
+int tunnel 10
+ip address 10.1.1.1 255.255.255.252
+tunnel mode gre ip
+tunnel destination 209.165.201.18 
+tunnel source serial 0/0/0
+exit
+
+!OSPF
+router ospf 100
+network 192.168.20.0 0.0.0.255 area 0
+network 10.1.1.0 0.0.0.3 area 0
+passive-interface gigabitEthernet 0/0
+exit
