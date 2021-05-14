@@ -1,0 +1,44 @@
+!SCRIPT - AULA PRESENCIAL
+!Hostname
+en
+conf t
+hostname BRA
+
+!Definir endereço IP nas interfaces
+int g0/0
+ip add 192.168.20.1 255.255.255.0
+no shut
+int g0/1
+ip add 187.16.17.1 255.255.255.252
+no shut
+int s0/0/0
+ip add 188.16.17.1 255.255.255.252
+clock rate 2000000
+no sh
+exit
+
+!OSPF
+router ospf 10
+network 192.168.20.0 0.0.0.255 area 0
+network 10.0.0.0 0.0.0.3 area 0
+network 11.0.0.0 0.0.0.3 area 0
+exit
+
+!TUNEL_0
+int tunnel 0
+ip add 10.0.0.1 255.255.255.252
+tunnel source g0/1
+tunnel destination 187.16.17.2
+tunnel mode gre ip
+no shut
+
+!TUNEL_1
+int tunnel 1
+ip add 11.0.0.1 255.255.255.252
+tunnel source s0/0/0
+tunnel destination 188.16.17.2
+tunnel mode gre ip
+no shut
+
+!Salvar as configuracoes
+do wr
