@@ -1,0 +1,93 @@
+AULA 48 - INTRODUÇÃO A NUVEM E AO AMBIENTE AWS Educate (17-05)
+
+CURIOSIDADE: A AWS oferece mais de 2000 serviços!
+
+* IAM = Identity and Access Management (Criação e armazenamento de usuários)
+
+* VPC = Virtual Private Cloud (Infraestrutura de rede na plataforma AWS)
+
+* EC2 = Elastic Compute Cloud (EC2) - criação de máquinas virtuais
+
+* AWS Lambda = Programação
+
+* AWS Elastic Beanstalk = criação de máquinas automatizadas
+
+* S3 = Storage / armazenamento 
+
+* ELB = Elastic Load Balancing = Balanceamento de carga (internet)
+
+* Amazon CloudWatch = Desligar a máquina após um determinado tempo
+
+* Auto Scaling = capacidade de clonar máquinas
+
+MÓDULOS: 5,6 e 7 (O que veremos no SENAI)
+- Redes e entrga de conteúdo, Computação e armazenamento
+
+CERTIFICADO - AWS Cloud Practitioner 
+
+PROGRAM ALEXA: https://www.codecademy.com/learn/learn-alexa?g_network=g&g_device=c&g_adid=444172385479&g_keyword=create%20your%20own%20alexa%20skill&g_acctid=243-039-7011&g_adtype=search&g_adgroupid=106123913987&g_keywordid=kwd-437254348482&g_campaign=ROW+Career+Path%3A+Pro+-+Exact&g_campaignid=10074200774&utm_id=t_kwd-437254348482:ag_106123913987:cp_10074200774:n_g:d_c&utm_term=create%20your%20own%20alexa%20skill&utm_campaign=ROW%20Career%20Path%3A%20Pro%20-%20Exact&utm_source=google&utm_medium=paid-search&ut
+
+
+==================================================================================================
+
+O que é computação em nuvem?
+
+
+    Computador ou conjunto de computadores em um Data center que o usuário final pode armazenar
+
+    "Computação em nuvem é a entrega sob demanda de poder computacional, banco de dados, armazenamento, aplicativos e outros recursos de TI 
+    pela Internet com uma definição de preço conforme o uso"
+
+
+Infraestrutura como software 
+
+
+    "A computação em nuvem permite que você deixe de pensar em sua infraestrutura como hardware e passe a pensar nela (e usá-la) como software"
+
+        * Exigem espaço, equipe, segurança física, planejamento (quero velociade?), despesas de capital (qual local é o mais barato para eu
+        armazenar meus dados?)
+
+        * Tem um ciclo longo de aquisição de hardware (um servidor físico pode durar até 3 anos por exemplo);
+
+        * Exigem provisionamento de capacidade por meio da tentativa de adivinhar os picos máximos teóricos
+
+
+Modelo de computação em nuvem
+
+
+    * São flexíveis/
+
+    * Podem mudar com mais rapidez, facilidade e economia do que as soluções de hardware
+
+    * Eliminam as tarefas monolíticas de trabalho pesado (instalações são mais rápidas e eficazes)
+
+
+Modelos de serviço em nuvem
+
+    * IaaS (Infraestrutura como serviço)
+
+    * Paas (Plataforma como serviço / banco de dados)
+
+    * Saas (Software como serviço / Google Drive, One Drive, Google fotos, etc)
+
+
+Modelos de implantação de computação em nuvem
+
+
+    * Nuvem 
+
+    * Híbrida
+
+    * No local (nuvem privada)
+
+
+Semelhanças entre AWS e TI tradicional
+
+    * Segurança 
+
+    * Redes
+
+    * Computação
+
+    * Armazenamento e banco de dados
+
