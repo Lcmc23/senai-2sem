@@ -1,0 +1,21 @@
+AULA 49 - EC2 - BootStraping - HTTP - ACL (18-05)
+
+Criar uma máquina virtual = executar instâncias
+
+    AMI da Amazon = Máquina virtual pronta (I2 micro)
+    instâncias = Máquinas
+
+Habilitação de Apache - BootStraping (automatização)
+
+#!/bin/bash
+yum -y install httpd
+systemctl enable httpd
+systemctl start httpd
+echo '<html><h1>Senai Informática e AWS a parceria do futuro! </h1></html>' > /var/www/html/index.html
+
+Editar grupos de segurança 
+
+    EC2 > Grupos de segurança > sg-04a6c7a542fa0f27a - WebserverGrupoSec > Editar regras de entrada
+                                            (nome do grupo)
+
+    Adicionar uma nova regra = regra para HTTP (porta 80)
