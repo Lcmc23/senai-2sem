@@ -1,0 +1,30 @@
+AULA 50 - EC2 Linux com SSH (19/05)
+
+    OBS: Ao apagar uma instância, apague seu grupo de segurança e seu volume (isso consome crédito)
+
+    Apache - Bootstrap - Processo automatizado
+
+PuttyGen.exe
+
+    Private Key - "fica comigo"
+    Public Key - "fica no servidor"
+
+Putty
+
+    Colocar meu IP público - Criar nome para o acesso - Ir em 'Connections' - SSH - Clicar em 'Auth'
+    Browser (achar o arquivo de chave em .ppk) - Voltar em 'Sessions' - Save - Open
+
+    Por padrão nosso usuário será: ec2-user
+
+    Versão do Putty - 0.75 (0.74 provocará erro no login SSH com chave)
+
+    http://ec2-54-145-24-108.compute-1.amazonaws.com/ (Link do meu site-apache)
+
+Linux 
+
+    Virar root = sudo su
+    
+    Editar o apache = vim /var/www/html/index.html
+                      nano /var/www/html/index.html    
+
+    Reiniciar / carregar a alteraçãom = systemctl restart httpd
