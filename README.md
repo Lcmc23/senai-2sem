@@ -22,6 +22,7 @@ Site | Curso
 [CCNA R&S](https://www.netacad.com/) | Routing and switching
 [CCNA R&S](https://www.netacad.com/) | Scaling Networks
 [CCNA R&S](https://www.netacad.com/) | Connecting Networks
+[AWS Educate](https://www.awseducate.com/mstudent/s/classrooms) | Conhecimento do mundo cloud com a plataforma AWS
 [AWS Academy](https://awsacademy.instructure.com/courses/3521) | AWS Academy Cloud Foundations
 [SENAI - EAD](https://ead.sp.senai.br/) | Excel (básico)
 [SENAI - EAD](https://ead.sp.senai.br/) | Fundamentos de Logística
