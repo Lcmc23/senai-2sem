@@ -7,6 +7,7 @@ Este repositório contém alguns scripts (organizados em pastas) referentes aos 
 **Tendo como objetivo assim armazenar:**
 
 * Códigos do Cisco IOS;
+* Fundamentos de computação em nuvem (AWS);
 * Documentos com resumos das aulas.
 
 **Plataforma utilizada para o desenvolvimento dos códigos/comandos:**
@@ -21,6 +22,7 @@ Site | Curso
 [CCNA R&S](https://www.netacad.com/) | Routing and switching
 [CCNA R&S](https://www.netacad.com/) | Scaling Networks
 [CCNA R&S](https://www.netacad.com/) | Connecting Networks
+[AWS Academy](https://awsacademy.instructure.com/courses/3521) | AWS Academy Cloud Foundations
 [SENAI - EAD](https://ead.sp.senai.br/) | Excel (básico)
 [SENAI - EAD](https://ead.sp.senai.br/) | Fundamentos de Logística
 [SENAI - EAD](https://ead.sp.senai.br/) | Privacidade e Proteção de Dados (LGPD)
