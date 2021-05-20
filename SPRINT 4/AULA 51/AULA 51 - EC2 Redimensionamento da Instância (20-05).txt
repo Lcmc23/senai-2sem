@@ -1,0 +1,45 @@
+AULA 51 - EC2 Redimensionamento da Instância (20/05)
+
+INSTÂNCIA => Uma parte de CPU, memória, processamento (de uma máquina maior na AWS) => "Computador"
+
+    * Hospedar sites
+    * Marketplace
+
+    OBS: Todas essas configurações são feitas no console AWS
+
+DOWNLOAD - PUTTY
+
+    https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+
+PUTTY 
+
+    Alterar tamanho da letra em uma sessão aberta
+
+    - Clicar com o botão direiro
+    - Ir em 'Change settings'
+    - Ir em 'Appearence'
+    - Ir em 'change'
+    * Altere a fonte!
+
+CONSOLE AWS
+
+    NAT = 1:1
+    - Use o endereço IP público!
+    OBS: Caso queira usar o endereço IP privado, use uma VPN!
+
+LINUX
+
+    Criar um arquivo de texto:      
+    vi teste.txt
+
+    Inserir informação:
+    i
+
+    Salvar as alterações
+    (tecla esc 2x) ---> :x / :q! / :wq
+
+ALTERAÇÕES NA INSTÂNCIA DO EC2
+
+    1°) Interromper Instância (após selecioná-la) --> Ações --> Configurações de instância --> Alterar tipo de Instância
+    2°) Iniciar Instância (após selecioná-la)
+
