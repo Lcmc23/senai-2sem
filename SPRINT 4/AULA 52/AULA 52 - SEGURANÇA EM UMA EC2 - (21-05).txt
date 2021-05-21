@@ -1,0 +1,72 @@
+AULA 52 - Segurança em uma instância EC2 - (21/05)
+
+SECURITY GROUP
+
+    Um grupo de segurança é um conjunto de regras de firewall que controla o tráfego da sua instância. Nesta página, você pode adicionar 
+    regras para permitir que tráfegos específicos cheguem até a sua instância. Por exemplo, se você quiser configurar um servidor Web e 
+    permitir que tráfego da Internet chegue até a sua instância, adicione regras que permitam acesso irrestrito às portas HTTP e HTTPS. 
+    Você pode criar um novo grupo de segurança ou selecionar um dos existentes abaixo
+
+LINUX
+
+    Diretório oculto
+    - Começa com um . (Exemplo: /.ssh)
+
+    Chave ssh
+    - cat /home/ec2-user/.shh/authorized_key
+
+    Como achar uma pasta oculta
+    - ls -la (caminho) 
+    Exemplo: ls -la /home/ec2-user
+
+    Diretórios começam com
+    d (no começo das permissões)
+    Exemplo: drmx
+
+    * Criptografia da chave
+    Deve ser sem espaços, contínua
+
+    * Adicionar novas chaves ssh
+    sudo vi /home/ec2-user/.ssh/authorized_keys
+    OBS: Após a chave criptografada, adicione o mesmo nome de usuário que foi utilizado no par de chaves da AWS
+
+    Vi
+    - tecla "o" começa uma nova linha (abaixo de todas)
+
+    Reiniciar o ssh
+    sudo systemctl restart sshd
+
+CONSOLE AWS
+
+    * Criar par de chaves:
+    EC2 --> Pares de Chaves --> Criar par de chaves
+
+    * Nome
+    Separe o nome por _
+
+    * Salve no formato
+    ppk (suportado pelo Putty)
+
+    * Tag
+    Adicione uma tag para melhor identificação
+
+PUTTY GEN
+
+    * Salve a chave em modo público (sem extensão)
+    Adicione uma identificação (CHPU por exemplo)
+    CHPU = Chave Pública
+
+RESUMO 
+
+    1) Crie um novo par de chaves no console AWS (Salve em .ppk)
+    2) No PuttyGen, salve a chave como pública (sem extensão / adicione identificadores para melhor organização)
+    3) No diretório /home/ec2-user/.ssh/authorized_keys, adicione este novo par de chaves criptogrado (e sem espaços), como:
+
+        sudo vi ou nano /home/ec2-user/.ssh/authorized_keys
+        ssh-rsa [par-de-chaves (sem espaço)] Nome_do_par_de_chaves (nome do usuário)
+
+        OBS: Salve essas informações!
+
+    4) Salve um novo usuário no Putty com essas informações (IP, fonte, chave em .pkk)
+
+    5) O acesso será realizado com sucesso!
