@@ -63,8 +63,3 @@ LINUX
 
     * Criar um arquivo para vermos se o backup deu certo
     nano /mnt/novo-disco/arquivo.txt
-
-
-    
-
-
