@@ -1,0 +1,70 @@
+AULA 53 - Add Storage na EC2 - (24/05)
+
+GERAR UM NOVO DISCO DENTRO DE UMA INSTÂNCIA EXISTENTE:
+
+    Etapa 4 - Adicionar armazenamento --> adicionar novo volume
+
+    * AMI = imagem
+
+    * Snapshot = estado atual / backup
+
+        Faça um backup, restaure esse estado (snapshot) nessa nova instância
+
+    * Expansão vertical = adicionar um disco
+
+        Possuo um disco de 8GB e ACRESCENTO mais um disco de 2GB, totalizando dois discos separados
+
+    * Expansão (de disco) horizontal = extensão no próprio disco 
+
+        Exemplo: Possuo um disco de 6GB e AUMENTO-O para mais 4GB, totalizando 10GB
+
+    * Atach (Atrelar o volume a um servidor)
+
+        Crie o volume (na mesma zona que sua EC2) --> Actions --> Selecione a EC2 que deseja atrelar
+
+CURIOSIDADE: Infraestrutura na AWS
+
+    https://aws.amazon.com/pt/about-aws/global-infrastructure/
+
+AWS
+
+    * Região = local geográfico (Virgínia por exemplo)
+
+    * Zona / Zona de disponibilidade = junçaõ / combinação de data-centers
+
+        EXEMPLO: us-east-1c ("c" representa a zona)
+
+LINUX 
+
+    * Ver os discos
+    sudo fdisk -l
+
+    * Quais discos estão em execução
+    df -h 
+
+    * Criar uma partição no disco
+    sudo fdisk /dev/xvdf
+
+        n
+        p
+        enter
+        enter
+        enter 
+        w
+
+    * Formatação de partição 
+    sudo mkfs -t ext3 /dev/xvdf1
+
+    * Criar um diretório para a nova partição
+    sudo mkdir /mnt/novo-disco
+
+    * Finalização
+    sudo mount /dev/xvdf1 /mnt/novo-disco
+
+    * Criar um arquivo para vermos se o backup deu certo
+    nano /mnt/novo-disco/arquivo.txt
+
+
+    
+
+
