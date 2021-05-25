@@ -1,0 +1,39 @@
+AULA 54 - Backup com Storage na EC2 - (25/05)
+
+AWS
+
+    * Acesso ao console da AWS pode ser feito via smartphone, linha de comando ou web (desktop)
+
+    * Atrele a instância em um volume existente 
+
+    * A Zona de Disponibilidade pode ser definido através das configurações de instância (etapa 3)
+    OBS: Essas informações são observadas nas parte de Sub-rede
+
+    * Atach o volume de backup a sua instância
+
+    * O volume é associado apenas uma instância --> Relação 1:1
+
+LINUX 
+
+    * Filtro para buscar os discos que minha máquina possui
+    fdisk -l |grep "Disk /"
+    ou
+    fdisk -l |grep Disk
+
+    * Device 
+    /dev/xvdf1 
+    OBS: "1" significa o particionamento primário 
+
+    * Criar um ponto de montagem 
+    mkdir /mnt/disco2G
+
+    * Montar a partição nesse diretório que criei 
+    mount /dev/xvdf1 /mnt/disco2G
+
+    * Criar arquivos vazios
+    touch /mnt/disco2G/arquivo2.txt (exemplo)
+
+    * Restaurar backup
+    cp -a /mnt/disco2G/* /mnt/novo-disco30G/
+    OBS: o "-a" mantém as informações do arquivo original
+    OBS: o "*" significa tudo o que possui no /mnt/disco2G/* 
