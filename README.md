@@ -7,6 +7,7 @@ Este repositório contém alguns scripts (organizados em pastas) referentes aos 
 **Tendo como objetivo assim armazenar:**
 
 * Códigos do Cisco IOS;
+* Alguns comandos do Linux
 * Fundamentos de computação em nuvem (AWS);
 * Documentos com resumos das aulas.
 
