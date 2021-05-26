@@ -1,0 +1,40 @@
+AULA 55  - Backup com Snapshot na EC2 - (26/05)
+
+AWS
+
+    * Snapshot - restauração de arquivos (captura do estado / "save")
+    * Selecione o volume --> Actions ou botão direito do mouse --> Create snapshot
+    * Crie uma tag com as informações de data e hora que o snapshot foi criado
+
+    OBS: Normalmente os snapshot são feitos de 4 em 4h
+
+    IMPORTANTE!! Após criar o snapshot, atrele um volume a ele (COM A MESMA ÁREA)
+
+        - Crie um ponto de montagem; (mkdir /mnt/disco2-restaurado)
+        - Monte esse volume; (mount /dev/xvdg1 /mnt/disco2-restaurado)
+        - Mova o arquivo desejado; (cp /mnt/disco2-restaurado/arquivo.txt /mnt/disco2G/) 
+        - Liste o disco e veja se o arquivo está lá. (cp /mnt/disco2-restaurado/arquivo.txt /mnt/disco2G/)
+
+LINUX
+
+    Com o disco já particionado, siga esses passos para "atachar" este volume há uma nova instância
+
+    mkdir /mnt/disco2G - Criar ponto de montagem
+    mount /dev/xvdf1 /mnt/disco2G - montar o disco nesse novo diretório
+    ls -la /mnt/disco2G - lista os arquivos do disco (para ver se os arquivos de backup ainda estão lá)
+
+    CURIOSIDADE:
+
+        O diretório "lost+found" seria como uma "lixeira"
+
+        AUTOMAÇÃO DE SNAPSHOT - AWS LAMBDA
+
+        https://www.youtube.com/watch?v=LNi2NREhgIU
+        https://www.youtube.com/watch?v=BTc5fgOVyTI&t=447s
+
+        SCRIPT DE BACKUP - AUTO-SCALING
+
+        https://www.esli-nux.com/2018/01/aws-snapshots-automaticos-de-ec2-e-ami.html
+        https://docs.aws.amazon.com/cli/latest/reference/ec2/create-snapshots.html
+        https://docs.aws.amazon.com/pt_br/AWSEC2/latest/UserGuide/ebs-creating-snapshot.html
+        https://docs.aws.amazon.com/pt_br/AWSEC2/latest/UserGuide/snapshot-lifecycle.html
