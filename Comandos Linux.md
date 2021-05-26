@@ -33,7 +33,7 @@ who -u
 
 ## Permissões root 
 ```
-sudo su
+sudo su -
 ```
 
 ## Mudar o diretório
