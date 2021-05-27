@@ -1,0 +1,42 @@
+AULA 56  - Storage S3 - (27/05)
+
+* AMAZON S3 Glacier = backup congelado (restauração demora alguns dias, mas em compensação o custo é menor)
+
+AMAZON S3 é um serviço de armazenamento de objetos que oferece escalabilidade, disponibilidade de dados, segurança e performance líderes 
+
+    * Criar uma bucket --> Amazon S3 --> criar bucket (nome único globalmente / sem caractere especial)
+    OBS: Versionamento de bucket (várias versões para os arquivos)
+
+    * Selecionar a bucket (clicando no nome)--> Criar uma pasta
+    OBS: Ficará algo semelhante à Amazon S3 > lcmc23 > Assinaturas/
+
+    * URL do S3
+    OBS: Selecione a pasta, vá em propriedades
+
+    * Libere o acesso ao bucket
+    OBS: Permita o acesso do arquivo através de Amazon S3 > lcmc23 > permissões
+    - Note que apenas o bucket foi liberado 
+
+    * Libere o acesso ao arquivo (para visualização do arquivo via URL)
+    OBS: Faça o upload de um arquivo --> carregar --> clique no arquivo
+    - Note que agora o arquivo pode ser visualizado
+
+    Por fim, para visualizar o arquivo
+    Amazon S3 > lcmc23 > Assinaturas/ > Assinatura-Danilo-AWS.png
+    - Clique na URL do objeto
+
+    !!!TODO TRÁFEGO DE SAÍDA DA AWS POSSUI CUSTO!!!
+
+    --------------------------------------------------------------------------------------------------
+
+    Outro caminho para permitir o acesso público do arquivo / objeto
+    Selecione o arquivo --> Ações --> Tornar público
+
+APAGAR BUCKET
+
+    * Primeiro deixe-a vazia 
+
+        Selecione a bucket --> excluir --> esvazie-a
+
+    * Por fim, exclua a bucket
+
