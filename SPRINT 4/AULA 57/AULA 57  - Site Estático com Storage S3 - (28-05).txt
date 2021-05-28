@@ -1,0 +1,55 @@
+AULA 57  - Site Estático com Storage S3 - (28-05)
+
+OBS: O site estático virá em .zip, para descompactá-lo basta clicar botão direito --> Extrair tudo
+O processo inverso também é verdade. Para compactar, basta selecionar a pasta (botão direito) --> enviar para --> pasta compactada
+
+index.htm
+
+    Normalmente é o local onde os ativos da aplicação web (site) é direcionado
+
+BUCKET
+
+    É aqui que nosso site será hospedado!!
+
+    * Crie uma bucket (no serviço Amazon S3)
+    * Permita o acesso a bucket e do objeto (Desmarcar a opção "bloquear todo o acesso público)
+    * Arraste os ativos do site para dentro de sua bucket
+
+        PERMISSÕES (lista de controle de acesso - ACL)
+        * Conceder acesso público de leitura 
+
+    * Acessar o site (como arquivo)
+
+        Clique na sua bucket (Amazon S3 --> lcmc23), selecione o arquivo 'index.html'
+        https://lcmc23.s3.amazonaws.com/index.html
+
+        Note, que neste caso o site só funcionará com o final 'index.html'
+
+    * Acessar o site (sem o final 'index.html')
+
+        Edite a isso nas propriedades (Amazon S3 --> lcmc23 --> Editar hospedagem de site estático)
+
+        - Hospedagem de site estático: ativar
+
+        - Tipo de hospedagem: hospedar um site estático (a outra opção "redirecionamento para um objeto", funcionará apenas com o RouteS3 e 
+        um nome de domínio que deverá ser comprado)
+
+        - Documento de indíce: index.html
+
+        - Documento de erro - opcional: (error.html)
+
+        - Regras de redirecionamento - opcional: escritas em JSON
+            
+            https://awspolicygen.s3.amazonaws.com/policygen.html
+            
+        Note que agora o DNS interno da AWS está ativo (funciona como se fosse um domínio comprado)
+
+            http://lcmc23.s3-website-us-east-1.amazonaws.com/
+
+PREÇOS DO S3 E SUAS CATEGORIAS
+
+    https://aws.amazon.com/pt/s3/pricing/?trkCampaign=acq_paid_search_brand&sc_channel=PS&sc_campaign=acquisition_BR&sc_publisher=Google&sc_category=Storage&sc_country=BR&sc_geo=LATAM&sc_outcome=acq&sc_detail=%2Bs3&sc_content=
+
+CALCULADORA DE PREÇOS AWS
+
+    https://calculator.aws/#/
