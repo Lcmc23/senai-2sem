@@ -1,0 +1,63 @@
+AULA 58 - VPC - Sua Rede na Nuvem (31/05)
+
+O QUE É VPC? 
+https://docs.aws.amazon.com/pt_br/vpc/latest/userguide/what-is-amazon-vpc.html
+
+VPC
+
+    * Semelhante a uma VLAN (isolada logicamente de outras redes na nuvem AWS)
+
+    * VPC por Zona de disponibilidade (podem estar em regiões diferentes e mesmo assim se comunicando, desde que as redes sejam diferentes)
+
+    * IPs Reservados = 4 IPS --> Rede, GW, Broadcast e Reservado (251 disponíveis)
+
+    * VPC padrão: VPC (rede) da AWS --> 172.31.0.0/16
+
+        - Subnets AWS = 6 por padrão
+        - Routle tables (Rota-AWS) = 1 por padrão
+        - Internet Gateways (GW-AWS) = 1 por padrão 
+
+    * Sub-rede
+
+        - Intervalo de endereços IPs
+        - Cada sub-rede deve estar em sua VPC que deve ser associada a uma tabela de Rota
+        - Rede pública (rota ligada a internet) e Rede Privada (acesso restrito a rede local)
+        - Gateway internet
+
+    * VocÊ pode criar até 200 sub-redes por VPC
+
+AWS - CRIAR UMA VPC (MANUAL) - Services VPC
+
+    1) Crie sua VPC
+    
+        Your VPCs --> Create VPC
+
+    2) Crie sua subnet (sub-rede)
+
+        Subnets --> Create subnet
+
+        * VPC ID = Selecione a VPC que sua sub-rede estará 
+
+        * Availability Zone (selecione a zona de disponibilidade)
+
+        * Selecione o intervalo de IPs para sua sub-rede (IPv4 CIDR block)
+
+        IMPORTANTE!! Não duplique sua sub-rede na mesma VPC
+
+    3) Crie seu Gateway de internet
+
+        Internet Gateways --> Create internet gateway
+
+        * 'Atache' o gateway a sua VPC
+
+    4) Criar a tabela de roteamento (Pública)
+
+        Route Tables --> Create route table
+
+        * Vá na tabela criada (selecione) --> routes --> Edit routes
+
+        OBS: Para rota pública, selecione 'Internet Gateway' no campo 'Target' --> Selecione seu gw de internet
+
+        * Atrele sua subnet na tabela de roteamento: selecione sua tabela de roteamneto --> Subnet associations --> Edit subnet associations
+
+        OBS: Edite no 'Subnets without explicit associations'
