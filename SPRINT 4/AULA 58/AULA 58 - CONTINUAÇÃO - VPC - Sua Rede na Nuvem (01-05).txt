@@ -1,0 +1,21 @@
+AULA 58 - VPC - Sua Rede na Nuvem (01/05) - CONTINUAÇÃO
+
+OBSERVAÇÕES
+
+    * Para testar sua VPC, execute uma instância (com as informações de rede e sub-rede)
+
+    * Em qual momento utilizo uma sub-rede pública e privada?
+    EX: Servidor Web (pública) e um banco de dados (privada)
+
+    * HTTP hoje é utilizado para redirecionamento para o HTTPS
+
+AWS
+
+    * Conseguimos definir um endereço IP na instância:
+    Etapa 3: Configure os detalhes da instância --> Interfaces de rede --> IP Primário
+
+    * O acesso ao HTTP ficará restrito apenas ao IP (pois na VPC criada, não temos a permissão do Router S3 - DNS)
+
+    * Onde reservamos IP (Público) na AWS?
+    EC2 --> Redes e segurança --> Elastic IPs
+
