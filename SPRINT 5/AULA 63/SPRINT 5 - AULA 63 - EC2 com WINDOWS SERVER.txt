@@ -1,0 +1,61 @@
+SPRINT 5 - AULA 63 - EC2 com WINDOWS SERVER
+
+VPC
+
+    NOTA: Apague a VPC que já existia (10.0.0.0/16)
+
+    Criação de uma VPC para iniciarmos o W-SERVER
+
+    1) VPC with a Single Public Subnet
+    - 192.168.0.0/16 | Subnet 192.168.0.0/24
+    - AZ = 1c
+
+    Route Tables
+
+    2) Após a criação, observe as rotas para a rede 192
+    - main: no (GW) | main: yes (local)
+
+    Internet Gateways
+
+    3) "Cabo de internet para a minha rede - gateway"
+
+EC2 - Microsoft Windows Server 2019 Base
+
+    RDP - Porta 3389 (Próprio do Windows)
+    Anydesk - Acesso remoto universal
+
+    OBS: Use com a sub-nomenclatura "Datacenter" (ISO de Instalação
+
+    1) Selecione a opção t2.medium (etapa 2)
+    2) Selecione a VPC criada | subnet (etapa 3)
+    3) Reserve um IP interno para o servidor (etapa 3 - interfaces de rede - 192.168.0.10)
+
+    PowerShell (utilizado no Windows Server Core - esse servidor não possui interface gráfica)
+
+    4) 30GB de Disco
+    5) Tag: Name | WindowsServer2019
+    6) Grupo de Segurança
+        Nome: GrupoSec-WindowsServer
+        Descrição: Portas-de-acesso-ao-windows-server
+        Type: RDP
+
+SENHA WINDOWS
+
+    Selecione sua instância > Segurança > Obter senha do Windows 
+
+    * Selecione sua chave em .pem e clique em descriptografar
+    * Copie a senha e guarde em um local seguro
+
+ALOCAR UM ELASTIC IP
+
+    VPC > Elastic IP addresses > Allocate
+
+    * Associe seu IP elástico a sua instância
+    - Selecione seu Elastic IP > Associate Elastic IP address > Selecione sua instância > Escreva o IP Privado (de sua instância)
+
+CONEXÃO REMOTA NO WINDOWS SERVER
+
+    Conexão de Área de Trabalho Remota 
+
+    - IP Público
+    - Usuário: .\administrator

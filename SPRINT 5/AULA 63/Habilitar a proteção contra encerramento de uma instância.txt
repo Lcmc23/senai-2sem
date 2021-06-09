@@ -1,0 +1,20 @@
+NO MOMENTO DE CRIAR A INSTÂNCIA 
+
+    * Para habilitar a proteção contra ENCERRAMENTO de uma instância no momento da execução
+
+    1) Abra o console do Amazon EC2 em https://console.aws.amazon.com/ec2/.
+
+    2) No painel, escolha Launch Instance (Executar instância) e siga as instruções contidas no assistente.
+
+    3) Na página Configure Instance Details (Configurar detalhes da instância), marque a caixa de seleção Enable termination protection 
+    (Habilitar proteção contra encerramento).
+
+
+COM A INSTÂNCIA CRIADA 
+
+    * Para habilitar a proteção contra encerramento de uma instância em execução ou interrompida
+
+    1) Selecione a instância, escolha Actions (Ações), Instance Settings (Configurações da instância) e selecione Change Termination Protection 
+    (Alterar proteção contra interrupção).
+
+    2) Escolha Yes, Enable (Sim, habilitar).
