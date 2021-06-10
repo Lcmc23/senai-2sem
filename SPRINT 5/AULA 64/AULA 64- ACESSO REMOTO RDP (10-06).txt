@@ -1,0 +1,93 @@
+﻿AULA 64- ACESSO REMOTO RDP (10/06)
+
+SALVAR ESTADO DA CONEXÃO 
+
+    * Salve o estado de conexão remota (Área de Trabalho Remota), assim como no Putty
+    - Crie um atalho para seu servidor
+
+RDP - Acesso remoto via RDP (Remote Desktop Protocol)
+
+    DEFINIÇÃO
+
+    * Maneira de conectar um Windows em outro Windows
+    * Posso acessar um ambiente Windows via celular
+    - Proporciona canais de sessão (posso abrir várias sessões - multicanais para o mesmo Servidor)
+
+    SERVIDOR DE TRABALHO REMOTO 
+
+    - Um único servidor pode possuir diversas conexões remotas
+    - Thin Client (Terminal Service) = faça conexão remota com seu servidor através desse hardware, um monitor, teclado e mouse.
+
+    LICENCIAMENTO 
+
+    - Cal's de Acesso Remota - conexão remota
+    - Por padrão, é liberado até 2x usuários simultâneos
+
+    PORTA DE CONEXÃO 
+
+    - 3389
+
+RDS - Remote Desktop Services
+
+CONFIGURAÇÕES WINDOWS SERVER
+
+    1) Mude o idioma!
+    - Pesquise "Language" na barra de pesquisa do seu servidor Windows
+    - Add a language
+    - Pesquise "Port", selecione-o e clique em "next"
+    - Vá em "Administrative language settings"
+    - Clique na primeira opção "copy settings"
+    - Selecione as duas caixas (idioma ao iniciar o sistema | idioma para novos usuários)
+    O windows reiniciará!
+
+    2) Ajuste o nome do Servidor
+    - Aperte Windows + PauseBreak (com a tela do Servidor CHEIA, se não a aba que aparecerá será do PC Local)
+    - Clique em "Alterar configurações"
+    - Alterar
+    - Escolha o nome
+
+    3) Adicione um novo usuário
+    - Gerenciamento do Computador
+    - Botão direito do mouse
+    - Adicionar um novo usuário
+    - Desmarque a opção (...logon)
+    - Selecione (...expira)
+
+    4) Coloque as permissões de adm nesse usuário
+    - Botão direiro em cima do usuário criado
+    - Propriedades
+    - Selecione "Membro de"
+    - Adicionar 
+    - Escreva "administrators"
+    - Clique em "Verificar nomes"
+
+    5) Conexões remotas
+    - Aperte Windows + PauseBreak (com a tela do Servidor CHEIA, se não a aba que aparecerá será do PC Local)
+    - Configurações remotas
+    - Selecionar usuário
+    - Adicionar
+    - Adicione seu usuário
+
+    6) Abra uma nova sessão (Conexão de Área de Trabalho Remota)
+    - Coloque agora as informações:
+    .\usuario (nome do seu usuário)
+    senha: senha que você definiu
+
+ACESSE SEU WINDOWS VIA CELULAR
+
+    1) Baixe o APP Remote Desktop
+    2) Clique em "+"
+    3) Add PC
+    4) Selecione seu IP
+    5) Adicione um usuário e senha
+    - usuario
+    - senha
+    6) Salve as configurações
+    7) Abra a sessão
+
+AWS
+
+    1) Edite as regras de segurança (Inbound Rules)
+    - Libere "All ICMP - IPv$ (todos - 0.0.0.0/0)
+    - Libere "All TCP" (apenas para rede local - 192.168.0.0/16)
+    - Libere "All UDP" (apenas para rede local - 192.168.0.0/16)
