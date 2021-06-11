@@ -1,0 +1,93 @@
+AULA 65 - CRIAR AD E PROMOVER DOMÍNIO (11/06)
+
+ACTIVE DIRECTORY - AD DS
+
+    * Produto exclusivo da Microsoft
+    * Melhor software para gerenciamento de usuários, senhas, grupo (semelhante ao IAM da AWS)
+    * Crie um backup para seu AD - Backup passivo
+
+DOMÍNIO
+
+    * Um domínio é a unidade administrativa máxima do serviço de diretório. Você pode entender domínio simplesmente como um nome para uma 
+    família de recursos.
+
+    * O domínio é a principal unidade funcional da estrutura lógica do AD e pode armazenar milhões de objetos.
+
+WINDOWS SERVER 
+
+    Mudar o nome da máquina
+    - Windows + R
+    - sysdm.cpl
+
+    INSTALAÇÃO - AD 
+
+        1) Gerenciador do servidor (fixe esta tela)
+        - Adicionar funções e recursos (instalação baseada em função ou recurso)
+        - Selecione os 'Serviços de Domínio Active Directory'
+        - Selecione os 'Serviços de Acesso e Política de Rede' (GTO)
+
+        GPO = Group Policy ou Diretiva de Grupo
+
+        2) Clique em 'Próximo'
+        - Note que alguns serviços já estão selecionados
+        - Selecione o 'Telnet Client'
+
+        3) Clique em 'Próximo'
+        - Até aparecer a caixa 'Reiniciar cada servidor...'
+        - Selecione-a
+
+        4) Processo finalizado, apenas clique em 'Instalar'!
+
+        5) Reinicie o sistema - máquina
+
+        OBS: Após a reinicialização, abra novamente o Gerenciador do Servidor
+        * ALGUNS ERROS PODEM APARECER - Serviço "vermelho"
+        - Clique em 'Serviços', uma lista com os serviços que não foram inicializados aparecerá
+        - Clique com o botão direito do mouse sobre o serviço e o inicie
+
+PROMOVA SEU SERVIDOR PARA SER UM CONTROLADOR DE DOMÍNIO
+
+    DICA1 - Não coloque .com ou .br em domínios locais! Use .local
+    DICA2 - Faça um Snapshot antes de criar o domínio, como um possível backup caso algo de errado
+
+    1) Um alerta no canto superior direito da tela apareceu
+    - Clique sobre ele
+    - Clique em 'Promover este...'
+
+    2) Na Configuração de implantação...
+    - Crie um novo AD
+
+    3) Em Opções do Controlador
+    - Deixe os níveis em Windows Server 2016
+    - Crie uma senha de domínio
+
+    4) Clique em 'Próximo'
+
+    5) Crie um nome de domínio NetBIOS
+    - Clique em 'Próximo'
+
+    6) Instale os serviços
+    - O sistema será reiniciado
+
+    OBS: Note que agora o usuário não será .\administrator
+    - Logue com senaiedu\administrator
+
+INFORMAÇÕES DE REDE NO SERVIDOR
+
+    DICA: Nunca altere o IP do servidor no próprio servidor, altere isso na Nuvem - Elastic IP
+
+    1) Windows + R
+    - ncpa.cpl
+
+    2) Note que se ao clicar na interface de rede, o DNS não possui informação
+
+    3) Edite o DNS para o IP que foi colocado para o servidor (192.168.0.10)
+
+    4) ping srvwinbitbeat
+
+INFORMAÇÕES DE USUÁRIO APÓS O DOMÍNIO SER CRIADO
+
+    1) Pesquise 'Usuários e Computadores do Active Directory'
+    - As informações de usuários estarão aqui agora
+
+    OBS: Caso queira distribuir os usuários entre outros domínios, exclua-os de seu respectivo AD e atrele-os conforme queira
