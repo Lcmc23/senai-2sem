@@ -24,7 +24,7 @@ WINDOWS SERVER
         1) Gerenciador do servidor (fixe esta tela)
         - Adicionar funções e recursos (instalação baseada em função ou recurso)
         - Selecione os 'Serviços de Domínio Active Directory'
-        - Selecione os 'Serviços de Acesso e Política de Rede' (GTO)
+        - Selecione os 'Serviços de Acesso e Política de Rede' (GPO)
 
         GPO = Group Policy ou Diretiva de Grupo
 
