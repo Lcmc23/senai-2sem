@@ -1,0 +1,65 @@
+AULA 66 - CRIAR USUÁRIO COM ACESSO RDS (14/06)
+
+ACTIVE DIRECTORY - AD
+
+    - Floresta: senai.edu.local
+    - OU (Unidade Organizacional): são as "pastas"
+    - builtin: grupos pré-formatados 
+
+    * CÓPIA DE USUÁRIO
+
+        OBS: Entre com um usuário administrador!
+
+        1) No AD, clique com o botão direito do mouse para copiar o usuário 
+        
+        2) Clique em 'copiar'
+        NOTA: Cuidado ao escrever o nome de login, as informações devem ser sem espaço!
+        EX: lucascabral ou lucas.cabral 
+
+        3) Defina sua senha, marcando a caixa 'Senha nunca expira'
+
+    * QUAIS USUÁRIOS ESTÃO LOGADOS NA SESSÃO REMOTA?
+
+        1) Na barra de tarefa, clique com o botão direito do mouse
+        Gerenciador de Tarefas > Mais detalhes > Usuários
+
+    * VER INFORMAÇÕES DO USUÁRIO
+
+        1) No AD, clique com o botão direito do mouse sobre o usuário
+        Clique em 'Propriedades'
+        OBS: Você consegue desabilitar a conta do usuário, trocar sua senha, etc
+
+    * CRIAR UM USUÁRIO "DO ZERO" NO AD
+
+        1) No AD, clique com o botão direito na OU 'Users'
+
+        2) Clique em 'Novo'
+        Selecione 'Usuários'
+
+        3) Defina sua senha, marcando também a caixa 'Senha nunca expira' 
+
+        4) Permita que esse novo usuário acesso o Servidor remotamente
+
+        TENTE FAZER O LOGIN... INFELIZMENTE FALHARÁ! ALTERE A POLÍTICA - GPO
+
+        5) Aperte Windows + PauseBreak
+        pesquise 'secpol.msc'
+
+        6) Políticas locais > Atribuição de direitos de usuário > Permitir logon pelos Serviços de Área de Trabalho Remota 
+    
+        7) Adicionar usuário ou grupo 
+
+        NOTA: Adcionar o grupo Remote Desktop User, é mais fácil do que atrelar um usuário de cada vez, certo? Então aplique esse raciocício aqui
+
+        8) Pesquise 'Remote'
+        Selecione 'Remote Deskt...'
+
+        9) Clique em 'OK' e 'aplicar'
+
+        10) Tente fazer o login, agora funcionará!
+
+
+!!!IMPORTANTE!!!
+
+    * Para instalar ("subir") serviços pesados, use uma instância t2.medium
+    Após isso, volte para instância t2.micro (isso economiza seus créditos, o que é muito importante)
