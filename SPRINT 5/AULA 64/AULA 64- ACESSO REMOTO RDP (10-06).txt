@@ -88,6 +88,6 @@ ACESSE SEU WINDOWS VIA CELULAR
 AWS
 
     1) Edite as regras de segurança (Inbound Rules)
-    - Libere "All ICMP - IPv$ (todos - 0.0.0.0/0)
+    - Libere "All ICMP - IPv4 (todos - 0.0.0.0/0)
     - Libere "All TCP" (apenas para rede local - 192.168.0.0/16)
     - Libere "All UDP" (apenas para rede local - 192.168.0.0/16)
