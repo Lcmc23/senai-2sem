@@ -1,0 +1,91 @@
+﻿AULA 66 CONTINUAÇÃO - CRIAR USUÁRIO COM ACESSO RDS (15/06)
+
+COLOCAR UM SERVIDOR EM UM DOMÍNIO 
+
+    OBS: poderíamos poupar tempo, se tivéssemos feito um Snapshot do Windows Server "zerado"
+
+    1) Execute uma nova instância para ser um servidor de arquivos no domínio senai.edu
+
+    - Win Server 2019 Datacenter
+    - t2.medium
+    - MinhaRedeVPC
+    - Sub-Rede-Publica1
+    - Habilite IP
+    - Proteger contra encerramento acidental
+    - Atrele o IP 192.168.0.20
+    - Armazenamento: 30GB
+    - Tag: Name | Valor: SrvArqBitBeat
+    - Grupo de seguraça (existente): GrupoSec-WindowsServer
+
+    - Atrele um IP público estático
+        VPC > Elastic IP addresses > Associate Elastic IP address
+
+    - Obtenha uma nova senha do Windows!
+        Selecione a instância > Ações > Segurança > Obter senha do Windows > Selecione sua chave .pem
+
+    2) Logue com suas informações
+    - IP público
+    - .\administrator
+    - sua-senha
+
+    3) Troque o idioma para Português (Brasil)
+
+    4) Altere o nome da máquina
+
+    5) IMPORTANTE!
+
+        O DNS desse servidor "apontará" para o DNS do servidor de DNS - Domínio senai.edu.local (o primeiro servidor que nós subimos - seu IP é 192.168.0.10)! 
+    
+    - Windows + R
+    - ncpa.cpl
+    - Clique sobre a interface de rede, altere o DNS para "Usar os seguintes endereços de servidor DNS"
+    - IP DNS: 192.168.0.10
+
+    6) Faça o teste de ping (ping o servidor 192.168.0.10)
+
+        LEMBRE DE QUE AMBAS INSTÂNCIAS DEVEM ESTAR LIGADAS - EXECUTANDO!
+
+    10) Note, que se o contrário for feito (ping do 192.168.0.10 para o 192.168.0.20), o processo falhará! Como resolver isso?
+
+    - WinServer não consegue pingar o WinArq
+
+        No WinArq
+
+            - Pesquise "compa"
+            - Selecione 'Configurações de compartilhamento avançadas'
+            - Descoberta de rede: Desativar | Compartilhamento de arquivo e impressora: Ativar 
+
+        No WinServer
+
+            - As configurações já estão corretas
+
+        O PING AGORA FUNCIONARÁ!
+
+    11) Coloque o WinArq no domínio
+
+    - Windows + PauseBreak
+    - Alterar configurações
+    - Alterar...
+    - Selecione 'Domínio'
+    - senai.edu.local
+
+    SERÁ PEDIDO AS INFORMAÇÕES DE LOGIN
+    
+        Note que agora as informações de login serão
+
+            - senai.edu.local\administrator
+            - senha (senha descriptografada do WinServer)
+
+    12) O sistema será reiniciado, logue agora no WinArq com:
+    - senai.edu.local\administrator
+    - senha (senha descriptografada do WinServer) | isso ocorre porque agora ambos estão no mesmo domínio!
+
+    13) O ping do WinServer para o WinArq falhará! Isso ocorre porque as informações de firewall que trocamos (etapa 10) foi ANTES do domínio
+    - vá no WinArq
+    - Pesquise "compa"
+    - Selecione 'Configurações de compartilhamento avançadas'
+    - Descoberta de rede: Desativar | Compartilhamento de arquivo e impressora: Ativar
+
+    AGORA FUNCIONARÁ! 
+
+Nota: não esqueça de trocar a instância para t2.micro
