@@ -1,0 +1,121 @@
+AULA 67 - AD OBJETOS (15/06)
+
+OBJETOS
+
+    * Users
+        É o objeto que guarda algumas as informações do usuário/colaborador da empresa.
+
+    * Users Group
+        É um conjunto de usuários, contatos de e-mail e computadores que podem ser gerenciados como uma única unidade chamada grupo.
+        OBS: Gerenciamento é facilitado
+
+        - Simplifica a atribuição de permissões em um recurso compartilhado a um grupo: em vez de atribuir a mesma permissão a diversos 
+        usuários, um a um, é atribuída a permissão ao grupo de usuários que compartilham esta propriedade.
+
+        - Ao atribuir os direitos de usuário a um grupo, novos os membros adicionados recebem as mesmas permissões de forma automática.
+
+        LISTA DE EMAIL = emails são disparados para os usuários que estão no grupo
+
+    * Organizational Unit = OU
+        Organização - tipo de objeto de diretório
+
+    * Computers
+        Dispositivo na rede
+
+    * Printers
+        Dispositivo na rede
+
+    * Contacts
+        É um objeto estático utilizado para armazenar informações de contato, tais como telefone, endereço e e-mail.
+        OBS: É um usuário só que sem direitos de login.
+
+ESCOPO
+
+    * Grupos de domínio local: os membros podem receber permissões somente em um único domínio.
+
+    * Grupos globais: os membros podem receber permissões em qualquer domínio na floresta.
+
+    * Grupos universais: os membros desses grupos podem receber permissões em qualquer domínio na árvore de domínio ou floresta.
+
+GRUPOS DE USUÁRIO
+
+    * Grupos de segurança (Security Group): são os grupos criados para manter-se o gerenciamento de acesso, tais como atribuir direitos e 
+    permissões de usuário a grupos.
+
+    * Grupos de distribuição (Distribution Group): são os grupos criados e gerenciados para aplicações de e-mail, com Microsoft Exchange, para 
+    enviar e-mails para conjuntos ou grupos de usuários.
+
+WINDOWS SERVER
+
+    1) Crie uma pasta (OU) = 'Senai'
+    - Clique em 'Usuários e Computadores do Active Directory'
+    - Para criar uma pasta no Domínio senai.edu.local, clique com o botão direito sobre ele
+        novo > Unidade Organizacional
+
+    2) Dentro desta OU, crie  sub-pastas
+        botão direito sobre a OU 'Senai' > novo > Unidade Organizacional
+
+    - Professores
+    - Alunos_2RM
+    - Alunos_2RT
+
+    3) Dentro destas pastas, crie usuários
+        botão direiro sobre a respectiva pasta que será criada > novo > Usuário
+        OBS: Marque a caixa 'Senha nunca expira'
+
+    - Professores
+        Danilo Sibov (danilo.sibov)
+
+    - Alunos_2RM
+        Suellen G Rufino (susu.2rm)
+        Bruna Landim (bru.2rm)
+
+    - Alunos_2RT
+        Laura Lima (la.2rt)
+        Giovanna Araujo (gi.2rt)
+
+    4) Crie um grupo para cada pasta respectivamente 
+
+    GRUPO SERÁ DEFINIDO COM ESTAS CARACTERÍSTICAS
+        * Global
+        * Segurança
+
+    - Professores
+        GP-Professores
+
+    - Alunos_2RM
+        GP-Alunos_2RM
+
+    - Alunos_2RT
+        GP-Alunos_2RT
+
+    5) Atrele o grupo ao usuário | o usuário ao grupo
+
+    6) Para melhor exibição, dos Usuários, Contatos, Grupos, etc
+        Exibir > Usuários, Contatos, Grupos e Computadores como contêiners
+
+    7) Note, que as permissões de login não estão atreladas aos novos usuários
+        Builtin > Remote Desktop Users > clicar 2x > Membros > Adicionar > Pesquise por 'GP' > Selecione todos os Grupos > Aplicar 
+
+    8) Agora faça o teste logando com algum usuário criado, funcionará!
+    
+        NOTA: As Políticas Locais já foram permitidas para usuários locais (que não são administradores)
+
+        Caso não tenha feito, siga esse passo a passo
+
+            - Aperte Windows + PauseBreak
+                pesquise 'secpol.msc'
+
+            - Políticas locais > Atribuição de direitos de usuário > Permitir logon pelos Serviços de Área de Trabalho Remota 
+        
+            - Adicionar usuário ou grupo 
+
+            OBS: Adcionar o grupo Remote Desktop User, é mais fácil do que atrelar um usuário de cada vez, certo? Então aplique esse raciocício 
+            aqui
+
+            - Pesquise 'Remote'
+                selecione 'Remote Deskt...'
+
+            - Clique em 'OK' e 'aplicar'
+
+            - Tente fazer o login, agora funcionará!
