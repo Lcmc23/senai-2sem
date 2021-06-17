@@ -1,0 +1,50 @@
+AULA 69 - FS (SERVIDOR DE ARQUIVOS) – INSTALAÇÃO (17/06)
+
+    Assunto: Manipular arquivos e pastas em um Compartilhamento de Arquivos no Windows Server
+    Objetivo: Saber como organizar arquivos e pastas em um sistema operacional Windows Server 2019. Diferenciando Permissões de Compartilhamento e permissões NTFS.
+
+WINDOWS SERVER - SrvArqBitBeat
+
+    1) Monte a seguinte estrutura de diretório em sua unidade de disco (que foi criado na aula 68)
+
+        SENAI
+            Alunos_2RM
+                Bruna Landim
+                Suellen G Rufino
+
+            Alunos_2RT
+                Laura Lima
+                Giovanna Araujo
+
+            Professores
+                Danilo Sibov
+
+    2) Na pasta 'SENAI', defina as permissões de acesso para todos
+    - Botão direito sobre a pasta > Propriedade
+    - Compartilhamento > Compartilhamento Avançado 
+    - Selecione a caixa 'Compartilhar a pasta'
+    - Em 'Permissões', marque 'Controle total', 'Alteração' e 'Leitura'
+    - OK
+    - Aplicar
+
+    3) Faça o teste
+    - Windows + R
+    - \\localhost
+
+        A pasta aparecerá!
+
+WINDOWS SERVER - SrvWinBitBeat
+
+    1) No Gerenciador de Arquivos, pesquise:
+    \\SrvWinBitBeat.senai.edu.local
+
+    2) Clique com o botão direito sobre a pasta compartilhada ('SENAI')
+    - Mapear unidade de rede...
+
+    3) Especifique a unidade 
+    - Z: (por exemplo)
+    - Marque 'Reconectar-se na entrada'
+    - Concluir
+    
+    4) Agora a pasta aparecerá no Gerenciador de Arquivos!
+

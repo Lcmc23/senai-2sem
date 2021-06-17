@@ -1,0 +1,72 @@
+AULA 68 - FSRM (GERENCIADOR DE RECURSOS DE SERVIDOR DE ARQUIVOS) – INSTALAÇÃO (17/06)
+
+FSS - FILE AND STORAGE SERVICE
+
+    * Armazenamento de disco para outros virtualizadores
+
+FS - DEFINIÇÃO
+
+    * O FS-File Server (Servidor de Arquivos) é um computador conectado a uma rede que tem o objetivo principal de proporcionar um local para o Armazenamento e Compartilhado de 
+    arquivos que podem ser acessados por todos que estiverem ligados à rede.
+
+    * O serviço FS é um recurso do Windows Server que permite o gerenciamento deste armazenamento e compartilhado de arquivos.
+
+    OBS: Qualquer usuário inserido na rede (que o administrador tenha liberado) pode acessar a pasta / armazenamento compartilhado
+
+    RAID 0 (performance) e RAID 1 (segurança de dados) = STORAGE conectado ao Servidor
+        NOTA - O AES EBS já faz isso automaticamente 
+
+AWS
+
+    Prepare o ambiente, adicionando um novo disco
+
+    1) No painel do EC2
+    - Elastic Block Store > Volumes > Create Volume
+
+        NOTA: Observe a zona!
+
+    - Size (GiB): 2
+    - ZD: us-east-1c
+    - Name | VolumeSrvArqDados
+
+    2) Atache este volume ao SrvArq...
+    - Selecione o volume > Actions > Attach Volume > id-da-sua-instância
+
+WINDOWS SERVER
+
+    Kerberos - autenticação / identificação
+
+    1) Visualize os discos disponíveis
+    - Gerenciador (localizado na barra de tarefa) > Este computador
+
+    2) Acesse o Gerenciamento de disco
+    - Pesquise 'Gerenciador do computador' > Gerenciamento de disco
+    ou
+    - Windows + R > diskmgmt.msc 
+
+    3) Clique com o botão direito sob o disco
+    - Deixe ele online
+
+    4) Clique novamente com o botão direito no disco
+    - Inicializar Disco
+    - GPT
+    - OK 
+
+        NOTA: GPT consome uma parte do Armazenamento do disco nesta formatação
+
+    5) Clique novamente com o botão direito no disco
+    - Novo Volume Simples...
+    - Avançar
+    - Atribua uma letra para esta unidade
+    - Formatar este volume...
+    - NTFS | Padrão
+    - Rótulo do volume
+    - Executar uma formatação rápida
+    - Avançar
+    - Concluir
+
+    6) Volte novamente ao Gerenciador > Este Computador 
+    - O disco estará lá 
+
+    7) Pesquise 'Gerenciamento do Servidor'
+    - Note que o FSS já está instalado (Serviços de Arquivo e Armazenamento)
