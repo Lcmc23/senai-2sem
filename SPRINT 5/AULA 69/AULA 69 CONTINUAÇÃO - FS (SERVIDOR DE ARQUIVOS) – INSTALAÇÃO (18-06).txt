@@ -1,0 +1,61 @@
+AULA 69 CONTINUAÇÃO - FS (SERVIDOR DE ARQUIVOS) – INSTALAÇÃO (18/06)
+
+    Conseguimos acessar a Pasta Compartilhada do Servidor da nossa máquina local? Sim!
+    - Na AWS, libere seu IP válido nos grupos de segurança
+    - No Explorador de Arquivos do seu PC, digite \\ip-do-servidor
+    - Logue com o usuário e uma senha
+    - A pasta compartilhada aparecerá!
+
+NTFS - NEW TECHNOLOGY FILE SYSTEM
+
+    Permissões NTFS: Leitura, Gravar, Ler e Executar, Modificar, Controle Total e Especial
+    Aplicação: Unidades (E:, Z:, D:, etc), Pastas, subpastas e arquivos
+    Atribuição: Usuário e Grupo
+
+HERANÇA DE PERMISSÕES
+
+    * Uma pasta secundária, herdará as permissões da pasta primária
+    EX: D:/Dados/SENAI
+
+WINDOWS SERVER - SrvArqBitBeat
+
+    1) Abra o Explorador de arquivos
+    - Botão direito sobre a pasta SENAI
+    
+        Segurança > Avançadas > Desabilitar Herança > Converter as permissões herdadas...
+
+    2) Remova os 'Users' desta pasta - que neste caso são permissões definidas para um "usuário qualquer"
+
+    3) Adicione as Permissões - selecione os objetos de grupo
+    - Adicionar > Selecionar uma entidade de segurança 
+    - Pesquise 'GP' > Verificar nomes
+    
+        NOTA: coloque o administrator 
+
+    - Adicione os Grupos, com as seguintes características
+
+        Professores - controle total
+        Alunos manhhã e tarde - Ler..., Listar... e Leitura
+
+    4) A turma da tarde não pode acessar a pasta da manhã (vice-versa)
+    
+        - Siga o mesmo raciocínio da etapa 3
+
+    5) Os alunos não poderão acessar a pasta 'Professores'
+
+        - Siga o mesmo raciocínio da etapa 3
+
+    6) Apenas o usuário terá controle total sobre sua pasta
+
+        - Siga o mesmo raciocínio da etapa 3
+
+    7) Faça o teste das permissões!
+    - Logue com o usuário
+        EX: senai.edu.local\susu.2rm
+
+    - Abra o Explorador de Arquivos
+        Pesquise \\SrvArqBitBeat.senai.edu.local > Enter
+
+    - Mapeie esta unidade
+         
+    - Tente acessar a pasta 'Professores', falhará!
