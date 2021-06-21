@@ -1,0 +1,68 @@
+AULA 70 – COTA DE DISCO (21/06)
+
+FSRM - FILE SYSTEM RESOURCE MANAGER (GERENCIADOR DE RECURSOS DE SERVIDOR DE ARQUIVOS)
+
+    EXEMPLO - COTA FIXA
+
+        * Cota Fixa (Rígida) estabelece um limite de uso de 20MB para uma pasta
+        * Gerar Notificação com 80% ao Administrador;
+        * Quando chega a 20MB não consome mais.
+
+    EXEMPLO - COTA FLEXÍVEL 
+
+        * Definir Cota Flexível de 30MB e continua usando só avisa que atingiu;
+        * Apenas gerar aviso e não bloquea.
+
+WINDOWS SERVER - (SrvArqBitBeat)
+
+    1) Acesse o 'Gerenciador de Servidor'
+    - Adicionar funções e recursos
+    
+    2) Siga o passo a passo da instalação
+    - Em 'Funções do servidor'
+
+        * Clique na "setinha" em 'Serviços de Arquivo e Armazenamento...'
+        * Clique na "setinha" em 'Serviços de Arquivo e iSC1...'
+        * Marque a opção 'Gerenciador de Recursos do Servidor...'
+
+    3) Na 'Confirmação', marque 'Reiniciar cada servidor...'
+    - Próximo > Instalar
+
+    4) Após a conclusão, no 'Gerenciador do Servidor', clique em 'Ferramentas'
+    - Note que agora o 'Gerenciador de Recursos...', aparecerá
+    - Selecione-o (fixe-o)
+
+    5) Gerenciamento de Cota > Modelos de Cota
+    - Botão direito do mouse > Criar modelo de cota
+
+        * Terá 20MB
+        * Será cota Fixa
+
+    6) Clique em 'Adicionar'
+    Vá em 'Relatório'
+
+        * Gerar notificações com 80%
+        * Gerar relatórios
+            Marque 'Uso da Cota'
+
+    NOTA: Os relatórios serão salvos em C:\StorageReports\Incident
+
+    7) Criar uma cota
+
+        Nota: Cota é criada por pasta
+
+        * Clique em 'Procurar'
+        - Selecione a pasta desejada (EX: Suellen G Rufino)
+
+        * Selecione 'Criar cota no caminho...'
+
+        * Selecione o limite criado
+
+        * Clique em 'Criar'
+
+    8) Faça o teste, movendo arquivos para esta pastá
+    DICA: No Explorador de Arquivos
+
+        Este Computador > Disco Local (C:) > Windows 
+
+    * Copie a pasta 'explorer' para a pasta 'Suellen G Rufino'
