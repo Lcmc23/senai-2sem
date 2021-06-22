@@ -16,7 +16,6 @@ TRIAGEM DE ARQUIVOS
         compartilhada, incluindo informações sobre o usuário que armazenou o arquivo e o local exato do arquivo, para que possam assumir as 
         medidas preventivas apropriadas.
 
-
     TRIAGEM ATIVA - não permitir que usuários salvem arquivos não autorizados
     TRIAGEM PASSIVA - permitir que usuários salvem arquivos (usada para monitoração)
 
