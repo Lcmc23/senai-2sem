@@ -12,7 +12,7 @@ Este repositório contém alguns scripts (organizados em pastas) referentes aos 
 * Códigos do Cisco IOS;
 * Alguns comandos do Linux
 * Fundamentos de computação em nuvem (AWS);
-* Configuração de Windows Server;
+* Configurações de um Windows Server;
 * Documentos com resumos das aulas.
 
 **Plataforma utilizada para o desenvolvimento dos códigos/comandos:**
