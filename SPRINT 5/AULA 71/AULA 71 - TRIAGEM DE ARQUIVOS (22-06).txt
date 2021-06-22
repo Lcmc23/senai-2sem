@@ -1,0 +1,60 @@
+AULA 71 - TRIAGEM DE ARQUIVOS (22/06)
+
+TRIAGEM DE ARQUIVOS 
+
+    * Triagem de arquivo serve para controlar os tipos de arquivos que os usuários podem salvar e gerar notificações quando os usuários 
+    tentam salvar arquivos não autorizados.
+    
+    * Definir modelos que podem ser aplicados ao volumes de triagem ou pastas e que podem ser usados em toda uma organização, por exemplo, 
+    você pode:
+
+        - Certificar-se de que nenhum arquivo de música é armazenado em pastas pessoais em um servidor, mas você pode permitir o armazenamento 
+        de tipos específicos de arquivos de mídia que oferecem suporte ao gerenciamento de direitos legais ou estar em conformidade com 
+        políticas da empresa.
+
+        - Implemente um processo de triagem para notificá-lo por e-mail quando um arquivo executável for armazenado em uma pasta 
+        compartilhada, incluindo informações sobre o usuário que armazenou o arquivo e o local exato do arquivo, para que possam assumir as 
+        medidas preventivas apropriadas.
+
+
+    TRIAGEM ATIVA - não permitir que usuários salvem arquivos não autorizados
+    TRIAGEM PASSIVA - permitir que usuários salvem arquivos (usada para monitoração)
+
+CURIOSIDADE
+
+    Zero Day - análise comportamental dos arquivos que provavelmente estão repletos de vírus
+
+WINDOWS SERVER - SrvArqBitBeat
+
+    1) Abra o 'Gerenciador de Recursos do Servidor de Arquivos'
+        - Abra o 'Gerenciamento de Triagem de Arquivos' > Modelos...
+
+    2) Clique com o notão direito do mouse
+        - 'Criar Modelo de Triagem de Arquivo'
+
+        3) Características desse modelo
+            - Nome: ArquivosZIPeEXE
+            - Triagem: ativa
+                * Criar
+            - Nome do grupo: ArquivosZIPeEXE
+            - Arquivos a serem incluidos: *.zip e *.exe
+                * Selecione este novo grupo > OK
+
+    4) Agora, vá em 'Triagens de Arquivos'
+        - Clique com o notão direito do mouse
+        - "Criar Triagem de Arquivo..."
+
+        5) Características
+            - E:\SENAI\Materiais_Redes (Procurar)
+            - Selecione a triagem 'BloquearZIPeEXE'
+
+    6) Exiba a extensão dos arquivos
+        - No 'Explorador de Arquivos' do Windows
+        - Exibir > Mostrar/Ocultar > Marque a opção 'Extensões de nomes de arquivos'
+
+    7) Faça o teste, mova um arquivo executável para a pasta 'Materiais_Redes'
+        - C:\Windows (mova a pasta 'Explorer')  
+
+        Curiosidade: 
+
+            Para compactar uma pasta (transformá-la em .zip) basta clicar com o botão direito do mouse sobre o arquivo > Enviar para > Pasta compactada   
