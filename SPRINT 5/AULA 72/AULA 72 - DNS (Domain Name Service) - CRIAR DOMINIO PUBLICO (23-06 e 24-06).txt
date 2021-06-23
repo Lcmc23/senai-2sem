@@ -1,0 +1,127 @@
+AULA 72 - DNS (Domain Name Service) - CRIAR DOMINIO PUBLICO (23/06 e 24/06)
+
+    * Aprender sobre serviço DNS dentro do Windows Server 2019 e unir conceitos de DNS.
+    * Assunto: Servidor Windows Server 2019 e Serviço de DNS.
+    * Objetivo: Saber como configurar o serviço de DNS no Windows Server 2019 e realizar apontamentos de DNS, para um trabalho em conjunto.
+
+DNS
+
+    * DNS – Domain Name System ou Sistema de Nome de Domínio;
+    * É um serviço que funciona como uma lista telefônica;
+    * Seu papel é RESOLVER (associar) nomes (domínios) á números (endereços IP);
+    * Facilitando o reconhecimento de hosts.
+
+REGISTRO DE NOMES DE DOMÍNIO 
+
+    Ver os registros disponíveis - https://registro.br/
+    Ver quem comprou um domínio já existente - https://registro.br/tecnologia/ferramentas/whois/ 
+
+DNS - RESOLUÇÃO
+
+    Configurando o resolver (endereço que o SO vai utilizar para resolver nomes)
+
+        No Windows
+
+            O arquivo host se encontra no caminho - C:\Windows\System32\drivers\etc\hosts
+
+                - ncpa.cpl
+                - Propriedades da placa de rede
+                - Protocolo TCP-IPv4
+                - DNS
+
+        No Linux Debian
+
+            O arquivo host se encontra no caminho - /etc/hosts
+
+                # vim /etc/resolv.conf
+
+RESTRIÇÕES E BLOQUEIOS NO ARQUIVO 'hosts' - "Redirecionamento falso"
+
+    1) Windows + R
+    2) C:\Windows\System32\drivers\etc\
+    3) Abra o arquivo 'hosts'
+    4) Exexmplo de site para ser bloqueado:
+        200.200.200.200 uol.com.br
+
+    NOTA: Para salvar o arquivo, salve em outro local ("Salvar como") e apague a extensão .txt (e assim, mova o arquivo para a pasta "original")
+
+PROMPT 
+
+    ping youtube.com (ping "comum" | poderia ser feito pelo IPv4 ou IPv6)
+    ping -t youtube.com (ping "infinito")
+    ping -a 35.196.111.133 (ping "inverso")
+
+DNS - COMANDOS ÚTEIS
+
+    Windows:
+        >ipconfig /flushdns (limpa o cache do dns)
+        >ipconfig /displaydns (exibe o cache do dns)
+
+    Linux e Windows:
+        >nslookup (resolve nome e exibe informações)
+        >nslookup (Limpeza de Cache)
+            FLUSHCACHE
+
+---------------------------------------------------------
+
+WINDOWS SERVER - SrvWinBitBeat
+
+    1) Windows + R
+        dnsmgmt.msc (Gerenciador DNS)
+
+    2) Em 'Zonas de pesquisa direta'
+        - Botão direito > Criar zona
+
+    3) Características desta zona
+
+        - Zona primária
+        - Desmarque 'Armazenar a zona no Active...'
+        - Nome da zona: redes.br
+        - Não permitir atualizações dinâmicas
+        - Concluir
+
+    4) Selecione o servidor 'SRVWINBITBEAT'
+        Botão direito > Propriedades > Encaminhadores > Editar
+
+        - Adicione o DNS do Google.com (8.8.8.8) > mova para cima
+        - Aplicar > OK
+
+    5) Em 'redes.br'
+
+        - Clique 2x sobre '(Servidor de nome NS)'
+        
+        Servidores de nomes > Editar > Resolver > OK > Aplicar
+
+    6) Criar um apontamento (A - AAAA)
+        Selecione 'redes.br' > Novo Host...
+
+        Características
+
+            - www
+            - 192.168.0.20
+            - Desmarque o PIP
+
+    7) Efetue o teste de ping no próprio servidor
+        ping www.redes.br
+
+    8) Crie um "alias" (apelido)
+        Selecione 'redes.br' > Novo alias...
+
+        Características
+
+            - ftp
+            - www.redes.br
+
+    9) Efetue o teste de ping no próprio servidor
+        ping ftp.redes.br
+
+    10) Em sua máquina local, adicione o direcionamento do DNS para o IP do SrvArqBitBeat
+
+        - Acesse o arquivo C:\Windows\System32\drivers\etc\hosts
+        - Coloque estas informações (Exemplo)
+
+            #IP do meu SrvArqBitBeat
+            3.232.128.169 www.redes.br
+
+    11) Efetue o teste de ping de sua máquina local para www.redes.br
+        ping www.redes.br
