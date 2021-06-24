@@ -1,0 +1,79 @@
+AULA 73 - EXERCICIO DE DNS (24/06)
+
+O QUE SÃO ENCAMINHADORES? 
+
+    O redirecionamento está atrelado em "passar" a responsabilidade de encontrar os nomes de domínio para outros servidores
+    EX: 8.8.8.8 (DNS do Google)
+
+    Root - Servidores externos (não temos acesso)
+    TTL - Responsável pelo www
+    Name server - Seu servidor de DNS
+
+TIPOS DE REGISTRO
+
+    A - IPv4
+    AAAA - IPv6
+    CNAME - Alias, apelido (nome --> nome)
+
+ZONA REVERSA E PRIMÁRIA
+
+    Zona Reversa - ao utilizarmos o ping inverso (-a), nos mostará o DNS de quem está respondendo a este ping
+
+    Como criar uma zona inversa?
+
+        1) Abra o SrvWinBitBeat
+        
+        2) Abra o Gerenciador DNS
+
+        3) Clique com o botão direito em 'Zonas de Pesquisa Inversa'
+            clique com o botão direito > Nova zona...
+
+        4) As características são
+
+            - Zona primária
+            - Zona de Pesquisa Inversa IPv6
+            - IP: 192.168.0
+            - 'Não permitir atualizações dinâmicas'
+            - Concluir
+
+        5) Atualize o PTR de ambos os servidores
+            
+            - Clique em 'Zonas de pesquisa direta'
+            - Clique 2x sobre 'senai.edu.local'
+            - Clique 2x sobre 'SrvArqBitBeat' > marque 'Atualizar o registro...'
+            - Clique 2x sobre 'srvwinbitbeat' > marque 'Atualizar o registro...'
+
+        6) Em 'Zonas de Pesquisa Inversa' > '0.168.192...'
+            - Clique com o botão direito do mouse > Atualizar
+
+            NOTA: Os IPs dos servidores aparecerão!
+
+        7) Crie um CNAME (Alias - apelido) para  'SrvArqBitBeat'
+
+            - Clique em 'Zonas de pesquisa direta'
+            - Clique 2x sobre 'senai.edu.local'
+            - Botão direito do mouse > Novo alias (CNAME)...
+            - Escreva o nome do alias ("arquivos")
+            - Em 'Procurar', escolha o servidor que receberá o Alias (SrvArqBitBeat)
+
+        8) Faça o teste!
+
+            - Windows + R > cmd
+            - ping arquivos.senai.edu.local
+
+ENTREGA DE HOJE
+
+NOTA: Isso será feito em seu PC LOCAL!
+
+    1) Windows + R
+
+    2) C:\Windows\System32\drivers\etc\
+
+    3) Abra o arquivo 'hosts'
+
+    4) Faça o redirecionamento com as seguintes características
+
+        - [ip-público-do-servidor] [site]
+        EXEMPLO: 3.232.128.169 www.empresa123.com.br
+    
+    5) Faça o teste de ping (EX: www.empresa123.com.br)
