@@ -1,0 +1,94 @@
+AULA 74 - HOSPEDE SEU SITE COM IIS (25/06)
+
+ISS
+
+    * A função do IIS no Windows server é oferecer uma plataforma para a hospedagem de sites, serviços e aplicativos, sendo capaz de integrar as seguintes tecnologias:
+        - ASP.NET, FTP, PHP, WCF e o próprio IIS.
+        - EXEMPLO: web.whatsapp.com (site) | whatsapp (app)
+
+    * Para cada site, uma pasta será criada (isso possibilita a hospedagem de múltiplos sites)
+        Note que o tráfego aqui é extremamente importante!
+
+PREPARAÇÃO DE AMBIENTE - INSTALAÇÃO ISS
+
+    1) Abra o SrvArqBitBeat
+
+    2) Abra o 'Gerenciador do Servidor'
+
+    3) Clique sobre 'Adicionar funções e recursos'
+
+        - Instalação baseada em...
+        - Selecione o Servidor
+        - Marque 'Servidor Web (ISS)
+        - Clique em 'Adicionar Recursos'
+            Próximo 3x
+        - Marque 'Autentificação Básica'; 'Suporte a Certificados SSL'; 'Serviço FTP'
+        - Marque 'Reiniciar cada servidor...'
+        - Instalar
+
+    4) Faça o teste!
+
+        - Abra o Explorer > pesquise //localhost
+        - Uma página do ISS deverá ser aberta
+
+---------------------------------------------------------------------------------------------------------
+
+O arquivo C:\Windows\System32\drivers\etc\hosts deverá se parecer com isso:
+
+    #IP SrvArqBitBeat
+    3.232.128.169	www.redes.br
+
+    #Apontamentos - DNS
+    3.232.128.169	ftp.redes.br
+    3.232.128.169	www.empresa123.com.br
+    3.232.128.169	ftp.empresa123.com.br
+    3.232.128.169	www.empresa456.com.br
+    3.232.128.169	ftp.empresa456.com.br
+
+---------------------------------------------------------------------------------------------------------
+
+CONFIGURAÇÃO ISS
+
+    1) No console de gerenciamento da AWS, adicione as regras de segurança HTTP
+        - Adicione nas regras de entrada: HTTP (80), HTTPs (443), crie um TCP Personalizado (20-21)
+
+    2) Acesse o SrvArqBitBeat e libere as seguintes portas
+
+        - Abra o 'Windows Defender Firewall com Segurança Avançada'
+            Regra de entrada > Nova regra
+
+        - Regra baseada em porta
+            TCP | 80,443,20,21
+
+        - Permitir a conexão
+
+        - Marque Domínio, Particular e Público
+
+        - Nome da regra: Serviços Web e FTP
+
+    3) Abra o Gerenciador do Servidor, veja se o ISS está instalado
+        - Ping do SrvArqBitBeat para www.redes.br
+
+        NOTA: O ping funcionou pois criamos o DNS no SrvWinBitBeat
+
+    4) Na barra de tarefas, pesquise 'Serviços de Informações da internet 10'
+        - Note que um site default está criado (site do próprio ISS)
+            SRVARQBITBEAT > Sites
+
+        ATALHO ISS - Windows + R > InetMgr.exe
+
+    5) Crie um novo site
+
+        - Selecione o diretório 'Sites'
+            Botaão direito do mouse > Criar novo site
+        
+        - Nome do site: redes
+        - Caminho físico: E:\Sites\Redes-br
+        - Nome do host: www.redes.br
+        - Marque 'Iniciar imediatamente'
+
+    6) Baixe o arquivo em index.html (em sua máquina local) - https://classroom.google.com/u/0/c/MjQzMTQ4NDA1Mzc1/a/MzY2Njc2MzYxNjM3/details
+        Botão direito sobre o arquivo > Copiar > Abra a pasta 'Site' (No SrvArqBitBeat) > Colar
+
+    7) Faça o teste!
+        Pesquise www.redes.br, o site aparecerá!
