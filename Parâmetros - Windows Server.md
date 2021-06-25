@@ -58,3 +58,9 @@ Windows + R
 Windows + R
     digite dnsmgmt.msc
 ```
+
+## ISS - 
+```
+Windows + R
+    digite InetMgr.exe
+```
