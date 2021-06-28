@@ -1,0 +1,10 @@
+AULA 75 - HOSPEDE SEU SITE COM IIS (28/06)
+
+ROTEIRO - ENTREGÁVEL
+
+    * Criar o domínio fictício empresa456.com.br (hosts do cliente e Criar novo DNS no Servidor)
+    * Hospedar novo site que está em anexo!! (Criar novo site no IIS)
+    * Provar que esta tudo funcionado com um belo Print do Site acessando com as informação (index.html):
+    * "SENAI Informática - Não é feitiçaria é tecnologia." 
+
+    
