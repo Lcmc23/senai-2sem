@@ -1,0 +1,118 @@
+AULA 77 - SERVIÇO DE FTP (30/06)
+
+FTP 
+
+    Significa: File Transfer Protocol (Protocolo de Transferência de Arquivos), criada por Davi Augusto M. P e Erick G. Pazeto e é uma forma 
+    bastante rápida e versátil de transferir arquivos, sendo uma das mais usadas na internet.
+
+    OBS: O nome FTP é usado tanto ao protocolo quanto aos programas que implementa este protocolo (Servidor FTP).
+
+    Alguns Clientes FTP - Linux e Windows
+
+        - SmartFTP
+        - Cute FTP
+        - Filezilla
+        - Core FTP
+        - WS FTP
+        - LeechFTP
+        - gFTP
+        - FireFTP
+        - WinSCP 
+
+    Alguns Servidores FTP - Linux / Unix
+
+        - Ftpd
+        - glftpd
+        - ProFTPd
+        - Pure-FTPd
+        - VsFTPd
+        - Wu-ftpd
+        - Wzdftpd
+        - Filezilla
+
+    TRANSFERÊNCIA DE ARQUIVOS
+
+        No caso da comunicação FTP Ativo, são utilizadas duas portas. Controle (autenticação e permissões) Porta 21 e outra para transferência 
+        de arquivos porta 20.
+
+PREPARAÇÃO DO AMBIENTE - FTP
+
+    1) No console de gerenciamento da AWS, adicione as regras de entrada (no GrupoSec- WindowsServer)
+    * 20-21 (FTP Ativo | já adicionado)
+    * 40000 - 41000 (FTP Passivo)
+
+SrvArqBitBeat
+
+    1) Acesse o 'Windows Defender Firewall com Segurança Avançada'
+        Regras de entrada
+
+    2) Clique 2x sobre a regra 'Serviços Web e FTP'
+        
+    - Protocolos e Portas
+    - Adicionar 40000-41000 (Portas específicas)
+    - Aplicar > OK
+
+SrvWinBitBeat
+
+    3) Acesse 'Usuários e Computadores do Active Directory'
+
+    4) Crie uma nova OU
+    - denominada "Sites"
+
+    5) Dentro desta OU, crie um usuário e atrele-o a um grupo para o acesso FTP
+
+SrvArqBitBeat
+
+    6) Altere as permissões da pasta E:\Sites\Empresa456
+    - Adicione a permissão (controle total) para o usuário que está no grupo de ftp (que foi criado anteriormente)
+    - Usuário "Todos": apenas permissão de leitura
+
+    7) Criar site FTP 
+
+    - Abra o IIS 
+    
+    - Clique sobre o domínio > Clicar 2x sobre Autenticação FTP
+        Habilite 'Autenticação Básica'
+    
+    - Em 'Suporte ao Firewall FTP'
+
+        Intervalo de portas: 40000-41000
+        Endereço IP Externo do Firewall: [ip-público-do-srvarqbitbeat]
+
+    - Selecione 'Sites'
+        Botão direiro do mouse > Adicionar Site FTP
+
+        Nome: Empresa456-ftp
+        Caminho físico: E:\Sites\Empresa456
+
+            Avance
+
+        Endereço IP: IP privado do SrvArqBitBeat
+        Iniciar site FTP automaticamente
+        Sem SSL
+
+            Avance
+
+        Autenticação: Básica
+        Permitir acesso a: Funções...
+            uempresa456 (leitura e gravar)
+
+    8) Reiniciar o FTP
+
+        - Pesquise 'Serviços' na barra de tarefas
+        - Ache 'Microsoft FTP Service' > botão direito do mouse > Reiniciar
+
+TESTES POSSÍVEIS - EM SUA MÁQUINA LOCAL 
+
+    CMD
+
+        ftp ftp.empresa456.com.br
+        User: [criados-na-etapa-5]
+        Senha: [criados-na-etapa-5]
+
+    Windows Explorer
+
+        ftp://ftp.empresa456.com.br
+        User: [criados-na-etapa-5]
+        Senha: [criados-na-etapa-5]
+
