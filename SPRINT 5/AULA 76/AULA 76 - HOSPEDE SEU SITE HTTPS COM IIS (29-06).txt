@@ -1,0 +1,42 @@
+AULA 76 - HOSPEDE SEU SITE HTTPS COM IIS (29/06)
+
+HTTPS
+
+    * Porta 443
+    * Exige certificado
+
+CERTIFICADOS DIGITAIS ("prova que você, realmente é você!")
+
+CRIAR CERTIFICADO SSL
+
+    1) Acesse o SrvArqBitBeat
+        Abra o ISS
+
+    2) Clique sobre o domínio (nome do servidor) > Certificados de Servidor
+        Clique sobre ele
+    
+    3) Com o botão direito do mouse, clique em 'Criar Certificado Autoassinado'
+
+        - Nome do certificado: certificado-empresa456
+        - Hospedagem na Web
+        - OK
+
+    4) Selecione o site em que o certificado será atrelado > Editar Associações
+
+        - Adicionar
+        - Tipo: HTTPS
+        - Nome do host: www.empresa456.com.br
+        - Certificado SSL: certificado-empresa456
+        - OK 
+
+    5) Faça o teste com o HTTPs (https://www.empresa456.com.br/), note que o site não será seguro (erro de autoridade inválida)
+
+        NOTA: Isso ocorre pois não compramos uma certificação válida
+
+        Sites que podemos comprar certificados digitais:
+
+        - CertiSign, Cerasa
+
+    6) Para ver se o site possui certificado digital
+        Clique no "cadeado" no canto superior esquerdo (chorme) > Clicar em 'Certificado (válido)
+
