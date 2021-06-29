@@ -1,11 +1,11 @@
 # FTP – LISTA DE COMANDOS
 
-## Lista sumariamente todos comandos disponíveis.
+## Liste sumariamente todos os comandos disponíveis.
 ```
 help
 ```
 
-## Mostra o conteúdo do diretório servidor atual
+## Mostrar o conteúdo do diretório
 ```
 dir 
 ```
@@ -22,26 +22,26 @@ get
 para mais de um arquivo use **mget**
 ```
 
-## Mostra uma lista abreviada do conteúdo do diretório servidor
+## Mostrar uma lista abreviada do conteúdo do diretório
 ```
 ls 
 
 para mais de uma pasta use **mls**
 ```
 
-## Cria um diretório ou subdiretório no servidor
+## Criar um diretório ou subdiretório no servidor
 ```
 mkdir
 ```
 
-## Envia um arquivo ao servidor
+## Enviar um arquivo ao servidor
 ```
 put 
 
 para enviar mais de um arquivo **mput**
 ```
 
-## Mostra o diretório de trabalho 
+## Mostrar o diretório de trabalho 
 ```
 pwd 
 ```
@@ -51,54 +51,54 @@ pwd
 user 
 ```
 
-## Encerra a sessão FTP
+## Encerrar a sessão FTP
 ```
 bye 
 ```
 
-## Executa o comando na máquina local
+## Executar um comando em sua máquina local
 ```
 ! 
 ```
 
-## Adiciona dados a um arquivo existente
+## Adicionar dados a um arquivo existente
 ```
 append 
 ```
 
-## Configura o tipo de transferência de arquivos para ASCII
+## Configurar o tipo de transferência de arquivos para ASCII
 ```
 ascii 
 ```
 
-## Emite um bip quando um comando é executado
+## Emitir um "bip" quando um comando é executado
 ```
 bell 
 ```
 
-## Configura o tipo de transferência de arquivos para binário
+## Configurar o tipo de transferência de arquivos para binário
 ```
 binary 
 ```
 
-## Demonstra cada bloco do arquivo durante a transferência. Cada bloco compõe-se de 1024 bytes
+## Demonstrar cada bloco do arquivo durante a transferência (cada bloco compõe-se de 1024 bytes)
 ```
 hash 
 ```
 
-## Apaga um arquivo
+## Apagar um arquivo
 ```
 delete 
 
 para mais de um arquivo use **mdelete**
 ```
 
-## Estabelece a modalidade de depuração
+## Estabelecer a modalidade de depuração
 ```
 debug 
 ```
 
-## Ativa/desativa o modo interativo
+## Ativar/desativar o modo interativo
 ```
 prompt
 ```
