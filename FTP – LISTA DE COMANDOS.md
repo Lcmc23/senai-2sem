@@ -1,6 +1,6 @@
 # FTP – LISTA DE COMANDOS
 
-## Liste sumariamente todos os comandos disponíveis.
+## Liste sumariamente todos os comandos disponíveis
 ```
 help
 ```
