@@ -96,7 +96,7 @@ SrvArqBitBeat
             Avance
 
         Autenticação: Básica
-        Permitir acesso a: Funções...
+        Permitir acesso a: Usuário específico ...
             uempresa456 (leitura e gravar)
 
     8) Reiniciar o FTP
