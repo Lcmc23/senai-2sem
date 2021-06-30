@@ -1,0 +1,59 @@
+AULA 78 – GPO (GROUP POLICY OBJECT) (30/06)
+
+CURIOSIDADES
+
+    COMO OBTER UMA CAPTURA DE SUA INSTÂNCIA NA AWS?
+    * Selecione a instância > Ações > Monitorar e solucionar problemas > Obter captura de tela da instância
+
+POLÍTICA DE GRUPO OU GROUP POLICE OBJECT (GPO) - DEFINIÇÃO
+
+    * A Política de Grupo é o componente central dos recursos de Gerenciamento de Mudança e Configuração do sistema operacional Windows Server;
+
+    * A Política de Grupo especifica as configurações para grupos de usuários e de computadores, incluindo configurações de políticas baseadas 
+    no registro, segurança, instalação de software, scripts e redirecionamento de pasta.
+
+    * Default Domain Policy
+
+    * Default Domain Controllers Policy
+
+    * Sessão - conexão remota
+
+    * Pasta 'sysvol' - armazena as políticas
+
+    * As GPOs são aplicas dentro de uma OU
+
+GPO - MÃO NA MASSA
+
+    1) Abra a GPO com
+        Windows + R > gpmc.msc
+
+    2) Em 'Objetos de Política de Grupo'
+        Botão direito do mouse > Novo
+
+        - Nome: Bloqueio do Painel de Controle
+
+    3) No Bloqueio criado, clique sobre ele > Editar
+
+    4) Vá em:
+        Configurações do Usuário > Políticas > Modelos Administrativos... > Clique 1x sobre 'Painel de Controle'
+
+    5) Clique 2x sobre 'Proibir acesso ao Painel...'
+
+        - Habilitar
+        - OK
+
+    6) Feche o editor (deixando aberto apenas o 'Gerenciador de Política de Grupo')
+
+    7) Selecione a pasta 'Senai'
+        Botão direito do mouse > Vincular com GPO Existente > Selecione a política criada 'Bloqueio do Painel de Controle' > OK
+
+    8) Encerre a sessão dos usuários
+        
+        - Pesquise (na barra de tarefas): Gerenciador de Tarefas (fixe-o na barra de tarefas)
+        - Vá em: Usuários > Botão direito sobre o usuário > Desconectar
+
+    9) Faça o teste!
+
+        - Logue com: senai.edu.local\susu.2rm
+        - Senha:
+        * Tente abrir o painel de controle, um erro acontecerá!
