@@ -1,0 +1,30 @@
+AULA 79 – GPO (GROUP POLICY OBJECT) (01/07)
+
+PROXY 
+
+    * Intermediário entre o usuário final e a internet
+    * Faz um cache dos seus dados
+
+SrvArqBitBeat
+
+    NOTA: Todos os usuários podem alterar as configurações de Proxy, arrume isso!
+        Vá nas configurações do Windows Explorer > Opções da Internet > Geral > Configurações da LAN > Servidor proxy
+
+    1) Abra o Gerenciamento de Política de Grupo > Objetos de política do grupo
+        Botão direito do mouse > novo
+
+    2) Nome: Configuração e Bloqueio do Proxy
+
+    3) Vá em: Configuração de Usuário > Políticas > Modelos Administrativos: definições de politicas... > Componentes do Windows > Internet Explorer (clique 2x)
+
+    4) Atrele esta política aos usuários 
+
+        Botão direito do mouse sobre a pasta 'Senai' > Vincular com GPO Existente...> Selecione 'Configuração e Bloqueio de Proxy' 
+
+        - No cmd, de um 'gpupdate /force'
+
+    5) Deslogue todos os usuários da sessão (caso estejam conectados)
+
+    6) Faça o teste!
+
+        Logue com um usuário, tente alterar as configurações de proxy, falhará!
