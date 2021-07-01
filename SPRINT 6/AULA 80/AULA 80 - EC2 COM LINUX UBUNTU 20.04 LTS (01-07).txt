@@ -1,0 +1,59 @@
+AULA 80 - EC2 COM LINUX UBUNTU 20.04 LTS (01/07)
+
+    Nesse laboratório vamos trabalhar com o Ubuntu Server 20.04 LTS, dentro da nuvem
+    NOTA: Instalação, configuração e quais são os parâmetros que devemos estar atentos
+
+CONSOLE DE GERENCIAMENTO DA AWS
+
+    1) EC2 > Executar Instância (Ubuntu Server 20.04 LTS (HVM) | 64 bits (x86))
+
+        - t2.micro
+
+        - Rede: MinhaRedeVPC192
+        - Sub-Rede-Publica1
+        - Habilitar (Auto-assign)
+        - Proteger contra encerramento acidental
+        - IP Primário: 192.168.0.30
+
+        - 8 GB
+
+        - Tag: Chave (Name) | Valor (SrvDNS-Sprint6)
+
+        - Nome do Grupo de Segurança: GrupoSec-Linux
+        - Descrição: Grupo-de-seguranca-Servidores-Linux
+        - Regras: Todos os TCP, UDP e ICMPs (IPv4)
+
+        - Verificar e ativar
+
+        - Chave de Segurnça: mesma utilizada no Windows (.pem - "certifcado digital" | chave que te representa)
+
+    2) EC2 > Executar Instância (Ubuntu Server 20.04 LTS (HVM) | 64 bits (x86))
+
+        - t2.micro
+
+        - Rede: MinhaRedeVPC192
+        - Sub-Rede-Publica1
+        - Habilitar (Auto-assign)
+        - Proteger contra encerramento acidental
+        - IP Primário: 192.168.0.60
+
+        - 8 GB
+
+        - Tag: Chave (Name) | Valor (SrvWEB-Sprint6)
+
+        - Grupo de Segurança: existente (GrupoSec-Linux)
+
+        - Verificar e ativar
+
+        - Chave de Segurnça: mesma utilizada no Windows (.pem - "certifcado digital" | chave que te representa)
+
+    NOTA: Alocando IP fixo - ElasticIP (IP Público)
+
+        VPC > Virtual Private Cloud > Elastic IPs
+
+        - Crie 2IPs ("Allocate")
+        IP-SrvDNS-Sprint6
+        IP-SrvWEB-Sprint6
+
+    3) Selecione os IPs Elásticos e atrele-os as suas respectivas instâncias
+
