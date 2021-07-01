@@ -10,7 +10,7 @@ Este repositório contém alguns scripts (organizados em pastas) referentes aos 
 **Tendo como objetivo assim armazenar:**
 
 * Códigos do Cisco IOS;
-* Alguns comandos do Linux (Debian, AMI Linux AWS, Ubuntu)
+* Alguns comandos do Linux (Debian, AMI Linux AWS,  Ubuntu Server 20.04 LTS)
 * Fundamentos de computação em nuvem (AWS);
 * Configurações de Windows Server;
 * Documentos com resumos das aulas.
