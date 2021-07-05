@@ -20,9 +20,7 @@ ACESSO A INSTÂNCIA - UBUNTU
 
         Login: ubuntu
 
-
 INSTALAÇÃO DOS PACOTES
-
 
     SrvDNS
 
