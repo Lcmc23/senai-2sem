@@ -7,7 +7,6 @@ TERMOS
 
 ACESSO A INSTÂNCIA - UBUNTU
 
-
     1) Abra o putty.gen (converta a chave .pem em .ppk | Salve como 'private key')
 
     2) Salve as conexõs (SrvWEB e SrvDNS)
