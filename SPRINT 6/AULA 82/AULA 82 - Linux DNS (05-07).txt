@@ -1,0 +1,148 @@
+AULA 82 - Linux DNS (05/07)
+
+TERMOS
+
+    DNS (LINUX) - BIND9
+    LINX (LINUX) - Navegador em texto
+
+ACESSO A INSTÂNCIA - UBUNTU
+
+
+    1) Abra o putty.gen (converta a chave .pem em .ppk | Salve como 'private key')
+
+    2) Salve as conexõs (SrvWEB e SrvDNS)
+
+        - IP
+        - Nome
+        - Chave de Segurança 
+
+    3) Acesso a máquina
+
+        Login: ubuntu
+
+
+INSTALAÇÃO DOS PACOTES
+
+
+    SrvDNS
+
+        4) Entre com "sudo su -"
+            apt-get update
+
+        5) Instale os pacotes vim, net-tools, bind9 e lynx
+            apt-get install vim net-tools bind9 lynx
+
+    SrvWEB
+
+        * Entre com "sudo su -"
+            apt-get update
+
+        * Instale os pacotes vim, net-tools, bind9 e lynx
+            apt-get install vim net-tools apache2 lynx
+
+ALTERE O NOME DA MÁQUINA (srvdns e srvweb)
+
+    6) Vá em 'vim /etc/hostname' (arquivo de carregamneto do nome)
+
+        - dd (para deletar a linha inteira)
+        - i (para escrever)
+        - esc (para sair da inserção)
+        - :wq (sair e salvar)
+
+        * No terminal, escreva 'hostname [nome-do-srv]
+
+    7) Veja se o hostname foi realmente alterado
+        cat /etc/hostname
+
+    8) Ctrl + D (logout)
+        Logue novamente como root, o nome estará alterado!
+
+ALTERE O ARQUIVO 'HOSTS'
+
+    9) vim /etc/hosts
+        192.168.0.60	srvweb.redes.br	srvweb
+
+       vim /etc/hosts
+        192.168.0.30	srvdns.redes.br	srvdns
+
+ALTERE OS APONTAMENTOS (ENCAMINHADORES - Servidores que resolvem o DNS)
+
+    * O que é o Forward?
+
+        Ele é o encaminhamento de consultas de nome, ou seja, eu transfiro a minha responsabilidade de resolver nomes para um outro servidor 
+        de DNS.
+    
+    * Por padrão, quando tentamos mudar o encaminhador de DNS no Server Ubuntu, uma falha ocorre (ao desligarmos a máquina, o apontamento 
+    volta ao IP que a AWS nos disponibilizou)
+
+        Essas informações são visualizadas em 'cat /etc/resolv.conf'
+
+            - nslookup
+            - router -n
+
+    10) No console de gerenciamento da AWS
+        VPC > DHCP options sets > Create DHCP options set
+
+    11) Características
+
+        - DHCP options set name: meuDHCP-DNS
+        - Domain name: redes.br
+        - Domain name servers: 192.168.0.30
+
+    12) Atrele o DHCP a sua VPC
+
+        - Selecione sua VPC > Botão direito > DHCP options sets
+        - Selecione o DHCP (meuDHCP-DNS)
+
+    13) Reboot nas duas máquinas
+
+CRIAR (DECLARAR) DNS E SEUS APONTAMENTOS
+
+    14) No srvdns, acesse 'cd /etc/bind'
+
+    15) Altere o arquivo 'vim /etc/bind/named.conf.default-zones'
+
+    16) Cole as seguintes informações
+
+        zone "empresa123.com.br" {
+	    type master;
+	    file "/etc/bind/db.empresa123-com-br";
+    };
+
+    NOTA: FAILOVER DNS
+
+        * Primário (type master)
+        * Secundário (type slave)
+
+    17) Dentro do mesmo diretório (/etc/bind)
+
+        - Crie o arquivo (touch) 'db.empresa123-com-br'
+
+    17) Altere o arquivo 'vim /etc/bind/db.empresa123-com-br'
+
+    18) Cole as seguintes informações
+
+        ;
+        ; Arquivo com conteúdo do domínio Empresa123
+        ;
+        $TTL    604800
+        @       IN      SOA     empresa123.com.br. root.empresa123.com.br. (
+                202001  ; Serial
+                604800  ; Refresh
+                86400   ; Retry
+                2419200 ; Expire
+                604800 )        ; Negative Cache TTL
+        ;
+        @       IN      NS      srvdns.empresa123.com.br.
+        @       IN      A       192.168.0.30
+        @       IN      AAAA    ::1
+        srvdns  IN      A       192.168.0.30
+        srvweb  IN      A       192.168.0.60
+        www     IN      CNAME   srvweb
+
+    19) Recarregar os domínios (para as atualizações entrarem em funcionamento)
+        /etc/init.d/named restart
+
+TESTE DE PING
+
+    20) Do srvweb, ping 'www.empresa123.com.br'
