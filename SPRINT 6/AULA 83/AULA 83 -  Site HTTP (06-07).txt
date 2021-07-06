@@ -1,0 +1,76 @@
+AULA 83 -  Site HTTP (06/07)
+
+MATERIAL CONSULTADO --> AULA 82 - Linux DNS e Apache (05/07 e 06/07)
+
+    * Como apagar o fowarding do seu servidor? Vá no console de gerenciamento da AWS (VPC) e apague o DHCP options que você criou (volte 
+    para o fowarding da AWS)
+
+ONDE ESTÃO OS ARQUIVOS DE LOG?
+
+    tail –f /var/log/syslog
+
+O QUE É O 'dig'?
+
+    Mostra as informações dos servidores, dns, apache, etc.
+
+APACHE2
+
+    * Veja essas informações em 'ls /etc/apache2'
+
+    available - sites que ainda estão em desenvolvimento, não estão "ativos"
+    enabled - sites prontos, definidos, ativos
+
+NAVEGADOR DE TEXTO NO LINUX
+
+    lynx [ip-site]
+    lyny [dns]
+
+SRVWEB - APACHE
+
+    1) Acesse o srvweb (como root)
+
+    2) Copie 'vim /etc/apache2/sites-available/empresa123.com.br.conf'
+        
+        - Cole as seguintes informações
+
+            <VirtualHost  *:80>
+            DocumentRoot /var/www/empresa123
+            ServerName www.empresa123.com.br
+            </VirtualHost>
+
+    3) Crie um diretório para o site 'mkdir /var/www/empresa123'
+
+    4) Edite-o 'vim /var/www/empresa123/index.html'
+
+        - Cole as seguintes informações
+
+            <html lang="pt-br">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Site empresa123</title>
+            </head>
+            <body>
+                <h1>Seja bem vindo ao site da Empresa 123</h1>
+                <hr>
+                <p>SENAI Informática - Não é feitiçaria é tecnologia</p>
+                
+            </body>
+            </html>
+
+    5) Veja se o arquivo realmente foi criado 'ls /var/www/empresa123/'
+
+    6) Ative seu site
+
+        - Entre no diretório 'cd /etc/apache2'
+        - Cole 'a2ensite empresa123.com.br.conf'
+        - Reload '/etc/init.d/apache2 reload'
+
+    NOTA: Restart e Reload 
+
+        Restart - derruba e sobe novamente
+        Reload - apenas recarrega
+
+    7) Adicione as informações do servidor em seu arquivo hosts (C:\Windows\System32\drivers\etc) de sua máquina local
+        [ip-público-do-seu-servidor-web] www.empresa123.com.br
+
