@@ -1,0 +1,104 @@
+AULA 85 - Linux FTP (07/07)
+
+FTP DO LINUX É -> VSFTPD
+
+SRVDNS
+
+    1) Acesse o srvdns
+        sudo su -
+
+    2) Altere o arquivo 'vim /etc/bind/db.empresa123-com-br'
+
+        Por questão de organização, vamos associar o serviço de ftp com um nome ftp
+        
+        - yy + p (copia e cola na próxima linha)
+        - altere www para ftp
+
+    3) Crie um apontamento para o ftp em seu arquivo hosts (C:\Windows\System32\drivers\etc\hosts)
+        [ip-público-do-srvdns] ftp.empresa123.com.br
+
+    4) Reinicie o 'named', para o ping em 'ftp.empresa123.com.br' funcionar
+        /etc/init.d/named restart
+
+        ping ftp.empresa123.com.br
+
+SRVWEB
+
+    5) Acesse o srvdns
+        sudo su -
+
+    6) Atualize os pacotes com 'apt-get update'
+
+    7) Instale o pacote 'apt-get install vsftpd'
+        Como recomendação, reinicie este serviço com '/etc/init.d/vsftpd restart'
+
+    8) Verifique se o vsftpd está funcionando corretamente com o comando 'service vsftpd status'
+        Para sair, pressione a tecla "q"
+
+    9) Crie um usuário para acesso ao FTP
+
+        - adduser useremp123
+        - senha: [senha-definida]
+
+    10) Ver diretório padrão do usuário 
+        cat /etc/passwd |grep useremp123 
+
+        * Por padrão, os usuários estão em /home
+
+    11) Agora, este usuário deve ter permissão para editar os arquivos do '/var/www/empresa123'
+
+        * Podemos alterar isso manualmente com:
+
+           vim /etc/passwd
+        
+            Altere a última linha para 'useremp123:x:1001:1001:Lucas,,,:/var/www/empresa123:/bin/bash'
+
+        * Altere com apenas um comando
+
+            usermod -d /var/www/empresa123 useremp123
+
+    12) Altere as permissões do diretório (para que este usuário tenha acesso)
+        chown useremp123 -R /var/www/empresa123
+
+    13) Reinicie os serviços
+
+        - /etc/init.d/apache2 restart
+        - /etc/init.d/vsftpd restart
+
+    14) Teste a conexão (ftp.empresa123.com.br)!
+
+        * Teste pelo Explorador de Arquivos, cmd, WinSCP
+
+        - Usuário: useremp123
+        - Senha: [senha-definida]
+
+CURIOSIDADE - Como acessar o servidor sem instalar o FTP?
+
+    SCP - SSH COM CÓPIA
+
+        * FTP pelo SSH
+
+        * Por padrão, o SSH virá bloqueado para o usuário
+            cat /etc/ssh/sshd_config |grep PasswordAuthentication
+
+    1) Acesse o arquivo 'vim /etc/ssh/sshd_config'
+
+        - :set number
+        - :58
+        - PasswordAuthentication no (altere 'no' para 'yes')
+
+    2) Reinicie o serviço com '/etc/init.d/ssh restart'
+
+    3) Faça o teste!
+
+        * Abra o WinSCP -> Nova sessão
+
+            Host: www.empresa123.com.br
+            Usuário: useremp123
+            Senha: [senha-definida]
+
+        * Uma caixa de texto abrirá, clique em "Instalar" (instalar o certificado)
+
+    LEMBRE: O SSH não é recomendado para ser liberado para o público (mascare o SSH em alguma porta alternativa, crie script´s - códigos para 
+    que o SSH venha ser liberado, etc)
+    

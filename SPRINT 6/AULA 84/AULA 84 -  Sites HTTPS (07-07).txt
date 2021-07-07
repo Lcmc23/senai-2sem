@@ -1,0 +1,97 @@
+AULA 84 -  Sites HTTPS (07/07)
+
+SSL (SECURE SERVER CERTIFICATE) ENCRYPTION
+
+    * O apache tem suporte a SSL, ou seja, usar uma conexão segura HTTPS;
+    * Esta conexão segura consiste em “garantir” que a página que se quer acessar é realmente verdadeira, ou seja, SSL;
+    * HTTPS (porta 443) faz uma transferência de dados seguro com criptografia entre o Cliente e o Servidor.
+
+    EXEMPLO: 
+
+    https://www.empresa123.com.br:443
+
+UNIDADE CERTIFICADORA
+
+    * Autoridades de Certificação de Raiz (ou Superiores, ou de Maior Nível), que emitem diretamente os certificados;
+    * Autoridades de Certificação Intermediárias (ou Inferiores, ou de Menor Nível), cujos certificados são emitidos indiretamente pelas 
+    Autoridades de Certificação de Raiz.
+
+    EXEMPLOS:
+
+        - Serasa Experian, Brasileira;
+        - Certisign, Brasileira.
+        - VeriSign, Americana.
+
+SRVWEB
+
+    1) Acesse o 'srvweb'
+        com 'sudo su -'
+    
+    2) Atualize os pacotes com 'apt-get update'
+
+    3) Instale o OPENSSL
+        apt-get install openssl
+
+    4) Ative (enable) o módulo SSL
+        a2enmod auth_basic ssl
+
+    5) Gere o certificado com: 
+        openssl  req  $@  -new  -x509  -days  365  -nodes -out /etc/apache2/certificado.pem -keyout /etc/apache2/certificado.pem
+
+        NOTA: Este comando deve ser copiado e colado de maneira contínua e direta (sem quebra de texto)
+
+    6) Siga estes passos:
+
+        - BR
+        - São Paulo
+        - São Paulo
+        - Empresa 123
+        - TI
+        - www.empresa123.com.br
+        - suporte@empresa123.com.br
+
+        NOTA: Estas informações foram salvas em /etc/apache2
+
+        OBS: cat /etc/apache2/certificado.pem (arquivo criptografado)
+
+    7) Mova este certificado para a respectiva empresa
+        mv /etc/apache2/certificado.pem /var/www/empresa123/ (Diretório da empresa123)
+
+        VEJA SE REALMENTE FOI MOVIDO COM: 'ls -la /var/www/empresa123/'
+
+    8) Note que este arquivo apenas está visível para o dono do arquivo (-rw --- ---)
+
+        Altere isso com: chmod +r /var/www/empresa123/certificado.pem
+
+        NOTA: Agora todos possuem a permissão de leitura
+
+    9) Crie um index no seguinte diretório 'vim /etc/apache2/sites-available/empresa123-ssl.com.br.conf'
+
+        Cole essas informações:
+
+            NameVirtualHost  *:443
+            <VirtualHost *:443>
+                DocumentRoot /var/www/empresa123
+                ServerName www.empresa123.com.br
+                SSLEngine On
+                SSLCertificateFile /var/www/empresa123/certificado.pem
+                ErrorLog /var/www/empresa123/log/error.log
+            </VirtualHost>
+
+    10) Crie o diretório e um arquivo (vazio) de log do site
+        
+        mkdir /var/www/empresa123/log -> pasta
+
+        touch /var/www/empresa123/log/error.log -> arquivo vazio
+
+    11) Ative o site HTTPS
+        a2ensite empresa123-ssl.com.br.conf
+
+        * NOTA: Recarregue o sistema com '/etc/init.d/apache2 reload'
+        * OBS: O site não estará 100% seguro (HTTPs -> Não seguro), falta uma Unidade Certificadora
+        * CURIOSIDADE: Uma busca de parâmetros antigos passados (no próprio terminal linux) pode ser encontrado com 'Ctrl + r'
+
+    12) Verifique se existe o apontamento (em seu arquivo 'hosts') correto
+
+    13) Faça o teste!
+        Em seu navegador, pesquise https://www.empresa123.com.br
