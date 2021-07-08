@@ -1,0 +1,200 @@
+AULA 86 - Servidor de E-mail SMTP (08/07)
+
+MATERIAIS PARA PESQUISA
+
+    * MySQL
+    * CloudEndure
+    * Nginx
+    * Zabbix
+
+POSTFIX - MTA - Armazena os e-mails
+
+    * O Postfix é um agente de transferência de e-mails (MTA - Mail Transfer Agent).
+    * Software responsável por transferências de mensagens de correio eletrônico entre computadores.
+    * É um software livre para envio e entrega de e-mails;
+
+    * Autentificação de e-mail;
+
+        O MTA também pode autenticar os usuário em um serviço LDAP (Linux) ou AD (Windows), mas por padrão utiliza a autenticação Basic do Linuxque são os usuários contidos no 
+        /etc/passwd e as senhas do /etc/shadow.
+
+    Suporte para:
+
+        - IPv6;
+        - MIME - Multipurpose Internet Mail Extensions (padrão da internet para o formato das mensagens de correio eletrônico);
+        - Autenticação SASL, canal seguro utilizando TLS;
+        - Bancos de dados MySQL, PostgreSQL, MariaDB ou LDAP.
+
+MX (Mail eXchange) - Anti-Spam - Recebe o email e encaminha para o MTA (normalmente está junto com o MTA)
+
+BACK-END
+
+    * Banco de Dados
+    * Mailbox (é o armazenamento em um único local/arquivo -> Limite de 2GB) / MailDir (armazena os e-mails em diretórios diferentes -> cada e-mail será um diretório) / BD
+    * Basic / LDAP
+
+CURIOSIDADE
+
+    ZIMBRA (EMAIL) - Plataforma de email gratuita (todos os parâmetros são configurados através de uma Interface Gráfica)
+
+Instalar o serviço de E-mail PostFix no Ubuntu 20.04 LTS
+
+    1) No console de gerenciamento da AWS, crie uma nova instância
+
+        Características
+
+            * Ubuntu Server 20.04 LTS (HVM)
+            * t2.micro
+
+            * MinhaRedeVPC192
+            * Auto-assign Public IP: habilitar
+            * Habilitar a proteção contra encerramento
+            * IP prImário: 192.168.0.90
+
+            * Chave: Name
+            * Valor: SrvMail-Sprint6
+
+            * Grupo de segurança (existente): GrupoSec-Linux
+
+    2) Crie e associe um ElasticIP para esta nova instância
+
+    3) Nota, o arquivo 'hosts' de sua máquina local deve se parecer com isso
+
+            #Apontamentos - DNS
+            44.194.201.35	www.empresa123.com.br
+            44.194.201.35	ftp.empresa123.com.br
+            52.54.16.168	mail.empresa123.com.br
+
+    4) Faça acesso remoto neste servidor através do PuTTy.exe
+
+            - Seu IP Público
+            - Nome da Sessão
+            - Selecione sua chave (.pem)
+            - Save
+
+SRVDNS
+
+    5) Acesse o srvdns
+        sudo su -
+
+    6) Altere o arquivo 'vim /etc/bind/db.empresa123-com-br'
+
+        ;
+        ; Arquivo com conteúdo do domínio Empresa123
+        ;
+        $TTL	604800
+        @	IN	SOA	empresa123.com.br. root.empresa123.com.br. (
+            202105	; Serial
+            604800	; Refresh
+            86400	; Retry
+            2419200	; Expire
+            604800 )	; Negative Cache TTL
+        ;
+        @	IN	NS	srvdns.empresa123.com.br.
+        @	IN	MX	5	mail.empresa123.com.br.
+        @	IN	A	192.168.0.30
+        @	IN 	AAAA	::1
+        srvdns 	IN	A	192.168.0.30
+        srvweb 	IN	A	192.168.0.60
+        www	IN	CNAME	srvweb
+        ftp	IN	CNAME	srvweb
+        mail	IN	A	192.168.0.90
+
+    7) Reinicie o serviço
+        /etc/init.d/named restart
+
+    8) Consultar MX
+        dig mx empresa123.com.br
+
+    9) Faça o teste de ping
+        ping mail.empresa123.com.br
+
+SRVMAIL
+
+    10) Acesse o srvdns
+        sudo su -
+
+    11) Altere o arquivo 'vim /etc/hosts'
+
+        Adicione '192.168.0.90	mail.empresa123.com.br	mail'
+
+    12) ALtere o nome da máquina 'hostname mail'
+
+        * Ctrl + D
+        * sudo su -
+
+    13) Atualize os pacotes
+        apt-get update
+
+    14) Instale os seguintes pacotes
+        apt-get install mailutils postfix
+
+        - Internet Site
+        - empresa123.com.br
+
+    15) Altere a linha 43 do arquivo 'vim /etc/postfix/main.cf'
+
+        :set number
+        :43
+
+        A linha deverá ser assim
+
+            mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 0.0.0.0/0
+
+    16) Alterações necessárias
+
+        postconf -e 'mydomain = empresa123.com.br'
+        postconf -e 'myorigin = empresa123.com.br'
+
+        Veja essas alterações em
+             cat /etc/postfix/main.cf |grep my
+
+    17) Reinicie os serviços com '/etc/init.d/postfix restart'
+
+    18) Adicione um 'usuario' e uma 'usuaria'
+        adduser usuaria
+        adduser usuario
+
+    19) Crie as caixas de e-mail
+
+        touch /var/mail/usuaria
+        touch /var/mail/usuario
+
+    20) Altere as permissões 
+
+        chown usuaria:mail /var/mail/usuaria
+        chown usuario:mail /var/mail/usuario
+        chmod 666 /var/mail/usuaria
+        chmod 666 /var/mail/usuario
+
+    21) Mande um email na "mão"
+
+        * telnet localhost 25 
+
+        mail from:usuaria@empresa123.com.br
+
+        rcpt to:usuario@empresa123.com.br
+
+        data
+
+        to:usuario@empresa123.com.br
+        from:usuaria@empresa123.com.br
+        subject: Ola amiguinho
+        Estou com saudades de voce!!!!
+
+        .
+        quit
+
+    22) Ler a mensagem pelo console
+        mail -u usuario
+
+        Parâmetros
+
+            # “ENTER” – lista todos e-mail
+            # Ler o e-mail “2” - Digite o numero do e-mail a ser lido, ex: 2° e-mail recebido
+            # “d 3” - Deleta o e-mail
+            # “q” – Sair da listagem
+
+    23) Veja as informações de log do email
+        tail –f /var/log/mail.log
+
