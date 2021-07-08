@@ -15,7 +15,7 @@ POSTFIX - MTA - Armazena os e-mails
 
     * Autentificação de e-mail;
 
-        O MTA também pode autenticar os usuário em um serviço LDAP (Linux) ou AD (Windows), mas por padrão utiliza a autenticação Basic do Linuxque são os usuários contidos no 
+        O MTA também pode autenticar os usuário em um serviço LDAP (Linux) ou AD (Windows), mas por padrão utiliza a autenticação Basic do Linux que são os usuários contidos no 
         /etc/passwd e as senhas do /etc/shadow.
 
     Suporte para:
