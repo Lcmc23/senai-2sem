@@ -1,0 +1,69 @@
+AULA 88 - EC2 - Servidor de E-mail Webmail (13/07)
+
+ROUNDCUBE - Ferramenta que permite visualizar os e-mails através da web
+
+WEBMAIL - DEFINIÇÃO
+
+    * Webmail é uma interface da WWW que permite ao utilizador ler e escrever e-mails usando um navegador.
+
+    * Considerado um aplicativo da internet. Ajudou muito como mecanismo fácil para comunicação.
+
+    * Com o Webmail não necessitando a instalação e uso de programas específicos no computador para este fim.
+
+    * RoundCube é um serviço de Webmail gratuito e baseado em PHP, hospedado em um servidor web Apache, usando banco de dados MariaDB.
+
+    * Acessos aos e-mail via IMAP.
+
+CONFIGURAÇÕES - ServerMail (Instalação MySQL)
+
+    1) Abra seu servidor de email
+        logue com sudo su -
+
+    2) Instale os pacotes com 
+        apt-get install mariadb-server php php-common php-json php-xml php-mbstring
+
+    3) Para acesso, digite:
+        mysql -u root -p
+
+    4) Já dentro do MariaDB, crie o banco, digitando:
+        create database roundcube_db;
+
+    5) Dentro do MariaDB crie usuário e senha, digitando:
+        grant all on roundcube_db.* to roundcube_user@localhost identified by 'roundcube_db_password';
+
+    6) Saindo do MariaDB, digitando:
+        quit;
+
+CONFIGURAÇÕES - ServerMail (Instalação RoundCube)
+
+    7) Instale o pacote com
+        apt-get install roundcube roundcube-mysql
+
+    8) Instale com as seguintes características
+
+        - OK
+        - Senha em branco (Aperte apenas OK)
+
+    9) Ativar serviço do RoundCube
+        vim /etc/apache2/conf-enabled/roundcube.conf
+
+        Descomente a linha 3!
+
+    10) Configure o domínio e portas de envio e visualizar e-mails
+        vim /etc/roundcube/config.inc.php
+
+        Sua linha 36 deverá ficar assim:
+
+            36 #$config['default_host'] = '';
+            37
+            38 $config['default_host'] = '127.0.0.1'; #IP Loopback do servidor e-mail
+            39 $rcmail_config['mail_domain'] = 'empresa123.com.br'; #domínio
+            40 $rcmail_config['language'] = 'pt_BR'; #idioma Portugues
+
+    11) Reinicie o Apache
+        /etc/init.d/apache2 reload
+
+    12) Teste através do link http://mail.empresa123.com.br/roundcube/
+
+        - usuario ou usuaria
+        - [senha-definida]

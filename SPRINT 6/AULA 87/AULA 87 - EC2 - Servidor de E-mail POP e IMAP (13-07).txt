@@ -1,0 +1,164 @@
+AULA 87 - EC2 - Servidor de E-mail POP e IMAP (13/07)
+
+RETOMANDO A AULA PASSADA
+
+    * Tem como enviar um email de sua máquina local para o servidor de email?
+    R: Sim, desde que um direcionamento em seu C:\Windows\System32\drivers\etc\hosts seja criado
+
+    * Teste a conexão através do cmd
+
+    EXEMPLO: 
+
+    telnet [localhost] (IP Público ou DNS) 25 
+
+    mail from:usuario@empresa123.com.br
+
+    rcpt to:usuaria@empresa123.com.br
+
+    data
+
+    to:usuario@empresa123.com.br
+    from:usuaria@empresa123.com.br
+    subject: Bom dia
+    Tenha um ótimo dia!!!!
+    .
+    quit
+
+CURIOSIDADE 
+
+    Normalmente a porta 25 vem bloqueada (devido aos spammers que ficam enviando mensagens maliciosas)
+
+    Caso não tenha o telnet instalado https://pt.wikihow.com/Ativar-o-Telnet-no-Windows-7
+
+DOVECOT - DEFINIÇÃO
+
+    * POP3S ou POP3 – É o protocolo em que o e-mail é armazenado no computador. Assim toda vez que clicar no enviar e receber, o e-mail é
+    apagado do servidor.
+
+        - Não muito útil hoje em dia porque precisamos de sincronismos entre celular (cliente) e webmail (cliente)
+
+    * IMAP é o método que sincroniza os e-mails do servidor com a estação, não apaga o e-mail do servidor;
+
+        - Recomendado atualmente porque assim mantemos os e-mail no servidor e o cliente webmail também pode visualizar.
+
+        - Se utilizarmos a busca de e-mail via IMAP, será consumido muito espaço em disco do servidor.
+
+        ex: caixa com 200MB, serão consumidos 200MB de disco, porque o e-mail é lido, mas mesmo assim ficar armazenado inteiro.
+
+    * WEBMAIL é o cliente de e-mail web, acessando via IMAP os e-mails armazenados no servidor.
+
+        - Ideal para proporcionar o sincronismo entre e-mails.
+
+        ex: se excluir um e-mail pelo webmail o mesmo acontece também no cliente de e-mail Thunderbird.
+
+PORTA PADRÃO
+
+    Armazena os e-mails no Cliente
+
+        POP3 - 110/TCP
+        POP3D - 995/TCP
+
+    Armazena no Servidor e sincroniza com o cliente.
+
+        IMAP – 143/TCP
+        IMAPS – 993/TCP
+
+    MTA envio de e-mails
+
+        SMTP – 25/TCP
+        SMTPD TLS –587/TCP
+        SMTPS SSL – 465/TCP
+
+=============================================================================================================
+
+CONFIGURAÇÕES - ServerMail
+
+    1) Abra seu servidor de email
+        logue com sudo su -
+
+    2) Instale os pacotes com 
+        apt-get install dovecot-common dovecot-pop3d dovecot-imapd
+
+CONFIGURAÇÕES (MÁQUINA LOCAL) - thunderbird
+
+    3) Em sua máquina local, instale o thunderbird através do seguinte link
+        https://www.thunderbird.net/pt-BR/download/ (funcionará em 32 e 64bits)
+
+CONFIGURAÇÕES - ServerMail
+
+    visualizar Protocolos ativos
+        ls /usr/share/dovecot/protocols.d/
+
+    4) Descomente a linha 30 | Altere a linha 40 do arquivo vim /etc/dovecot/dovecot.conf
+
+        :set number
+        :30
+        
+        :49
+        Cole isso:
+
+            disable_plaintext_auth = no
+            auth_mechanisms = plain login
+
+    5) Altere a linha 107 do arquivo vim /etc/dovecot/conf.d/10-master.conf
+
+        Ela deve se parecer com isso
+
+            # Postfix smtp-auth
+            unix_listener /var/spool/postfix/private/auth {
+                mode = 0666
+                user = postfix
+                group = postfix
+
+    6) Altere a linha vim /etc/postfix/main.cf
+
+        Adicione essas informações abaixo da última linha do arquivo (mydomain = empresa123...)
+
+            #SMTP-Auth Configuração
+            smtp_sasl_type = dovecot # SMTP autenticado pelo Dovecot
+            smtp_sasl_path = private/auth # Método de autenticação
+            smtp_sasl_auth_enable = yes # Ativando Método de autenticação
+            smtpd_sasl_security_options = noanonimous # Desativar anônimos
+            smtpd_sasl_local_domain = $myhostname # Referencia do domínio
+            # Restrições para recebimento de e-mail
+            smtpd_recipient_restrictions = permit_mynetworks permit_auth_destination permit_sasl_authenticated reject
+
+    7) Reinicie os serviços
+
+        /etc/init.d/dovecot restart
+        /etc/init.d/postfix restart
+
+CONFIGURAÇÕES (MÁQUINA LOCAL) - thunderbird
+
+    8) Abra o thunderbird
+        Clique em "E-mail" 
+
+    9) Siga essas características
+
+        Usuário - usurá POP
+        usuario@empresa123.com.br
+        [defina-uma-senha]
+
+        - Memorizar a senha
+        - Concluir
+
+        - Confirmar certificado
+
+    NOTA: Mesmo utilizando o protocolo POP3, o thunderbird por questões de segurança e até mesmo backup, armazena os e-mails por 14 dias! No
+    entanto, essa opção pode ser desabilitada
+
+        Pastas locais > Configurações > Servidor > Desmarcar opção "Manter mensagens no servidor"
+
+    ==================================
+    
+        Usuária - usurá IMAP
+        usuaria@empresa123.com.br
+        [defina-uma-senha]
+
+        - Memorizar a senha
+        - Concluir
+
+        - Confirmar certificado
+
+    10) Faça os testes!
+        Envie e-mails utilizando o protocolo POP3 e IMAP

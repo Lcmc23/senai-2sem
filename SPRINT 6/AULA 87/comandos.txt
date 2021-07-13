@@ -1,0 +1,33 @@
+vim /etc/dovecot/dovecot.conf 
+#Linha 30
+listen = *, :: 
+
+#Linha 48
+disable_plaintext_auth = no
+auth_mechanisms = plain login
+
+vim /etc/dovecot/conf.d/10-mail.conf
+#Linha 114
+mail_privileged_group = mail
+
+vim /etc/dovecot/conf.d/10-master.conf
+#Linha 95
+
+# Postfix smtp-auth
+unix_listener /var/spool/postfix/private/auth {
+	mode = 0666
+	user = postfix
+	group = postfix
+}
+
+vim /etc/postfix/main.cf
+#Inserir no Final no Arquivo
+
+#SMTP-Auth Configuração
+smtp_sasl_type = dovecot # SMTP autenticado pelo Dovecot
+smtp_sasl_path = private/auth # Método de autenticação
+smtp_sasl_auth_enable = yes # Ativando Método de autenticação
+smtpd_sasl_security_options = noanonimous # Desativar anônimos
+smtpd_sasl_local_domain = $myhostname # Referencia do domínio
+# Restrições para recebimento de e-mail
+smtpd_recipient_restrictions = permit_mynetworks permit_auth_destination permit_sasl_authenticated reject
